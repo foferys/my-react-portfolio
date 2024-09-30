@@ -97,132 +97,62 @@
 /* ---CURSOR SWITCH---------- */
 
 
-//----funzione per far apparire l'header in basso allo scroll----------------------
-
-function cambioDimensioneHeaderOnscroll() {
-  // ottieni l'elemento div
-  var headerBox2 = document.querySelector(".header2--visible");
-  var goBack = document.querySelector(".goBack--visible");
-
-  // ottieni la posizione verticale dell'elemento sulla pagina
-  var y = headerBox2.getBoundingClientRect().top;
-  var y2 = goBack.getBoundingClientRect().top;
-
-  // ottieni lo scroll della pagina
-  var scroll = window.pageYOffset;
-
-  // confronta la posizione dell'elemento con lo scroll della pagina
-  //** nota che essendo il secondo header in basso, bisogna prendere in considerazione
-  // uno scroll  di 1000
-  if ( y + scroll < 1200) {
-      headerBox2.style.bottom = "-57px";
-
-  } else {
-      headerBox2.style.bottom = "37px";
-
-  }
-  //scomparsa freccia goBack
-  if (y2 +scroll < 2700) {
-      
-      goBack.style.bottom = "-57px";
-
-  } else {
-      goBack.style.bottom = "37px";
-
-  }
-}
-
-
-// esegui la funzione allo scroll della pagina
-window.onscroll = function() {
-  cambioDimensioneHeaderOnscroll();
-};
-
-// -- header  basso end---------------------------------------------
-
-
-
-//mouse che indica di andare giu con animazione
-window.addEventListener("scroll", function() {
-    hidden();
-})
-function hidden() {
-  
-  if (document.body.scrollTop > 350 || document.documentElement.scrollTop > 350) {
-    document.querySelector(".scroll_down").classList.add("hidden")
-  } else {
-    document.querySelector(".scroll_down").classList.remove("hidden")
-
-  }
-
-}
-
-// mouse scroll end----------
-
-
-
-
-
-// let item = document.querySelector('.icon-hamburger');
-// item.addEventListener("click", function() {
-//   document.body.classList.toggle('menu--open');
-// });
 
 
 
 //--OBSERVER ANIMAZIONE ALLO SCROLL ---------
 
-// ----PRENdIAMO LA CLASSE
-var elements_to_watch = document.querySelectorAll('.watch');
-// ----- AGGIUNGO UNA CLASSE IN-PAGE A TUTTI GLI ELEMENTI CHE HANNO CLASSE WHATCH
-var callback = function(items){
+// // ----PRENdIAMO LA CLASSE
+// var elements_to_watch = document.querySelectorAll('.watch');
+// // ----- AGGIUNGO UNA CLASSE IN-PAGE A TUTTI GLI ELEMENTI CHE HANNO CLASSE WHATCH
+// var callback = function(items){
 
-  items.forEach((item) => {
-    if(item.isIntersecting){
-      item.target.classList.add("in-page");
-    } else{
-      item.target.classList.remove("in-page");
-    }
-  });
+//   items.forEach((item) => {
+//     if(item.isIntersecting){
+//       item.target.classList.add("in-page");
+//     } else{
+//       item.target.classList.remove("in-page");
+//     }
+//   });
   
-}
+// }
 
-// observer - CONTROLLA TUTTI GLI ELEMENTI NELLA FUNZIONE CALLBACK ^ 
-//E SE STANNO ENTRANDO NELLA PAG GLI AGGIUNGE LA CLASSE "in-page" attraverso la funzione in
-//alto callback, e se non sono nella pagina rimuove la classe "in-page"
-var observer = new IntersectionObserver(callback, { threshold: 0.6 } ); //threshold è quando è nel nostro schernmo
+// // observer - CONTROLLA TUTTI GLI ELEMENTI NELLA FUNZIONE CALLBACK ^ 
+// //E SE STANNO ENTRANDO NELLA PAG GLI AGGIUNGE LA CLASSE "in-page" attraverso la funzione in
+// //alto callback, e se non sono nella pagina rimuove la classe "in-page"
+// var observer = new IntersectionObserver(callback, { threshold: 0.6 } ); //threshold è quando è nel nostro schernmo
 
-// applico l'observer con un foreach a tutti gli elementi watch
-elements_to_watch.forEach((element) => {
-  observer.observe(element); 
-});
+// // applico l'observer con un foreach a tutti gli elementi watch
+// elements_to_watch.forEach((element) => {
+//   observer.observe(element); 
+// });
 
 //----fine OBSERVER ------------------------------
 
 //--OBSERVER ANIMAZIONE ALLO SCROLL senza ritorno ---------
 
 // ----PRENdIAMO LA CLASSE
-var elements_to_watch = document.querySelectorAll('.watch2');
-// ----- AGGIUNGO UNA CLASSE IN-PAGE A TUTTI GLI ELEMENTI CHE HANNO CLASSE WHATCH
-var callback2 = function(items){
-  items.forEach((item) => {
+// var elements_to_watch = document.querySelectorAll('.watch2');
+// // ----- AGGIUNGO UNA CLASSE IN-PAGE A TUTTI GLI ELEMENTI CHE HANNO CLASSE WHATCH
+// var callback2 = function(items){
+//   items.forEach((item) => {
 
-    if(item.isIntersecting){
-      item.target.classList.add("in-page2");
-    }
+//     if(item.isIntersecting){
+//       item.target.classList.add("in-page2");
+//     }
 
-  });
-}
+//   });
+// }
 
-// observer - CONTROLLA TUTTI GLI ELEMENTI NELLA FUNZIONE CALLBACK ^ 
-//E SE STANNO ENTRANDO NELLA PAG GLI AGGIUNGE LA CLASSE "in-page" attraverso la funzione in
-//alto callback, e se non sono nella pagina rimuove la classe "in-page"
-var observer = new IntersectionObserver(callback2, { threshold: 0.6 } ); //threshold è quando è nel nostro schernmo
+// // observer - CONTROLLA TUTTI GLI ELEMENTI NELLA FUNZIONE CALLBACK ^ 
+// //E SE STANNO ENTRANDO NELLA PAG GLI AGGIUNGE LA CLASSE "in-page" attraverso la funzione in
+// //alto callback, e se non sono nella pagina rimuove la classe "in-page"
+// var observer = new IntersectionObserver(callback2, { threshold: 0.6 } ); //threshold è quando è nel nostro schernmo
 
-// applico l'observer con un foreach a tutti gli elementi watch
-elements_to_watch.forEach((element) => {
-  observer.observe(element); 
-});
+// // applico l'observer con un foreach a tutti gli elementi watch
+// elements_to_watch.forEach((element) => {
+//   observer.observe(element); 
+// });
 
 //----fine OBSERVER senza ritorno ------------------------------
 

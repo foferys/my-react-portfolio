@@ -1,32 +1,62 @@
+import React, { useEffect, useState } from 'react';
 import fofeCover from '../assets/logo_fofeys.png';
 import arrowup from '../img/arrowUp.svg';
 
-
 function BottomNav() {
+    // Stato per gestire la visibilità e la posizione del menu
+    // useState: Gestisce dinamicamente la posizione (bottom) dell'elemento .header2 e .goBack, aggiornando lo stato invece di modificare direttamente lo stile via DOM.
+    const [headerBottom, setHeaderBottom] = useState('-57px');
+    const [goBackBottom, setGoBackBottom] = useState('-57px');
+
+    // Funzione per gestire lo scroll
+    const handleScroll = () => {
+        const scroll = window.pageYOffset;
+
+        if (scroll < 1200) {
+            setHeaderBottom('-57px');
+        } else {
+            setHeaderBottom('37px');
+        }
+
+        if (scroll < 2700) {
+            setGoBackBottom('-57px');
+        } else {
+            setGoBackBottom('37px');
+        }
+    };
+
+    // Effetto per collegare l'evento scroll
+    // useEffect per aggiungere un listener all'evento scroll quando il componente è montato, e rimuoverlo quando il componente si smonta, evitando potenziali memory leaks.
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+
+        // Cleanup dell'evento scroll quando il componente si smonta
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []); // Il secondo parametro [] assicura che l'effetto venga eseguito solo una volta
+
     return (
-        
-    <div className="header2 header2--visible">
-        <div className="header_content">
+        <div className="header2" style={{ bottom: headerBottom }}>
+            <div className="header_content">
 
-            <div className="goBack goBack--visible">
-                <a href="#header"><img src={arrowup} alt="torna su" /></a>
+                <div className="goBack" style={{ bottom: goBackBottom }}>
+                    <a href="#header"><img src={arrowup} alt="torna su" /></a>
+                </div>
+
+                <a className="header_logo" href="">
+                    <img className="logo" src={fofeCover} alt="" />
+                </a>
+                <ul className="header_menu">
+                    <li><a href="#siti">Websites</a></li>
+                    <li><a href="#3d">3D</a></li>
+                    {/* <li><a href="">Grafica</a></li> */}
+                    <li><a href="#footer">Contatti</a></li>
+                </ul>
+
             </div>
-
-            <a className="header_logo" href="">
-                <img className="logo" src={fofeCover} alt="" />
-            </a>
-            <ul className="header_menu">
-                <li><a href="#siti">Websites</a></li>
-                <li><a href="#3d">3D</a></li>
-                 {/* <li><a href="">Grafica</a></li>  */}
-                <li><a href="#footer">Contatti</a></li>
-            </ul>
-        
         </div>
-
-    </div>
-
-    )
+    );
 }
 
 export default BottomNav;

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import './js/main.js';
 import Navbar from './components/Navbar';
@@ -11,13 +11,91 @@ import myWallett from './img/mysmartwallet.jpg';
 import olivicola from './img/olivicola.png';
 import fuji4 from './img/fuji4.png';
 import fuji from './img/fuji.png';
+import bergare from './img/bergare.png';
+import galatro from './img/galatro.jpg';
+import primacom from './img/primacom.png';
+import bilanciophp from './img/bilanciophp.jpg';
+import ecomm from './img/ecommerce.jpg';
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  // ---- indicatore scroll home---
+    const [scrollHidden, setScrollHidden] = useState(false);
+
+    // funzione che verifica lo scroll della pagina e aggiorna lo stato, di cui la variabile scrollHidden è aggiunta nella classe dell'elemento
+    //giu, e verifica se è true aggiunge la classe hidden altrimenti la rimuove (riga 71)
+    const scrollIndicator = () =>{
+
+      if (window.scrollY > 350) {
+        setScrollHidden(true);
+      } else {
+        setScrollHidden(false);
+      }
+
+    }
+
+    // con useEffect effettuo il listener allo scroll e richiamo la fuonzione per verificare dove si trova
+    useEffect(() => {
+      window.addEventListener("scroll", function() {
+        scrollIndicator();
+      })
+
+      // Cleanup quando il componente viene smontato
+      return () => {
+        window.removeEventListener('scroll', scrollIndicator);
+      };
+    }, []);
+    
+  // ---- fine indicatore scroll home-----------
+
+  //--OBSERVER ANIMAZIONE ALLO SCROLL ---------
+
+    useEffect(() => {
+      const elementsToWatch = document.querySelectorAll('.watch');
+      const elementsToWatch2 = document.querySelectorAll('.watch2');
+      
+      const callback = (items) => {
+        items.forEach((item) => {
+          if (item.isIntersecting) {
+            item.target.classList.add('in-page');
+          } else {
+            //se ha la casse watch2 non rimuoviamo in-page cosi effettua l'animazione solo una volta
+            if(!item.target.classList.contains("watch2")) {
+              item.target.classList.remove('in-page');
+            }
+          }
+        });
+      };
+
+      // observer - CONTROLLA TUTTI GLI ELEMENTI NELLA FUNZIONE CALLBACK ^ 
+      //E SE STANNO ENTRANDO NELLA PAG GLI AGGIUNGE LA CLASSE "in-page" attraverso la funzione in
+      //alto callback, e se non sono nella pagina rimuove la classe "in-page"
+      const observer = new IntersectionObserver(callback, { threshold: 0.6 });
+
+      // applico l'observer con un foreach a tutti gli elementi watch
+      elementsToWatch.forEach((element) => observer.observe(element));
+      elementsToWatch2.forEach((element) => observer.observe(element));
+
+      // Cleanup dell'observer quando il componente viene smontato
+      return () => {
+        elementsToWatch.forEach((element) => observer.unobserve(element));
+      };
+    }, []); // L'array vuoto [] fa sì che l'effetto venga eseguito solo una volta, al montaggio del componente.
+
+  //--fine OBSERVER ANIMAZIONE ALLO SCROLL ---------
+  
+  //--OBSERVER ANIMAZIONE ALLO SCROLL  SENZA RITORNO---------
+  
+    useEffect(() => {
+      
+    }, []);
+  //--OBSERVER ANIMAZIONE ALLO SCROLL  SENZA RITORNO---------
+  
+
 
   return (
     <>
-    {/* <AudioPlayer></AudioPlayer> */}
+    <AudioPlayer></AudioPlayer>
     <Cursor></Cursor>
     <Navbar></Navbar>
     <BottomNav></BottomNav>
@@ -37,7 +115,7 @@ function App() {
         </p>
       </div>
       <div className="scroll_box">
-        <div className="scroll_down"></div>
+        <div className={`scroll_down ${scrollHidden ? 'hidden':''}`}></div>
       </div>
     </div>
 
@@ -101,7 +179,7 @@ function App() {
               <p>2023 <br />Website Evento</p>
             </span>
           </div>
-          <img className="img" src="./img/bergare.png" alt="immagine sito Bergarè" />
+          <img className="img" src={bergare} alt="immagine sito Bergarè" />
 
           <div className="servizi watch2 fade-in">
             <p>00-4</p> <br />
@@ -110,7 +188,7 @@ function App() {
               <p>2023 <br />Centro Termale</p>
             </span>
           </div>
-          <img className="img" src="./img/galatro.jpg" alt="immagine sito Terme di Galatro" />
+          <img className="img" src={galatro} alt="immagine sito Terme di Galatro" />
 
           <div className="servizi watch2 fade-in">
             <p>00-5</p>
@@ -119,7 +197,7 @@ function App() {
               <p>2023<br />Website</p>
             </span>
           </div>
-          <img className="img" src="./img/primacom.png" alt="sito Primacom" />
+          <img className="img" src={primacom} alt="sito Primacom" />
 
           <div className="servizi watch2 fade-in">
             <p>00-6</p>
@@ -128,7 +206,7 @@ function App() {
               <p>2022 <br />PHP Project</p>
             </span>
           </div>
-          <img className="img" src="./img/bilanciophp.jpg" alt="progetto bilancio in php" />
+          <img className="img" src={bilanciophp} alt="progetto bilancio in php" />
 
           <div className="servizi watch2 fade-in">
             <p>00-7</p>
@@ -137,7 +215,7 @@ function App() {
               <p>2022 <br />Full stack Project</p>
             </span>
           </div>
-          <img className="img" src="./img/ecommerce.jpg" alt="progetto ecommerce" />
+          <img className="img" src={ecomm} alt="progetto ecommerce" />
 
 
           <br /><br />
@@ -206,9 +284,8 @@ function App() {
     </div>
 
 
-
-
     <Footer></Footer>
+    
     </>
   )
 }
