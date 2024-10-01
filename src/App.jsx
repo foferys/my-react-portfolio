@@ -7,6 +7,9 @@ import AudioPlayer from './components/Audio';
 import BottomNav from './components/BottomNav';
 import Footer from './components/Footer';
 import fofeCoverVid from './assets/video/noise.mp4';
+import code from './assets/video/code.mp4';
+import cover_coding from './assets/video/cover_coding.mp4';
+import cover_binary from './assets/video/cover_binary.mp4';
 import myWallett from './img/mysmartwallet.jpg';
 import olivicola from './img/olivicola.png';
 import fuji4 from './img/fuji4.png';
@@ -17,6 +20,7 @@ import primacom from './img/primacom.png';
 import bilanciophp from './img/bilanciophp.jpg';
 import ecomm from './img/ecommerce.jpg';
 import { Link, useFetcher } from 'react-router-dom';
+
 
 function App() {
 
@@ -83,6 +87,7 @@ function App() {
 
   useEffect(() => {
     const text = document.querySelectorAll(".servizi");
+    const texto = document.querySelectorAll(".servizi a");
     const image = document.querySelectorAll(".img");
 
     for(let i=0; i<text.length; i++) {
@@ -90,6 +95,27 @@ function App() {
       text[i].addEventListener("mousemove", function(event) {
         image[i].style.left = `${event.clientX}px`;
         image[i].style.top = event.clientY + "px";
+        image[i].style.opacity="1";
+        image[i].style.zIndex="999";
+
+        let key = text[i];
+        for(let x=0; x<text.length; x++) {
+          if(text[x] != key){
+            text[x].style.opacity="0.2";
+          }else{
+            texto[x].style.opacity="1";
+          }
+        }
+
+      });
+
+      text[i].addEventListener("mouseleave", function(event) {
+        image[i].style.opacity="0";
+        image[i].style.zIndex="9";
+        for(let x=0; x<text.length; x++) {
+          
+          text[x].style.opacity="1";
+        }
       });
     }
 
@@ -104,17 +130,17 @@ function App() {
     <BottomNav></BottomNav>
       
     
-    <video className="video-bg" src={fofeCoverVid} loop autoPlay muted></video>
+    <video className="video-bg" src={code} loop autoPlay muted></video>
     
     <div className="section watch">
       <div className="title mediafont">
         <div>
-          <h5 className="mestesso">Ciao, il mio nome è Gianpiero</h5>
+          <h5 className="mestesso">Ciao, my name is Gianpiero</h5>
           <h1 className="mainTitle">Java web Developer</h1>
         </div>
         <p className="title subtitle1">
-          Java Junior developer | Front & Back End - di Cosenza, specializzato nella
-          creazione di web App e siti con design unici e innovativi.
+          💻 Appassionato di Tecnologia e Programmazione. 千里の道も一歩から <br /> 
+          specializzato nella creazione di Web App e siti con design unici e innovativi.
         </p>
       </div>
       <div className="scroll_box">
