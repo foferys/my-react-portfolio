@@ -737,7 +737,7 @@ h2.title.h2 {
   }
   .imgBox {
       background-position: -1058px 0;
-      height: 930px !important;
+      height: fit-content;
   }
   .subtitle {
       width: 240px;
@@ -798,6 +798,7 @@ h2.title.h2 {
   }
   .pAbout {
       width: 100% !important;
+      margin: 0 !important;
       position: inherit !important;
       padding-top: 30px !important;
       display: flex;
@@ -974,7 +975,7 @@ h2.title.h2 {
   width: 550px;
   border-radius: 5px;
   transition: opacity 0.5s ease-in-out;
-  z-index: 999;
+  z-index: 98;
   border: 1px solid #1d3d47;
 }
 .servizi {
@@ -982,6 +983,8 @@ h2.title.h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 99;
+  position: relative;
 }
 .servizi span p{
   text-align: right;
@@ -991,7 +994,7 @@ h2.title.h2 {
 
 }
 .servizi a {
-  color: #1d3d47;
+  color: #1d3d471a;
   text-decoration: none;
   text-transform: uppercase;
   font-size: 63px;
@@ -1025,12 +1028,14 @@ h2.title.h2 {
 
 
 .imgBox {
-  height: 900px;
-  background-image: url(./img/portrait2.jpg);
+  height: fit-content;
+  background-image: url(/src/img/portrait2.jpg);
   position: relative;
   background-repeat: no-repeat;
   background-size: cover;
+  padding: 100px;
 }
+
 .pAbout h2{
   font-size: 50px;
   text-shadow: 0 0 66px rgb(255 255 255 / 76%);
@@ -1038,8 +1043,7 @@ h2.title.h2 {
 
 .pAbout {
   width: 30%;
-  position: absolute;
-  top: 25%; left: 20%;
+  margin: 0 10rem;
 }
 .socialAbout {
   display: flex;
@@ -1049,7 +1053,7 @@ h2.title.h2 {
 .socialAbout a {
   color: #fff;
   text-transform: uppercase;
-  transition: all 0.5s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 .socialAbout a:hover {
   font-size: 20px;

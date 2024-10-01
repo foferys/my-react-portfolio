@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import fofeCover from '../assets/logo_fofeys.png';
 import arrowup from '../img/arrowUp.svg';
+import { Link } from 'react-router-dom';
 
-function BottomNav() {
+function BottomNav({page3d}) {
     // Stato per gestire la visibilità e la posizione del menu
     // useState: Gestisce dinamicamente la posizione (bottom) dell'elemento .header2 e .goBack, aggiornando lo stato invece di modificare direttamente lo stile via DOM.
     const [headerBottom, setHeaderBottom] = useState('-57px');
@@ -44,16 +45,25 @@ function BottomNav() {
                     <a href="#header"><img src={arrowup} alt="torna su" /></a>
                 </div>
 
-                <a className="header_logo" href="">
+                <a className="header_logo" href="#header">
                     <img className="logo" src={fofeCover} alt="" />
                 </a>
-                <ul className="header_menu">
-                    <li><a href="#siti">Websites</a></li>
-                    <li><a href="#3d">3D</a></li>
-                    {/* <li><a href="">Grafica</a></li> */}
-                    <li><a href="#footer">Contatti</a></li>
-                </ul>
-
+                {page3d ? (
+                    <ul className="navbar-nav mb-2 mb-lg-0">
+                        <li className="nav-item">
+                            <Link to={"/"}>go back</Link>
+                        </li>
+                    </ul>
+                )
+                : (
+                    <ul className="header_menu">
+                        <li><a href="#siti">Websites</a></li>
+                        <li><a href="#3d">3D</a></li>
+                        {/* <li><a href="">Grafica</a></li> */}
+                        <li><a href="#footer">Contatti</a></li>
+                    </ul>
+                )}
+               
             </div>
         </div>
     );

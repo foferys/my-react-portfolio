@@ -1,7 +1,38 @@
 import arrRight from '../img/arrow-right-solid.svg';
+import { useEffect, useState} from 'react';
 
 
 function Footer() {
+
+
+
+    //--OBSERVER ANIMAZIONE ALLO SCROLL ---------
+
+    useEffect(() => {
+
+        const elementsToWatch2 = document.querySelectorAll('.watch2');
+        
+        const callback = (items) => {
+            items.forEach((item) => {
+                if (item.isIntersecting) {
+                    item.target.classList.add('in-page');
+                } 
+            });
+        };
+
+        
+        const observer = new IntersectionObserver(callback, { threshold: 0.6 });
+
+        elementsToWatch2.forEach((element) => observer.observe(element));
+
+        // Cleanup dell'observer quando il componente viene smontato
+        return () => {
+            elementsToWatch2.forEach((element) => observer.unobserve(element));
+        };
+    }, []); 
+
+    //--fine OBSERVER ANIMAZIONE ALLO SCROLL ---------
+
     return (
         <>
         

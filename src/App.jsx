@@ -6,16 +6,17 @@ import Cursor from './components/Cursor';
 import AudioPlayer from './components/Audio';
 import BottomNav from './components/BottomNav';
 import Footer from './components/Footer';
-import fofeCover from './assets/video/fofecover.mp4';
+import fofeCoverVid from './assets/video/noise.mp4';
 import myWallett from './img/mysmartwallet.jpg';
 import olivicola from './img/olivicola.png';
 import fuji4 from './img/fuji4.png';
 import fuji from './img/fuji.png';
-import bergare from './img/bergare.png';
+import bergamotto from './img/bergamotto.png';
 import galatro from './img/galatro.jpg';
 import primacom from './img/primacom.png';
 import bilanciophp from './img/bilanciophp.jpg';
 import ecomm from './img/ecommerce.jpg';
+import { Link, useFetcher } from 'react-router-dom';
 
 function App() {
 
@@ -48,21 +49,18 @@ function App() {
     
   // ---- fine indicatore scroll home-----------
 
-  //--OBSERVER ANIMAZIONE ALLO SCROLL ---------
+    //--OBSERVER ANIMAZIONE ALLO SCROLL (quello per gli elementi watch 2 l'ho messo nel footer perché viene importato e c'è anche nelle altre pagine) ---------
 
     useEffect(() => {
       const elementsToWatch = document.querySelectorAll('.watch');
-      const elementsToWatch2 = document.querySelectorAll('.watch2');
+
       
       const callback = (items) => {
         items.forEach((item) => {
           if (item.isIntersecting) {
             item.target.classList.add('in-page');
           } else {
-            //se ha la casse watch2 non rimuoviamo in-page cosi effettua l'animazione solo una volta
-            if(!item.target.classList.contains("watch2")) {
-              item.target.classList.remove('in-page');
-            }
+            item.target.classList.remove('in-page');
           }
         });
       };
@@ -74,7 +72,6 @@ function App() {
 
       // applico l'observer con un foreach a tutti gli elementi watch
       elementsToWatch.forEach((element) => observer.observe(element));
-      elementsToWatch2.forEach((element) => observer.observe(element));
 
       // Cleanup dell'observer quando il componente viene smontato
       return () => {
@@ -83,31 +80,37 @@ function App() {
     }, []); // L'array vuoto [] fa sì che l'effetto venga eseguito solo una volta, al montaggio del componente.
 
   //--fine OBSERVER ANIMAZIONE ALLO SCROLL ---------
-  
-  //--OBSERVER ANIMAZIONE ALLO SCROLL  SENZA RITORNO---------
-  
-    useEffect(() => {
-      
-    }, []);
-  //--OBSERVER ANIMAZIONE ALLO SCROLL  SENZA RITORNO---------
-  
 
+  useEffect(() => {
+    const text = document.querySelectorAll(".servizi");
+    const image = document.querySelectorAll(".img");
+
+    for(let i=0; i<text.length; i++) {
+
+      text[i].addEventListener("mousemove", function(event) {
+        image[i].style.left = `${event.clientX}px`;
+        image[i].style.top = event.clientY + "px";
+      });
+    }
+
+
+  }, []);
 
   return (
     <>
     <AudioPlayer></AudioPlayer>
     <Cursor></Cursor>
-    <Navbar></Navbar>
+    <Navbar page3d={false}></Navbar>
     <BottomNav></BottomNav>
       
     
-    <video className="video-bg" src={fofeCover} loop autoPlay muted></video>
+    <video className="video-bg" src={fofeCoverVid} loop autoPlay muted></video>
     
     <div className="section watch">
       <div className="title mediafont">
         <div>
           <h5 className="mestesso">Ciao, il mio nome è Gianpiero</h5>
-          <h1 className="mainTitle">Full-stack web Developer</h1>
+          <h1 className="mainTitle">Java web Developer</h1>
         </div>
         <p className="title subtitle1">
           Java Junior developer | Front & Back End - di Cosenza, specializzato nella
@@ -174,12 +177,12 @@ function App() {
 
           <div className="servizi watch2 fade-in">
             <p>00-3</p> <br />
-            <a href="" target="_blank">Bergarè<span>*</span></a> <br />
+            <a href="https://www.consorzioditutelabergamottorc.it/" target="_blank">Bergamotto RC<span>*</span></a> <br />
             <span>
-              <p>2023 <br />Website Evento</p>
+              <p>2023 <br />Website</p>
             </span>
           </div>
-          <img className="img" src={bergare} alt="immagine sito Bergarè" />
+          <img className="img" src={bergamotto} alt="immagine sito Bergarè" />
 
           <div className="servizi watch2 fade-in">
             <p>00-4</p> <br />
@@ -244,10 +247,12 @@ function App() {
         <p className="watch2 fade-in subtitle">
         La <b>modellazione 3D</b> è un'arte incredibilmente versatile che può essere utilizzata per arricchire
         i contenuti dei siti web in modo sorprendente. <br/><br/> Grazie alla mia esperienza e alle mie competenze, sono in grado
-          di creare modelli 3D dettagliati e realistici che possono rendere i contenuti dei siti web ancora più <b>coinvolgenti</b>
+          di creare modelli 3D dettagliati e realistici che possono rendere i contenuti dei siti web ancora più <b>coinvolgenti </b>
           e <b>attraenti</b> per gli utenti.
         </p>
-        <p className="watch2 fade-in "><a className="orange-text" href="./3d.html">Entra nel mio mondo 3D</a> </p>
+        <p className="watch2 fade-in ">
+          <Link to={"/3d"} ><a className="orange-text"  style={{color: '#f56900 !important',}}>Entra nel mio mondo 3D</a></Link>
+        </p>
         <img className="img-big-center watch2 fade-in" src={fuji4} alt="prototipo fujifilm xe5"/>
         <img className="img-big-center2 watch2 fade-in" src={fuji} alt="prototipo fujifilm xe5 3D"/>
 
@@ -276,7 +281,7 @@ function App() {
         <br/>
         <div className="socialAbout watch2 fade-in">
           <a href="https://www.linkedin.com/in/gianpiero-ferraro/" target="_blank">Lin </a>|
-          <a href="https://github.com/gianpieroferraro" target="_blank"> GitH </a>|
+          <a href="https://github.com/foferys" target="_blank"> GitH </a>|
           <a href="https://www.instagram.com/gianpieroferraro.ph/" target="_blank"> Ins</a>
 
         </div>

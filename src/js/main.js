@@ -158,16 +158,16 @@
 
 
 //-- sezione websites
-const text = document.querySelectorAll(".servizi");
-const image = document.querySelectorAll(".img");
+// const text = document.querySelectorAll(".servizi");
+// const image = document.querySelectorAll(".img");
 
-for(let i=0; i<text.length; i++) {
+// for(let i=0; i<text.length; i++) {
 
-text[i].addEventListener("mousemove", function(event) {
-  image[i].style.left = `${event.clientX}px`;
-  image[i].style.top = event.clientY + "px";
-});
-}
+// text[i].addEventListener("mousemove", function(event) {
+//   image[i].style.left = `${event.clientX}px`;
+//   image[i].style.top = event.clientY + "px";
+// });
+// }
 
 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
 console.log("mobile");
