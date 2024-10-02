@@ -213,6 +213,10 @@ a{text-decoration:none !important}
   background: #26434ca1;
   --bs-navbar-padding-x: none;
 }
+.navbar-brand {
+  background: #27444fad;
+  border-radius: 10px;
+}
 .nav-item {
   color: white;
 }
@@ -502,9 +506,9 @@ h2.title.h2 {
 .orange-text {
   font-size: 2rem;
   font-weight: 600;
-  color: #f56900;
+  color: #f56a00b3;
   text-align: center;
-  border: tomato 1px solid;
+  border: #f56a00b3 1px solid;
   border-top: 0;
   border-left: 0;
   border-right: 0;
@@ -513,10 +517,15 @@ h2.title.h2 {
   transition: all 0.3s ease-in-out;
 }
 .orange-text.link3d:hover{
-  color: #5aa800 !important;
+  color: #f56900 !important;
 }
 #header {
-  width: 100vw;
+  width: fit-content;
+  margin: 0 auto;
+  margin-top: 20px;
+  border-radius: 15px;
+  backdrop-filter: blur(.3rem);
+  background-color: #1d3d478c;
 }
 .header {
   position: absolute;
