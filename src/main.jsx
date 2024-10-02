@@ -7,6 +7,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import Page3d from './pages/3d.jsx';
+import { AudioProvider } from './store/AudioContext.jsx';
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>  
-    <RouterProvider router={router} />
+    <AudioProvider>
+      <RouterProvider router={router} />
+    </AudioProvider>
   </React.StrictMode>
 )

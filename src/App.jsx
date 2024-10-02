@@ -277,7 +277,7 @@ function App() {
           e <b>attraenti</b> per gli utenti.
         </p>
         <p className="watch2 fade-in ">
-          <Link to={"/3d"} ><a className="orange-text"  style={{color: '#f56900 !important',}}>Entra nel mio mondo 3D</a></Link>
+          <Link to={"/3d"} ><a className="orange-text link3d"  style={{color: '#f56900 !important',}}>Entra nel mio mondo 3D</a></Link>
         </p>
         <img className="img-big-center watch2 fade-in" src={fuji4} alt="prototipo fujifilm xe5"/>
         <img className="img-big-center2 watch2 fade-in" src={fuji} alt="prototipo fujifilm xe5 3D"/>

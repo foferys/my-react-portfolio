@@ -213,6 +213,9 @@ a{text-decoration:none !important}
   background: #26434ca1;
   --bs-navbar-padding-x: none;
 }
+.nav-item {
+  color: white;
+}
 .container-fluid {
   width: auto !important;
 }
@@ -507,6 +510,10 @@ h2.title.h2 {
   border-right: 0;
   border-radius: 5px;
   padding: 0px 5px;
+  transition: all 0.3s ease-in-out;
+}
+.orange-text.link3d:hover{
+  color: #5aa800 !important;
 }
 #header {
   width: 100vw;
