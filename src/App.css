@@ -209,12 +209,36 @@ button.navbar-toggler {
   display: none;
 }
 
-div#fraseMotivazionale {
-  position: fixed;
-  bottom: 43px;
-  left: 35px;
-  z-index: 2;
-}
+/* api frasi */
+
+  div#fraseMotivazionale {
+    position: fixed;
+    bottom: 43px;
+    left: 35px;
+    z-index: 2;
+  }
+  .catTerminalInput {
+    width: fit-content;
+    border: 2px solid #757474;
+    border-top: 0.4px solid #434343a8;
+    border-right: none;
+    font-size: 13px;
+  }
+
+  .terminalCont {
+    display: flex;
+  }
+
+  #catTerminal {
+    background-color: #000;
+    color: white;
+    outline: none;
+    font-size: 13px;
+  }
+ 
+
+/* fine api frasi */
+
 
 .video-bg {
   width: 100%;
