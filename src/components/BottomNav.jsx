@@ -6,21 +6,21 @@ import { Link } from 'react-router-dom';
 function BottomNav({page3d}) {
     // Stato per gestire la visibilità e la posizione del menu
     // useState: Gestisce dinamicamente la posizione (bottom) dell'elemento .header2 e .goBack, aggiornando lo stato invece di modificare direttamente lo stile via DOM.
-    const [headerBottom, setHeaderBottom] = useState('-57px');
-    const [goBackBottom, setGoBackBottom] = useState('-57px');
+    const [headerBottom, setHeaderBottom] = useState('-60px');
+    const [goBackBottom, setGoBackBottom] = useState('-140px');
 
     // Funzione per gestire lo scroll
     const handleScroll = () => {
         const scroll = window.pageYOffset;
 
         if (scroll < 1200) {
-            setHeaderBottom('-57px');
+            setHeaderBottom('-60px');
         } else {
             setHeaderBottom('37px');
         }
 
         if (scroll < 2700) {
-            setGoBackBottom('-57px');
+            setGoBackBottom('-140px');
         } else {
             setGoBackBottom('37px');
         }
@@ -38,12 +38,14 @@ function BottomNav({page3d}) {
     }, []); // Il secondo parametro [] assicura che l'effetto venga eseguito solo una volta
 
     return (
+        <>
+        
+        <div className="goBack" style={{ bottom: goBackBottom }}>
+            <a href="#header"><img src={arrowup} alt="torna su" /></a>
+        </div>
         <div className="header2" style={{ bottom: headerBottom }}>
             <div className="header_content">
 
-                <div className="goBack" style={{ bottom: goBackBottom }}>
-                    <a href="#header"><img src={arrowup} alt="torna su" /></a>
-                </div>
 
                 <a className="header_logo" href="#header">
                     <img className="logo" src={fofeCover} alt="" />
@@ -66,6 +68,8 @@ function BottomNav({page3d}) {
                
             </div>
         </div>
+        </>
+
     );
 }
 

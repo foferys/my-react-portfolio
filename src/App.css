@@ -19,6 +19,8 @@ body, html{
 *,*:before,*:after{ box-sizing: border-box; }h1,h2,h3,h4,h5,h6, p, ol, ul{margin: 0 0 1rem 0;padding: 0;}ol,ul{list-style-type: none;}img{height: auto;} 
 a{text-decoration:none !important}
 
+
+
 /* cursore */
   .cursor, .outline {
     width: 10px;
@@ -30,7 +32,7 @@ a{text-decoration:none !important}
     -moz-mix-blend-mode: difference;
     -webkit-mix-blend-mode: difference;
     mix-blend-mode: difference;
-    z-index: 99999; /* Imposta lo z-index in modo che la pallina sia sopra gli altri elementi */
+    z-index: 9999; /* Imposta lo z-index in modo che la pallina sia sopra gli altri elementi */
     transform: translate(-10px, -10px);
     pointer-events: none; /* necessario per far si che quando si passa sui link li trovi e faccia hover con la mano*/
   } 
@@ -161,62 +163,18 @@ a{text-decoration:none !important}
       /* Altezza finale delle linee */
   }
 }
-/* ___fine muscia__ */
+/* ___fine muscica__ */
 
-/*--PRE LOADER --*/
- /*  .preload {
-      position: absolute;
-      top: 0;left: 0;
-      width: 100%;
-      background-color: #000;
-      height: 100vh;
-      z-index: 9999;
-      
-  }
-  .loader {
-      position: fixed;
-      top: 50%;
-      left: 0;
-      right: 0;
-      z-index: 999999;
-      background: #000;
-  }
-  
-  .loading {
-      border: 5px solid #f3f3f3;
-      border-top: 5px solid #3498db;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      animation: spin 1s linear infinite;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      margin-top: -25px;
-      margin-left: -25px;
-      background-color: #000;
-  }
-
-  @keyframes spin {
-      0% {
-          transform: rotate(0deg);
-      }
-      100% {
-          transform: rotate(360deg);
-      }
-  }
- */
-/*----fine preloader------*/
+.miniLoader{
+  width: 13px;
+}
 
 .navbar {
   z-index: 99 !important;
   background: #26434ca1;
   --bs-navbar-padding-x: none;
 }
-.navbar-brand {
-  background: #27444fad;
-  border-radius: 10px;
-}
+
 .nav-item {
   color: white;
 }
@@ -225,9 +183,11 @@ a{text-decoration:none !important}
 }
 .navbar-nav li a {
   color: #5e7f66 ;
+  transition: color 0.2s ease-in-out;
 }
 .navbar-nav li a:hover {
-  color: white ;
+  color: hsl(26, 100%, 61%) !important;
+
 }
 .active {
   color: white !important;
@@ -249,6 +209,13 @@ button.navbar-toggler {
   display: none;
 }
 
+div#fraseMotivazionale {
+  position: fixed;
+  bottom: 43px;
+  left: 35px;
+  z-index: 2;
+}
+
 .video-bg {
   width: 100%;
   height: 100vh;
@@ -256,7 +223,7 @@ button.navbar-toggler {
   top: 0;
   left: 0;
   object-fit: cover;
-  opacity: 0.3;
+  opacity: 0.6;
   z-index: 0;
 }
 
@@ -270,6 +237,7 @@ button.navbar-toggler {
   align-items: center;
 }
 
+
 .title {
   height: 100vh;
   display: flex;
@@ -282,6 +250,7 @@ button.navbar-toggler {
   transform: scale(1);
   transition: all 0.7s cubic-bezier(.215, .61, .355, 1.4);  /*--TITOLO 2--transizione di un sec.*/
   opacity: 0;
+  font-size: 14px;
 }
 
 h2.title.h2 {
@@ -486,6 +455,10 @@ h2.title.h2 {
 .title .mestesso {
   text-transform: uppercase;
 }
+.tinted-logo {
+  filter: brightness(0) saturate(100%) invert(67%) sepia(29%) saturate(4509%) hue-rotate(339deg) brightness(97%) contrast(91%);
+}
+
 .subtitle {
   font-size: 1.2rem;
   color: #86868b;
@@ -502,6 +475,8 @@ h2.title.h2 {
 #descWebs{
   text-align: justify;
 }
+
+.text-orange{color: #ed8231;}
 
 .orange-text {
   font-size: 2rem;
@@ -521,11 +496,13 @@ h2.title.h2 {
 }
 #header {
   width: fit-content;
-  margin: 0 auto;
-  margin-top: 20px;
   border-radius: 15px;
   backdrop-filter: blur(.3rem);
   background-color: #1d3d478c;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 .header {
   position: absolute;
@@ -546,9 +523,13 @@ h2.title.h2 {
   width: 100%;
   margin: 0 auto;
 }
+
 .header_logo {
   height: 50px;
+  background: #27444fad;
+  border-radius: 10px;
 } 
+
 .logo {
   padding: 4px 15px;
   height: 40px;
@@ -557,29 +538,61 @@ h2.title.h2 {
 .header_menu li {display: inline-block;}
 .header_menu li a {color: #fff; opacity: 0.8r; display: block; padding: 16px; font-size: 15px; text-decoration: none;} 
 
+.localInfo{
+  position: fixed;
+  top: 20px;
+  left: 2%;
+  z-index: 99;
+  
+}
+.localInfo p, .versionInfo p{
+  font-size: 11px;
+  color: #fff;
+  -moz-mix-blend-mode: difference;
+  -webkit-mix-blend-mode: difference;
+  mix-blend-mode: difference;
+  background-color: rgba(0, 0, 0, 0.797);
+}
+.versionInfo{
+  position: fixed;
+  top: 20px;
+  right: 2%;
+  z-index: 99;
+  
+}
 
 
 /*--HEADER 2 IN BASSO STILE MAC--*/
 
 .header2 {
   position: fixed;
-  right: 33%;
-  left: 33%;
+  width: fit-content;
+  left: 50%;
+  transform: translateX(-50%);
   border-radius: 15px;
   z-index: 9998;
-  width: 37%; 
   height: 60px;
   align-items: center;
   display: flex;
-  background: #1d3d47;
+  background: #1d3d47c9;
   transition: all 1s ease-in-out;
+  backdrop-filter: blur(.3rem);
 }
 .header2--visible {
   transition: bottom 0.8s ;
   transition-delay: 0.1s;
   box-shadow: 8px 7px 60px -23px rgba(255, 255, 255, 0.94);
--webkit-box-shadow: 8px 7px 60px -23px rgba(255, 255, 255, 0.94);
--moz-box-shadow: 8px 7px 60px -23px rgba(255, 255, 255, 0.94);
+  -webkit-box-shadow: 8px 7px 60px -23px rgba(255, 255, 255, 0.94);
+  -moz-box-shadow: 8px 7px 60px -23px rgba(255, 255, 255, 0.94);
+}
+.header2 .header_logo {
+  margin-left: 10px !important;
+  height: fit-content;
+  width: fit-content;
+}
+.header2 .logo {
+  height: 45px;
+  padding: 6px 13px;
 }
 
 .goBack{
@@ -590,7 +603,9 @@ h2.title.h2 {
   border-radius: 10px;
   padding: 10px;
   left: 40px;
-  transition: all 0.5s ease-in-out;
+  z-index: 3 !important;
+  transition: all 1s ease-in-out;
+  backdrop-filter: blur(.3rem);
 }
 .goBack--visible {
   transition: bottom 0.8s ;
@@ -651,18 +666,21 @@ h2.title.h2 {
 .button {
   top: 69%;
   height: 40px;
-  width: 159px;
-  background: #FFB000;
-  border-radius: 15px;
-  border: none;
-  font-size: 20px;
+  width: fit-content;
+  padding: 20px;
+  background: #eb90324d;
+  backdrop-filter: blur(.3rem);
+  border-radius: 13px;
+  border: 1px solid #eb9032;
+  font-size: 13px;
   color: white;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 }
 .button:hover {
-  background: #F5F5DC;
-  color: #000;
+  /* background: #F5F5DC; */
+  background: #FFB000;
+  color: #ffffff;
   border-radius: 0;
 }
 .socialAbout.watch2.fade-in.in-page2{

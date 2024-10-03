@@ -39,16 +39,15 @@ function Footer() {
         <footer id="footer">
 
             <div  id="footBox">
-                <p className="watch2 fade-in">NON ASPETTARE ANCORA</p>
-                <h2 className="watch2 fade-in">Costruiamo qualcosa di unico insieme.</h2>
+                <p className="watch2 fade-in">DON'T WAIT ANY LONGER</p>
+                <h2 className="watch2 fade-in">Tell me what's next.</h2>
 
                 <a className="watch2 fade-in" href="mailto:gianpieroweno@hotmail.it">
                     <div id="roundBut">
 
                         <img src={arrRight} alt="" />
                     </div>
-                    
-                    Scrivimi ora.
+                    write me now.
                 </a>
             </div>
 

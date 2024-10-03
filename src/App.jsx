@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import './js/main.js';
+// import './js/main.js';
 import Navbar from './components/Navbar';
 import Cursor from './components/Cursor';
 import AudioPlayer from './components/Audio';
@@ -8,8 +8,11 @@ import BottomNav from './components/BottomNav';
 import Footer from './components/Footer';
 import fofeCoverVid from './assets/video/noise.mp4';
 import code from './assets/video/code.mp4';
+import coding from './assets/video/coding.mp4';
 import cover_coding from './assets/video/cover_coding.mp4';
 import cover_binary from './assets/video/cover_binary.mp4';
+import codeboy2 from './assets/video/codeboy2.mp4';
+import tv from './assets/video/tv.mp4';
 import myWallett from './img/mysmartwallet.jpg';
 import olivicola from './img/olivicola.png';
 import fuji4 from './img/fuji4.png';
@@ -20,6 +23,7 @@ import primacom from './img/primacom.png';
 import bilanciophp from './img/bilanciophp.jpg';
 import ecomm from './img/ecommerce.jpg';
 import { Link, useFetcher } from 'react-router-dom';
+import Motivate from './components/Motivate';
 
 
 function App() {
@@ -126,6 +130,7 @@ function App() {
     <>
     <AudioPlayer></AudioPlayer>
     <Cursor></Cursor>
+    <Motivate></Motivate>
     <Navbar page3d={false}></Navbar>
     <BottomNav></BottomNav>
       
@@ -135,12 +140,51 @@ function App() {
     <div className="section watch">
       <div className="title mediafont">
         <div>
-          <h5 className="mestesso">Ciao, my name is Gianpiero</h5>
+          <h5 className="mestesso h6">Hi, my name is Gianpiero</h5>
+          <span id='loghiTech'>
+            <div className='d-flex gap-2 align-items-center justify-content-center' >
+              <a href="https://www.oracle.com/java/" target="_blank" rel="noreferrer">
+                <img className='tinted-logo' src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/java-colored.svg" width="26" height="26" alt="Java" />
+              </a>
+              <a href="https://cdn.worldvectorlogo.com/logos/spring-3.svg" target="_blank" rel="noreferrer">
+                <img className='tinted-logo' src="https://upload.wikimedia.org/wikipedia/commons/4/44/Spring_Framework_Logo_2018.svg" width="46" height="46" alt="spring" />
+              </a>
+              <a href="https://www.php.net/" target="_blank" rel="noreferrer">
+                <img className='tinted-logo' src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/php-colored.svg" width="40" height="40" alt="PHP" />
+              </a>
+              <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" > 
+                <img className='tinted-logo' src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="20" height="20"/>
+              </a>
+              <a href="https://developer.mozilla.org/en-US/docs/Glossary/HTML5" target="_blank" rel="noreferrer">
+                <img className='tinted-logo' src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/html5-colored.svg" width="20" height="20" alt="HTML5" />
+              </a>
+              <a href="https://www.w3.org/TR/CSS/#css" target="_blank" rel="noreferrer">
+                <img className='tinted-logo' src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/css3-colored.svg" width="20" height="20" alt="CSS3" />
+              </a>
+
+              <a href="https://www.mysql.com/" target="_blank" rel="noreferrer"> 
+                <img className='tinted-logo' src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" alt="mysql" width="40" height="40"/> 
+              </a>
+              <a href="https://git-scm.com/" > 
+                <img className='tinted-logo' src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="20" height="20"/>
+              </a>
+              <a href="https://laravel.com/" target="_blank" rel="noreferrer">
+                <img className='tinted-logo' src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/laravel-colored.svg" width="20" height="20" alt="Laravel" />
+              </a>
+              <a href="https://it.legacy.reactjs.org/" target="_blank" rel="noreferrer">
+                <img className='tinted-logo' src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" width="20" height="20" alt="React" />
+              </a>
+              <a href="https://vitejs.dev/" target="_blank" rel="noreferrer">
+                <img className='tinted-logo' src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/vite-colored.svg" width="20" height="20" alt="Vite" />
+              </a>
+            </div>  
+
+          </span>
           <h1 className="mainTitle">Java web Developer</h1>
+          
         </div>
         <p className="title subtitle1">
-          💻 Appassionato di Tecnologia e Programmazione. 千里の道も一歩から <br /> 
-          specializzato nella creazione di Web App e siti con design unici e innovativi.
+          💻 Passionate about <b className='text-orange'>&nbsp;Technology&nbsp;</b> and <b className='text-orange'>&nbsp;Programming</b>.&nbsp; 千里の道も一歩から <br /> 
         </p>
       </div>
       <div className="scroll_box">
@@ -150,16 +194,21 @@ function App() {
 
     <div className="section watch">
         <h2 className="title mediafont_big testiIniziali">
-            Amo il mio lavoro e mettere il mio know-how al servizio del team per raggiungere gli obiettivi comuni.
+          I craft Web Apps and Websites that align with your brand
+          and engage your audience – creating
+          meaningful and memorable experiences.
         </h2>
     </div>
 
     <div className="section watch third-box">
-      <h2 className="title h2">
-          Possiedo anche ottime capacità di Graphic Design e modellazione 3D. <br/> <br/> Una combinazione creativa di logica del codice ed estetica del design 
-          mi permette di lavorare efficacemente in entrambi i campi.
-      </h2>
-      <a className="title button" href="mailto:gianpieroweno@hotmail.it" >Scrivimi</a>
+      <p className="title">
+        Animations and interactions are crucial for creating
+        dynamic and engaging digital experiences. I utilise
+        the latest tools to design and implement rich
+        interactive elements, from subtle movements to
+        complex animations.
+      </p>
+      <a className="title button" href="mailto:gianpieroweno@hotmail.it" >Let's collaborate</a>
     </div>    
 
 
