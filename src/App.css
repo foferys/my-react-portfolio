@@ -216,13 +216,26 @@ button.navbar-toggler {
     bottom: 43px;
     left: 35px;
     z-index: 2;
+    opacity: 0;
+  }
+  div#fraseMotivazionale p{
+    font-size: 13px;
   }
   .catTerminalInput {
     width: fit-content;
     border: 2px solid #757474;
     border-top: 0.4px solid #434343a8;
+    background-color: #000;
     border-right: none;
     font-size: 13px;
+  }
+  .catmodal {
+    border: 1px solid white;
+    width: 274px;
+    background: #000000cc;
+    padding: 10px;
+    height: fit-content;
+    border-bottom: none;
   }
 
   .terminalCont {
@@ -231,6 +244,7 @@ button.navbar-toggler {
 
   #catTerminal {
     background-color: #000;
+    border-left: none;
     color: white;
     outline: none;
     font-size: 13px;
@@ -1096,6 +1110,7 @@ h2.title.h2 {
   background-repeat: no-repeat;
   background-size: cover;
   padding: 100px;
+  z-index: 2;
 }
 
 .pAbout h2{
@@ -1130,6 +1145,7 @@ footer {
   position: relative; 
   z-index: 1;
   position: relative;
+  z-index: 2;
 }
 footer #copy {
   position: absolute;

@@ -153,7 +153,7 @@ function App() {
                 <img className='tinted-logo' src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/php-colored.svg" width="40" height="40" alt="PHP" />
               </a>
               <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" > 
-                <img className='tinted-logo' src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="20" height="20"/>
+                <img className='tinted-logo' src="https://seeklogo.com/images/J/javascript-logo-F248CC9425-seeklogo.com.png" alt="javascript" width="20" height="20"/>
               </a>
               <a href="https://developer.mozilla.org/en-US/docs/Glossary/HTML5" target="_blank" rel="noreferrer">
                 <img className='tinted-logo' src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/html5-colored.svg" width="20" height="20" alt="HTML5" />

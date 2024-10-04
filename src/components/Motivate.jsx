@@ -1,10 +1,24 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
 
 
 function Motivate() {
 
     const [frase, setFrase] = useState('');
     const [keyWord, setkeyWord] = useState('');
+
+    //animazione con gsap - useRef come attributo nell'elemento del terminalegatto 
+    const catTerminal = useRef(null);
+
+    useEffect(() =>{
+        gsap.to(catTerminal.current, {
+            opacity:1,
+            duration: 2.9,
+            ease: "expo.out",
+            delay: 1.2,
+        })
+        
+    })
 
   
 
@@ -32,8 +46,10 @@ function Motivate() {
             
             // se non ci sono frasi con quella parola imposto lo stato della frase con un messaggio di avviso
             if(jsonData.data.filter(parola => parola.includes(keyWord)).length <=0) {
-                setFrase("nessun fatto relativo a " + keyWord);
+                setFrase("Nothing relevant with " + keyWord);
             }
+
+            document.getElementById("catTerminal").value = ""; //porto a vuoto l'input
             // console.log(jsonData.data);
             // console.log("numero casuale: "+randomnum);
             // console.log("frasi filtrate: " + jsonData.data.filter(parola => parola.includes(keyWord)));
@@ -57,13 +73,22 @@ function Motivate() {
         setkeyWord(word);
     };
 
+    const handleFocusOut = () => {
+        setFrase("");
+    }
+
     return(
         <>
-            <div id="fraseMotivazionale">
-                <div className="terminalCont">
-                    <div className="catTerminalInput"><span className="text-success">cat@facts</span>: ~$</div><input onChange={handleChange} onKeyDown={handleKeyDown} type="text" id="catTerminal" />
+            <div id="fraseMotivazionale" ref={catTerminal}>
+                {/* imposto classe in base a se frase c'è o no */}
+                <div className={`catmodal ${(frase)? "":"hidden"}`}>
+                    <p>{frase}</p>
                 </div>
-                <p>{frase}</p>
+                
+
+                <div className="terminalCont">
+                    <div className="catTerminalInput"><span className="text-success">cat@facts</span>: ~$</div><input onBlur={handleFocusOut} onChange={handleChange} onKeyDown={handleKeyDown} type="text" id="catTerminal" />
+                </div>
             </div>
             
         </>
