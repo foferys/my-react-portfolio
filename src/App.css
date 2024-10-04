@@ -203,7 +203,10 @@ button.navbar-toggler {
 .navbar-toggler{
   color: transparent !important;
 }
-
+b.goback {
+  color: white;
+  padding: 0 15px;
+}
 
 .hidden {
   display: none;
@@ -230,7 +233,7 @@ button.navbar-toggler {
     font-size: 13px;
   }
   .catmodal {
-    border: 1px solid white;
+    border: 2px solid #757474;
     width: 274px;
     background: #000000cc;
     padding: 10px;
@@ -455,14 +458,26 @@ h2.title.h2 {
   }
   .container-fluid {
       width: 100% !important;
+      max-width: 150px;
   }
   nav#header {
-      position: fixed;
-      width: 100%;
+    position: fixed;
+    width: fit-content;
+    top: 12px;
+    left: 79px;
+    background-color: transparent !important;
   }
-   #tredtext .fade-in.in-page2 {
-      text-align: justify;
-      width: 100%;
+  .versionInfo {
+    top: 40px !important;
+  }
+  .localInfo {
+    top: 20px;
+    right: 2%;
+    left: inherit !important;
+}
+  #tredtext .fade-in.in-page2 {
+    text-align: justify;
+    width: 100%;
   }
 }
 
@@ -598,6 +613,11 @@ h2.title.h2 {
   z-index: 99;
   
 }
+.lovecats{
+  font-size: 10px; 
+  mix-blend-mode: difference;
+  opacity: 1;
+}
 
 
 /*--HEADER 2 IN BASSO STILE MAC--*/
@@ -676,7 +696,7 @@ h2.title.h2 {
   object-fit: cover;
 }
 #tredtext {
-  padding: 88px 50px 36px;
+  padding: 155px 50px 36px;
   width: 100%;
   background: #eeeeee;
   color: rgb(13, 39, 46);
@@ -685,7 +705,7 @@ h2.title.h2 {
 #stacco {
   position: absolute;
   bottom: -153px;
-  z-index: 9999;
+  z-index: 4;
   width: 100%;
   left: 0;
   object-fit: contain;
@@ -752,7 +772,9 @@ h2.title.h2 {
   .header_menu li {width: 100%; border-bottom: 1px solid #444;}
   .menu--open .header_menu{height: 100vh; padding: 1%;}
 
-  
+  .data, .lovecats {
+    display: none;
+  }
   .scroll_down {
       display: none !important;
   }
@@ -787,13 +809,13 @@ h2.title.h2 {
       width: 255px;
   }
   .mediafont_big {
-      font-size: 27px !important;
-      text-align: left;
+    font-size: 15px !important;
+    text-align: left;
   }
  
   h2.title.mediafont_big {
-      width: 226px;
-      text-align: center;
+    width: 60vw;
+    text-align: left;
   }
   h2.title.h2 {
       width: 260px;

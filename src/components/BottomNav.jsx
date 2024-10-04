@@ -53,7 +53,7 @@ function BottomNav({page3d}) {
                 {page3d ? (
                     <ul className="navbar-nav mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <Link to={"/"}>go back</Link>
+                            <Link to={"/"} > <b className='goback'>go back...</b></Link>
                         </li>
                     </ul>
                 )

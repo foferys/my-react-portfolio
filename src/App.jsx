@@ -141,6 +141,7 @@ function App() {
       <div className="title mediafont">
         <div>
           <h5 className="mestesso h6">Hi, my name is Gianpiero</h5>
+         
           <span id='loghiTech'>
             <div className='d-flex gap-2 align-items-center justify-content-center' >
               <a href="https://www.oracle.com/java/" target="_blank" rel="noreferrer">
@@ -178,7 +179,7 @@ function App() {
                 <img className='tinted-logo' src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/vite-colored.svg" width="20" height="20" alt="Vite" />
               </a>
             </div>  
-
+            
           </span>
           <h1 className="mainTitle">Java web Developer</h1>
           

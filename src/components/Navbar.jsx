@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import fofeCover from '../assets/logo_fofeys.png';
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
 
 //(page3d) indica true o false che viene passato dal componente iniziale e decide giu cosa mostrare col ternario
 function Navbar({page3d}) {
@@ -29,6 +30,19 @@ function Navbar({page3d}) {
     }, []);
 
 
+    const catText = useRef(null);
+    useEffect(() => {
+        gsap.to(catText.current, {
+            opacity:0,
+            ease: "Power2.easeInOut",
+            scrollTrigger: {
+                trigger: ".third-box",
+                scrub: true,
+            }
+
+        })
+    })
+
 
     return (
         <>
@@ -37,15 +51,21 @@ function Navbar({page3d}) {
         <div className="localInfo">
             {
                 currentTime?
-                <div>
-                    <p className="m-0">{`~ Cosenza, `} {`${currentTime.split(" ")[1]} [IT]`}</p>
-                    <p className="m-0">{`~ ${currentTime.split(" ")[0]}`}</p>
-                </div>
+                <span>
+                    <div>
+                        <p className="m-0">{`~ Cosenza, `} {`${currentTime.split(" ")[1]} [IT]`}</p>
+                        <p className="m-0 data">{`~ ${currentTime.split(" ")[0]}`}</p>
+                    </div>
+                    <span ref={catText} className="lovecats text-success">
+                        [i also love cats. Tap a word in the little terminal]  <i class="uil uil-corner-right-down"></i>
+                    </span>
+                </span>
                 :
                 // caricamento spinner bootstrap se non trova lo stato currentTime
                 <div class="spinner-grow spinner-grow-sm" role="status">
                     <span class="sr-only"></span>
                 </div>
+                
             }
         </div>
         <div className="versionInfo">
