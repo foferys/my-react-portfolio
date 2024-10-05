@@ -11,13 +11,8 @@ function Navbar({page3d}) {
 
     // Aggiorna l'ora ogni secondo in base al tempo trascorso
     const getItalianTime = () => {
-        const now = new Date();
-        const utcOffset = now.getTimezoneOffset() * 60000; // Offset UTC in millisecondi
-        const italyOffset = 3600000; // Offset di 1 ora per CET (in millisecondi)
+        return new Date().toLocaleString('it-IT', { timeZone: 'Europe/Rome' }).replace(',', '');
 
-        // Calcola l'ora locale in Italia (somma il CET offset)
-        const italianTime = new Date(now.getTime() + utcOffset + italyOffset);
-        return italianTime.toISOString().replace('T', ' ').substring(0, 19);
     };
 
     // Aggiorna l'ora ogni secondo

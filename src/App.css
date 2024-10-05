@@ -1392,39 +1392,39 @@ canvas {
 
 @media screen and (max-width: 767px) {
   .music-lines2 {
-      bottom: 24px;
-      right: 43px;
+    bottom: 24px;
+    right: 43px;
   }
   #canvasbox {
-      height: 100vh;
-      height: 100dvh;
-      max-height: 100dvh;
-      max-height: 100dvh;
+    height: 100vh;
+    height: 100dvh;
+    max-height: 100dvh;
+    max-height: 100dvh;
   }
   canvas {
-      margin: 62% 0;
-      height: 41%;
-      object-fit: cover;
+    margin: 62% 0;
+    height: 41%;
+    object-fit: cover;
   }
   .trigText {
-      top: 17%;
-      right: 12%;
+    top: 17%;
+    right: 12%;
   }
   .trigText2 {
-      width: 75%;
-      top: 28%;
-      right: 13%;
-      font-size: 10px;
+    width: 75%;
+    top: 28%;
+    right: 13%;
+    font-size: 10px;
   }
   .copy {
-      width: 70%;
-      top: 83%;
-      margin: 0 auto;
-      font-size: 10px;
+    width: 70%;
+    top: 83%;
+    margin: 0 auto;
+    font-size: 10px;
   }
   #footBox h2 {
-      font-size: 32px;
-      width: 70%;
+    font-size: 32px;
+    width: 70%;
   }
 }
 

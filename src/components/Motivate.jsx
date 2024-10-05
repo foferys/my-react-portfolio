@@ -7,7 +7,7 @@ function Motivate() {
     const [frase, setFrase] = useState('');
     const [keyWord, setkeyWord] = useState('');
     const [modalRest, setModalRest] = useState(false);
-    const [fetching ,setFetching] = useState(false);
+    const [fetching ,setFetching] = useState(false); // -> lo uso nella gestione del caricamento per la risposta del fetch
 
 
     //animazione con gsap - useRef come attributo nell'elemento del terminalegatto 
