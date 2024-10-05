@@ -24,6 +24,7 @@ import bilanciophp from './img/bilanciophp.jpg';
 import ecomm from './img/ecommerce.jpg';
 import { Link, useFetcher } from 'react-router-dom';
 import Motivate from './components/Motivate';
+import Loader from './components/Loader';
 
 
 function App() {
@@ -132,8 +133,9 @@ function App() {
     <Cursor></Cursor>
     <Motivate></Motivate>
     <Navbar page3d={false}></Navbar>
+    <Loader></Loader>
     <BottomNav></BottomNav>
-      
+    
     
     <video className="video-bg" src={code} loop autoPlay muted></video>
     

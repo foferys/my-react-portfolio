@@ -6,6 +6,9 @@ function Motivate() {
 
     const [frase, setFrase] = useState('');
     const [keyWord, setkeyWord] = useState('');
+    const [modalRest, setModalRest] = useState(false);
+    const [fetching ,setFetching] = useState(false);
+
 
     //animazione con gsap - useRef come attributo nell'elemento del terminalegatto 
     const catTerminal = useRef(null);
@@ -50,6 +53,9 @@ function Motivate() {
             }
 
             document.getElementById("catTerminal").value = ""; //porto a vuoto l'input
+
+            setFetching(false); //-> lo uso nella gestione del caricamento per la risposta del fetch
+
             // console.log(jsonData.data);
             // console.log("numero casuale: "+randomnum);
             // console.log("frasi filtrate: " + jsonData.data.filter(parola => parola.includes(keyWord)));
@@ -64,24 +70,51 @@ function Motivate() {
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
             fetchCatFact(); // Chiama la funzione quando viene premuto "Invio"
+            setFetching(true) //lo uso nella gestione del caricamento per la risposta del fetch con useState e giu verifico se è impostato o meno
         }
     };
 
-    //all'input giu ho impostato che a ogni cambio deve impostare la parola con setKeyword()
+    //all'input giu ho impostato che a ogni cambio deve impostare la parola con setKeyword() per far si che sia sempre la parola intera prima dell'invio
     const handleChange = () => {
         const word = document.querySelector("#catTerminal").value;
         setkeyWord(word);
     };
 
+    //nascondo la modalina perché impostando la frase a niente sotto ho un ternario che fa si che se 
+    //non è settata una frase deve aggiungere la classe hidden
     const handleFocusOut = () => {
-        setFrase("");
+        //modalRest fa riferimento allo stato per gestire la visibilità della modale con con hidden nel div sotto
+        if(!modalRest) {
+            setFrase("");
+        }
+    }
+
+    // gestione del mouse per far si che posso copiare il testo della modaleCat impostando i due eventi del mouse
+    const handleRest = () => {
+        setModalRest(true);
+    }
+    const handleLeave = () => {
+        setModalRest(false);
+        setFrase("")
     }
 
     return(
         <>
             <div id="fraseMotivazionale" ref={catTerminal}>
+
+                    <p>{fetching?
+                        
+                        // caricamento spinner bootstrap se non trova lo stato currentTime
+                        <div class="spinner-grow spinner-grow-sm" role="status">
+                            <span class="sr-only"></span>
+                        </div>
+                        :
+                        ""
+
+                    }</p>
+
                 {/* imposto classe in base a se frase c'è o no */}
-                <div className={`catmodal ${(frase)? "":"hidden"}`}>
+                <div className={`catmodal ${(frase || modalRest)? "":"hidden"}`} onMouseMove={handleRest} onMouseLeave={handleLeave}>
                     <p>{frase}</p>
                 </div>
                 

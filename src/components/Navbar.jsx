@@ -57,7 +57,7 @@ function Navbar({page3d}) {
                         <p className="m-0 data">{`~ ${currentTime.split(" ")[0]}`}</p>
                     </div>
                     <span ref={catText} className="lovecats text-success">
-                        [i also love cats. Tap a word in the little terminal]  <i class="uil uil-corner-right-down"></i>
+                        [i also love cats. Type in the little terminal]  <i class="uil uil-corner-right-down"></i>
                     </span>
                 </span>
                 :

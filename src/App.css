@@ -675,6 +675,63 @@ h2.title.h2 {
 
 }
 
+
+/* logo anim */
+
+
+.loading {
+  width: 50px;
+  height: 100px;
+  /* background-color: #29142dfc; */
+  z-index: 9;
+  position:fixed; 
+  top: 67px;
+  left: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  transition: all 0.2s ease-in-out;
+}
+.loaderText {
+  position: absolute;
+  bottom: 7px;
+  font-size: 5.5px;
+  left: 13px;
+}
+.logoCont { 
+  opacity: 1;
+  transition: all 0.8s ease-in-out;
+}
+.alieno {
+  height: 3rem;
+  width: 2rem;
+  background-size: 151px;
+  display: inline-block;
+  background-image: url(/src/img/aly2.png);
+  animation: perso 7s steps(50) infinite;
+}
+.alieno:hover {
+    /* -webkit-animation: perso 1.4s steps(32) infinite; */
+    /* animation: perso 5s steps(32) infinite; */
+}
+@-webkit-keyframes perso {
+  100% {
+    background-position: -1888px;
+  }
+}
+
+/* velocità di spostamento del background  */
+@keyframes perso {
+  100% {
+    background-position: -1888px;
+    /* background-position: -1934px; */
+  }
+}
+/* fine anim */
+
+
+
 /*----3d----*/
 .carousel-item {
   position: relative;
