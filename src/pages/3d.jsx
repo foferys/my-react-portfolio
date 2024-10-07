@@ -7,30 +7,47 @@ import stacco from "../img/stacco3.png";
 import Canvas from "../components/Canvas";
 import { useEffect, useRef } from "react";
 import 'locomotive-scroll/dist/locomotive-scroll.css';
-import locomotiveScroll from "locomotive-scroll";
+import gsap from "gsap";
+import Loader from "../components/Loader";
 
 
 function Page3d() {
+    
+    const treDTitle = useRef(null);
+    const treDpar = useRef(null);
 
-    const scrollRef = useRef(null);
+    useEffect(() => {
+        if (treDTitle.current || treDpar.current) { // Verifica se il riferimento è valido
+            const tl = gsap.timeline({ defaults: { duration: 1 } });
 
-    // useEffect(() => {
-    //     const scroll = new locomotiveScroll({
-    //         el: scrollRef.current, // Il container che gestisce lo scroll
-    //         smooth: true,
-    //         multiplier: 1, // Modifica la velocità dello scroll
-    //         lerp: 0.1, // Velocità di interpolazione per rendere lo scroll fluido
-    //     });
+            tl.fromTo(treDTitle.current, 
+                { opacity: 0, y: "-20px" }, // Stato iniziale
+                { 
+                    opacity: 1, 
+                    y: 0,
+                    ease: "power3.inOut", 
+                    delay: 0.3 // Ritardo prima dell'animazione
+                }
+            )
+            .fromTo(treDpar.current, 
+                { opacity: 0, y: "-20px" }, 
+                { 
+                    opacity: 1, 
+                    y: 0,
+                    ease: "power3.in", 
+                    duration:.8
 
-    //     return () => {
-    //     if (scroll) scroll.destroy(); // Pulizia quando il componente si smonta
-    //     };
-    // }, []);
+                }
+            )
+        }
+    }, []);
 
 
     return (
         <>
-            <div data-scroll-container ref={scrollRef}>
+            <div data-scroll-container>
+
+                {/* <Loader></Loader> */}
                 
                 <AudioPlayer></AudioPlayer>
                 <Cursor></Cursor>
@@ -40,9 +57,9 @@ function Page3d() {
                 
                 <div  id="tredtext">
                     <div  id="intro3d">
-                        <h3>Fantasia Virtuale:Un Mondo di Possibilità</h3><br/>
+                        <h3 ref={treDTitle}>Fantasia Virtuale:Un Mondo di Possibilità</h3><br/>
 
-                        <p className="">
+                        <p className="" ref={treDpar}>
                             La mia passione per l'<strong>arte</strong> e la <b>creatività</b>  mi ha ispirato a esplorare il mondo della modellazione 3D utilizzando <b>Blender</b>. 
                             Attraverso questa esperienza, ho creato diversi modelli che hanno contribuito a migliorare le mie abilità, applicando tali 
                             competenze nella realizzazione e l'implementazione di elementi 3D per <b>siti web</b> e <b>piattaforme online</b>, 
@@ -58,7 +75,6 @@ function Page3d() {
 
                 <Canvas></Canvas>
     
-
 
                 <div id="carouselExampleFade" className="carousel slide carousel-fade">
                     <div className="carousel-inner">

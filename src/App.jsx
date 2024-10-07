@@ -25,6 +25,7 @@ import ecomm from './img/ecommerce.jpg';
 import { Link, useFetcher } from 'react-router-dom';
 import Motivate from './components/Motivate';
 import Loader from './components/Loader';
+import Canvas from './components/Canvas';
 
 
 function App() {
@@ -223,7 +224,7 @@ function App() {
 
         <h2 className="intro watch2 fade-in">Recent Progects</h2>
         <p className="watch2 fade-in">
-          Let's take a look at companies i helped to get thes prokects done.
+          Let's take a look at companies i helped to get these projects done.
         </p>
         <br/><br/>
         
@@ -313,7 +314,7 @@ function App() {
     </div>
 
  
-
+    {/* <Canvas></Canvas> */}
 
     <span id="3d"></span>
     <div className="panel panel--white">

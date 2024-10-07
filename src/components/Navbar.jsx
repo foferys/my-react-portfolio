@@ -26,7 +26,9 @@ function Navbar({page3d}) {
 
 
     const catText = useRef(null);
+    
     useEffect(() => {
+    
         gsap.to(catText.current, {
             opacity:0,
             ease: "Power2.easeInOut",
@@ -51,9 +53,13 @@ function Navbar({page3d}) {
                         <p className="m-0">{`~ Cosenza, `} {`${currentTime.split(" ")[1]} [IT]`}</p>
                         <p className="m-0 data">{`~ ${currentTime.split(" ")[0]}`}</p>
                     </div>
-                    <span ref={catText} className="lovecats text-success">
-                        [i also love cats. Type in the little terminal]  <i class="uil uil-corner-right-down"></i>
-                    </span>
+                    {(!page3d)?
+                    
+                        <span ref={catText} className="lovecats text-success">
+                            [i also love cats. Type in the little terminal]  <i class="uil uil-corner-right-down"></i>
+                        </span>
+                        : ""
+                    }
                 </span>
                 :
                 // caricamento spinner bootstrap se non trova lo stato currentTime

@@ -61,7 +61,7 @@ const Canvas = () => {
               scrub: 0.5,  // Permette all'animazione di sincronizzarsi con lo scroll in modo fluido. Il valore 0.5 indica che l'animazione è leggermente ritardata rispetto allo scroll, per un effetto più morbido.
               pin: canvas, // Fissa il canvas durante lo scroll (l'elemento rimane fermo mentre la pagina scorre)
               end: '300%', // Fine dell'animazione, significa che l'animazione termina quando si è scrollato il 300% dell'altezza viewport
-                markers: true 
+                // markers: true 
             },
             onUpdate: render /*: Ogni volta che frameCorrente.frame cambia durante lo scroll, 
             viene eseguita la funzione render per aggiornare il contenuto del canvas. */
@@ -75,9 +75,54 @@ const Canvas = () => {
 
 
 
+    //animazione testi 
+    const titolo3dtext = useRef(null);
+    const par3dtext = useRef(null);
+    const copy = useRef(null);
+    
+    useEffect(() => {
+        if (titolo3dtext.current) { // Verifica che il riferimento non sia nullo
+            gsap.fromTo(titolo3dtext.current, {opacity: 0},{
+                y: "-20px",
+                opacity: 1,
+                scrollTrigger: {
+                    trigger: titolo3dtext.current, // Usa il riferimento corretto per il trigger
+                    pin: titolo3dtext.current,
+                    markers: true, 
+                    start: "top 20%", // Inizio dell'animazione quando l'elemento è visibile all'80% dal top
+                    end: "bottom -1800px", // Fine dell'animazione quando il bottom dell'elemento raggiunge il 20% dal bottom della viewport
+                    scrub: true, // Cambia a true per un effetto di scrub controllato
+                }
+            });
+        }
+    }, []); // Assicurati che l'array di dipendenze sia corretto
+    
+
+
+
   return (
     <div id="canvasbox">
-      <canvas ref={canvasRef} className="canvas" />
+        <canvas ref={canvasRef} className="canvas" />
+
+      
+        <h2 className="trigText" ref={titolo3dtext}>Crea. Anima. Incanta.</h2>
+        <div className="trigText2" ref={par3dtext}>
+            <p>
+                Attirare l'attenzione e aumentare l'attrattiva visiva complessiva del tuo sito. 
+            </p>
+        </div>
+
+
+        <p className="copy" ref={copy}>
+            <strong>Tecniche di illuminazione</strong> studiate con cura lavorano insieme per eliminare le distrazioni,   
+            <span className="green-text">avvolgendoti</span> in un mondo visivo di pura &nbsp;meraviglia.
+            
+        </p>
+
+        <div className="lineCont">
+            <div className="line"></div>
+        </div>
+            
     </div>
   );
 

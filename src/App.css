@@ -392,6 +392,9 @@ h2.title.h2 {
   font-size: 35px;
   font-weight: bold;
 }
+.intro h3 {
+  opacity: 0;
+}
 
 .title-big {
   font-size: 2rem;
@@ -423,6 +426,9 @@ h2.title.h2 {
 #intro3d {
   width: 80%;
   margin: 0 auto;
+}
+#intro3d {
+  opacity: 1;
 }
 .img-big-left {
   width: 80vw;
@@ -1318,7 +1324,7 @@ canvas {
   opacity: 1;
   position: absolute;
   top: 16%;
-  right: 30%;
+  right: 20%;
   color: #fff;
   z-index: 9999;
 }
