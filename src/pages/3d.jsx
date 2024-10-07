@@ -41,7 +41,7 @@ function Page3d() {
                 <div  id="tredtext">
                     <div  id="intro3d">
                         <h3>Fantasia Virtuale:Un Mondo di Possibilità</h3><br/>
-                        <input type="textarea" />
+
                         <p className="">
                             La mia passione per l'<strong>arte</strong> e la <b>creatività</b>  mi ha ispirato a esplorare il mondo della modellazione 3D utilizzando <b>Blender</b>. 
                             Attraverso questa esperienza, ho creato diversi modelli che hanno contribuito a migliorare le mie abilità, applicando tali 

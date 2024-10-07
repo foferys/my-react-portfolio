@@ -379,9 +379,8 @@ h2.title.h2 {
 }
 
 .container_ {
-  width: 100%;
-  max-width: 1000px;
-  padding: 112px 0 0 73px;
+  padding: 112px 0 0 0px;
+  text-align: center;
 }
 .container3d {
   width: 100%;
@@ -711,10 +710,10 @@ h2.title.h2 {
   background-image: url(/src/img/aly2.png);
   animation: perso 7s steps(50) infinite;
 }
-.alieno:hover {
-    /* -webkit-animation: perso 1.4s steps(32) infinite; */
-    /* animation: perso 5s steps(32) infinite; */
-}
+/* .alieno:hover {
+  -webkit-animation: perso 1.4s steps(32) infinite; 
+  animation: perso 5s steps(55) infinite; 
+} */
 @-webkit-keyframes perso {
   100% {
     background-position: -1888px;

@@ -221,10 +221,9 @@ function App() {
       <span id="siti"></span>
       <div className="container_">
 
-        <h2 className="intro watch2 fade-in">Progetti Recenti</h2>
+        <h2 className="intro watch2 fade-in">Recent Progects</h2>
         <p className="watch2 fade-in">
-          Attraverso il mio know-how e la mia esperienza nella programmazione web, ho sviluppato siti 
-          personalizzati che si distinguono per <b>funzionalità</b>, <b>design</b> e <b>prestazioni</b>.
+          Let's take a look at companies i helped to get thes prokects done.
         </p>
         <br/><br/>
         
