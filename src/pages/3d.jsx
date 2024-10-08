@@ -9,10 +9,33 @@ import { useEffect, useRef } from "react";
 import 'locomotive-scroll/dist/locomotive-scroll.css';
 import gsap from "gsap";
 import Loader from "../components/Loader";
+import SwiperSlider from "../components/SwiperSlider";
+import Lenis from "lenis";
 
 
 function Page3d() {
+
+    // useEffect(() => {
+    //     const lenis = new Lenis({
+    //       duration: 1.2,   // Durata dello scroll
+    //       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Easing
+    //       smooth: true,    // Scroll fluido
+    //       smoothTouch: true,  // Abilita scroll fluido su touch
+    //     });
     
+    //     // Start immediato del loop di Lenis
+    //     const raf = (time) => {
+    //       lenis.raf(time);
+    //       requestAnimationFrame(raf);
+    //     };
+    //     requestAnimationFrame(raf);
+    
+    //     // Cleanup quando il componente viene smontato
+    //     return () => {
+    //       lenis.destroy();
+    //     };
+    // }, []);
+
     const treDTitle = useRef(null);
     const treDpar = useRef(null);
 
@@ -73,88 +96,12 @@ function Page3d() {
                     <img id="stacco" src={stacco} alt="blocco"/>
                 </div>
 
+
                 <Canvas></Canvas>
     
 
-                <div id="carouselExampleFade" className="carousel slide carousel-fade">
-                    <div className="carousel-inner">
+                <SwiperSlider></SwiperSlider>
 
-                        
-                        <div className="carousel-item active">
-                            <img src="./src/img/3d/stanza.jpg" className="d-block w-100" alt="..."/>
-                        </div>
-                        <div className="carousel-item">
-                            <img src="./src/img/3d/box.jpg" className="d-block w-100" alt="..."/>
-                        </div>
-                        
-                        <div className="carousel-item">
-                            <img src="./src/img/3d/reusee.jpg" className="d-block w-100" alt="..."/>
-                        </div>
-                        
-                        <div className="carousel-item">
-                            <img src="./src/img/3d/pepe.jpg" className="d-block w-100" alt="..."/>
-                        </div>
-                        <div className="carousel-item">
-                            <img src="./src/img/3d/iphone.jpg" className="d-block w-100" alt="..."/>
-                        </div>
-
-                        <div className="carousel-item">
-                            <img src="./src/img/3d/pneumatico pivelli.jpg" className="d-block w-100" alt="..."/>
-                        </div>
-                        
-                        <div className="carousel-item ">
-                            <img src="./src/img/3d/mano7.jpg" className="d-block w-100" alt="..."/>
-                        </div>
-
-                        <div className="carousel-item ">
-                            <img src="./src/img/3d/PEPERONCINO pub.jpg" className="d-block w-100" alt="..."/>
-                        </div>
-
-                        <div className="carousel-item ">
-                            <img src="./src/img/3d/quadretto1.jpg" className="d-block w-100" alt="..."/>
-                        </div>
-
-                        <div className="carousel-item ">
-                            <img src="./img/3d/fujifilm xe5 prototipo 10.png" className="d-block w-100" alt="..."/>
-                        </div>
-
-                        <div className="carousel-item ">
-                            <img src="./img/3d/fujifilm xe5 prototipo 7.png" className="d-block w-100" alt="..."/>
-                        </div>
-
-                        <div className="carousel-item ">
-                            <img src="./img/3d/FUJI XE5 PROT.png" className="d-block w-100" alt="..."/>
-                        </div>
-
-                        <div className="carousel-item ">
-                            <img src="./img/3d/fujifilm xe5 prototipo 8.png" className="d-block w-100" alt="..."/>
-                        </div>
-
-                        <div className="carousel-item ">
-                            <img src="./img/3d/FUJI XE5 PROT2.png" className="d-block w-100" alt="..."/>
-                        </div>
-                        <div className="carousel-item ">
-                            <img src="./img/3d/vasetto con melanzane.jpg" className="d-block w-100" alt="..."/>
-                        </div>
-
-                        <div className="carousel-item ">
-                            <img src="./img/3d/diva.jpg" className="d-block w-100" alt="..."/>
-                        </div>
-
-                        <div className="carousel-item ">
-                            <img src="./img/3d/female shoe5.jpg" className="d-block w-100" alt="..."/>
-                        </div>
-
-                    </div>
-                    <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-                        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span className="visually-hidden">Previous</span>
-                    </button>
-                    <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-                        <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span className="visually-hidden">Next</span>
-                    </button>
-                </div>
 
                 <Footer></Footer>
             </div>
