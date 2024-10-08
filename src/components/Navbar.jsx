@@ -100,9 +100,9 @@ function Navbar({page3d}) {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     {/* (page3d) --- ternario */}
                     {page3d ? (
-                        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li className="nav-item">
-                                <Link to={"/"}>go back</Link>
+                        <ul className="navbar-nav me-auto mb-2 mb-lg-0 text-white">
+                            <li className="nav-item text-white">
+                                <Link to={"/"}><span className="text-white">go back</span></Link>
                             </li>
                         </ul>
                     )

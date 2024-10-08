@@ -469,15 +469,17 @@ h2.title.h2 {
     position: fixed;
     width: fit-content;
     top: 12px;
-    left: 79px;
+    left: 95px;
     background-color: transparent !important;
   }
   .versionInfo {
     top: 40px !important;
+    right: 7% !important;
+
   }
   .localInfo {
     top: 20px;
-    right: 2%;
+    right: 7%;
     left: inherit !important;
 }
   #tredtext .fade-in.in-page2 {
@@ -1329,11 +1331,10 @@ canvas {
   z-index: 9999;
 }
 .trigText2 {
-  opacity: 1;
   position: absolute;
   width: 380px;
-  top: 27%;
   right: 18%;
+  top: 27%;
   color: #fff;
   z-index: 9999;
 }
@@ -1397,7 +1398,7 @@ canvas {
 
 @media screen and (max-width: 767px) {
   .music-lines2 {
-    bottom: 24px;
+    bottom: 52px;
     right: 43px;
   }
   #canvasbox {

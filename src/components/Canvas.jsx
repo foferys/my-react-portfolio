@@ -49,7 +49,10 @@ const Canvas = () => {
 
         /*usiamo gsap per animare il valore di frameCorrente.frame in base allo scroll dell'utente:
         Questa funzione crea un'animazione che cambia gradualmente il valore di frameCorrente.
-        frame da 0 a frameCount - 1 (nel mio caso, da 0 a 169), in base allo scroll dell'utente.*/
+        frame da 0 a frameCount - 1 (nel mio caso, da 0 a 169), in base allo scroll dell'utente.
+        -- l'elemento html canvasBox è relative e i testi al suo interno sono absolute e hanno una posizione specifica
+            con lo scroller start ed end indichiamo a quale altezza e fine della viewport deve iniziare e finire l'animazione 
+        */
         gsap.to(frameCorrente, {
             // Anima il valore di frameCorrente.frame da 0 a frameCount - 1
             frame: frameCount - 1,
@@ -76,27 +79,85 @@ const Canvas = () => {
 
 
     //animazione testi 
+    const tl = gsap.timeline();
     const titolo3dtext = useRef(null);
     const par3dtext = useRef(null);
     const copy = useRef(null);
+    const linea = useRef(null);
+
+
+    const timeline = gsap.timeline({paused: true,})
     
+ 
     useEffect(() => {
-        if (titolo3dtext.current) { // Verifica che il riferimento non sia nullo
+
+        if (titolo3dtext.current && par3dtext.current && copy.current) { // Verifica che il riferimento non sia nullo
             gsap.fromTo(titolo3dtext.current, {opacity: 0},{
                 y: "-20px",
                 opacity: 1,
                 scrollTrigger: {
                     trigger: titolo3dtext.current, // Usa il riferimento corretto per il trigger
                     pin: titolo3dtext.current,
-                    markers: true, 
+                    // markers: true, 
                     start: "top 20%", // Inizio dell'animazione quando l'elemento è visibile all'80% dal top
-                    end: "bottom -1800px", // Fine dell'animazione quando il bottom dell'elemento raggiunge il 20% dal bottom della viewport
+                    end: "bottom -1900px", // Fine dell'animazione quando il bottom dell'elemento raggiunge il 20% dal bottom della viewport
                     scrub: true, // Cambia a true per un effetto di scrub controllato
                 }
-            });
+            })
+            gsap.fromTo(par3dtext.current, {opacity: 0}, {
+                y: "-20px",
+                opacity: 1,
+                ease: "circ.out",
+                // delay: 1, //se c'è lo scrub non funziona
+                scrollTrigger: {
+                    trigger: par3dtext.current, // Usa il riferimento corretto per il trigger
+                    pin:  par3dtext.current, // Questo significa che, quando l'elemento raggiungerà il punto definito da start, rimarrà bloccato
+                    // markers: true, 
+                    start: "top 270px", // Inizio dell'animazione quando l'elemento è visibile a dal top
+                    end: "bottom -1500px", 
+                    scrub: true, // Cambia a true per un effetto di scrub controllato
+                }
+            })
+
+            gsap.fromTo(copy.current, {opacity:0}, {
+                opacity:1,
+                x: "-40px",
+
+                scrollTrigger: {
+                  trigger: copy.current,
+                  pin: copy.current,
+                //   markers: true, 
+                  start: "top 380px",
+                  end: "bottom 70px",
+                  scrub: true,
+                },
+            
+            })
+
+            timeline.to(linea.current, {
+                width: "400px",
+                opacity: 1,
+                duration: 0.5,
+            })
+            gsap.to(linea.current, {
+                scrollTrigger: {
+                  trigger: linea.current, //prendo come riferimento il testo sopra altrimenti riferito alla linea .line sarebbe troppo in ritardo
+                //   markers: true,
+                  start: "bottom 500px",
+                  end: "top 250%",
+                  scrub: true,
+                  onEnter: () => {
+                    timeline.play()
+                  },
+                  onLeaveBack: () =>  {
+                    timeline.reverse();
+                  }
+                }
+              })
+
         }
     }, []); // Assicurati che l'array di dipendenze sia corretto
-    
+ 
 
 
 
@@ -120,7 +181,7 @@ const Canvas = () => {
         </p>
 
         <div className="lineCont">
-            <div className="line"></div>
+            <div className="line" ref={linea}></div>
         </div>
             
     </div>

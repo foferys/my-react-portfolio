@@ -18,7 +18,7 @@ function Page3d() {
 
     useEffect(() => {
         if (treDTitle.current || treDpar.current) { // Verifica se il riferimento è valido
-            const tl = gsap.timeline({ defaults: { duration: 1 } });
+            const tl = gsap.timeline({ defaults: { } });
 
             tl.fromTo(treDTitle.current, 
                 { opacity: 0, y: "-20px" }, // Stato iniziale
@@ -35,7 +35,7 @@ function Page3d() {
                     opacity: 1, 
                     y: 0,
                     ease: "power3.in", 
-                    duration:.8
+
 
                 }
             )

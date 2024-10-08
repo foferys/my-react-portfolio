@@ -224,8 +224,11 @@ function App() {
 
         <h2 className="intro watch2 fade-in">Recent Progects</h2>
         <p className="watch2 fade-in">
-          Let's take a look at companies i helped to get these projects done.
+          Starting a new Project? Choosing the right tools is key. <br /> <b className='text-uppercase'>I've been there, and I can help you find the best options.</b>
         </p>
+
+
+
         <br/><br/>
         
       </div>
@@ -302,11 +305,6 @@ function App() {
           <br /><br />
           <p className="asterisco">* Progetti realizzati per Primacom S.r.l.</p>
           <br /><br />
-          <p id="descWebs" className="watch2 fade-in">
-            Sono in grado di fornire informazioni dettagliate sui prodotti e servizi attraverso l'utilizzo di tecniche di content marketing,
-            facilitando così le operazioni di marketing e di vendita online. Inoltre, posso creare una <b>user experience</b> coinvolgente e intuitiva
-            per migliorare l'<b>esperienza dell'utente</b>, aumentando la fidelizzazione del cliente e il tasso di conversione delle visite in acquisti.
-          </p>
 
         </div>
       </div>
@@ -340,21 +338,16 @@ function App() {
 
     <div className="imgBox">
       <div className="pAbout">
-        <h2 className="watch2 fade-in"> Aiuto le Aziende a Brillare</h2>
+        <h2 className="watch2 fade-in">Helping Businesses Shine </h2>
         <p className="watch2 fade-in">
-          Mi chiamo Gianpiero Ferraro e sono un Full-stack Web Developer.
-          Creo e sviluppo esperienze digitali e Web App personalizzate, concentrandomi sugli obiettivi,
-          l'emozione e i dettagli. <br/><br/>
+       
+          My creative journey started 15 years ago when I discovered my passion for computers. Fascinated by technology and driven 
+          by a strong desire to learn, I dedicated countless hours to <b className='text-orange'>programming</b>, a touch of <b className='text-orange'>graphic design</b> and <b className='text-orange'>3D</b> 
+          through online resources and personal projects. <br />
+          This passion naturally led me to pursue further studies in these areas, allowing 
+          me to quickly apply my skills in a professional environment. <br /><br /> I also have a deep appreciation for <b className='text-orange'>Japanese culture</b>, which inspires 
+          my creative work and fuels my enthusiasm for all things digital.
 
-          Vivo e lavoro a Cosenza, nella stupenda e poco riconoscita Calabria dove
-          coltivo la mia passione per Informatica, Design e Codice.
-          <br/><br/>
-          <b>
-            Credo che tutte le cose belle siano realizzate da chi è disposto
-            a metterci passione, coraggio e artigianalità. Mi piace lavorare
-            con agenzie e persone entusiaste in cerca di soluzioni
-            sartoriali in grado di attrarre, ispirare e convertire.
-          </b>
         </p>
         <br/>
         <div className="socialAbout watch2 fade-in">
