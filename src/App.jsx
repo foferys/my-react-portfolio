@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './App.css';
 // import './js/main.js';
 import Navbar from './components/Navbar';
@@ -26,6 +26,7 @@ import { Link, useFetcher } from 'react-router-dom';
 import Motivate from './components/Motivate';
 import Loader from './components/Loader';
 import Canvas from './components/Canvas';
+import gsap from 'gsap';
 
 
 function App() {
@@ -127,6 +128,28 @@ function App() {
 
 
   }, []);
+
+  const about = useRef(null);
+
+  gsap.fromTo(about.current,{  filter: "blur(1px)",}, {
+    margin: "30px",
+    border: "1px solid rgba(0, 128, 0, 0.244)",
+    borderRadius:"0",
+    delay:1.7,
+    filter: "blur(0px)",
+    
+
+    scrollTrigger: {
+      trigger: about.current,
+      scrub:2,
+      // markers:true,
+      start:"top 89%",
+      end: "bottom 90%",
+    }
+  })
+
+
+
 
   return (
     <>
@@ -313,10 +336,10 @@ function App() {
 
  
     <span id="3d"></span>
-    <Canvas></Canvas>
+    {/* <Canvas></Canvas> */}
 
-{/* 
-    <span id="3d"></span>
+
+    {/* <span id="3d"></span> */}
     <div className="panel panel--white">
       <div className="container3d">
         <p className="watch2 fade-in">Modellazione 3D</p>
@@ -335,16 +358,18 @@ function App() {
         <img className="img-big-center2 watch2 fade-in" src={fuji} alt="prototipo fujifilm xe5 3D"/>
 
       </div>
-    </div> */}
+    </div> 
 
     
 
+  
+  
 
-    <div className="imgBox">
+    <div className="imgBox" ref={about}>
       <div className="pAbout">
         <h2 className="watch2 fade-in">Helping Businesses Shine </h2>
         <p className="watch2 fade-in">
-       
+      
           My creative journey started 15 years ago when I discovered my passion for computers. Fascinated by technology and driven 
           by a strong desire to learn, I dedicated countless hours to <b className='text-orange'>programming</b>, a touch of <b className='text-orange'>graphic design</b> and <b className='text-orange'>3D</b> 
           through online resources and personal projects. <br />
