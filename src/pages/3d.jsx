@@ -10,32 +10,11 @@ import 'locomotive-scroll/dist/locomotive-scroll.css';
 import gsap from "gsap";
 import Loader from "../components/Loader";
 import SwiperSlider from "../components/SwiperSlider";
-import Lenis from "lenis";
+import { useLocation } from "react-router-dom";
+
 
 
 function Page3d() {
-
-    // useEffect(() => {
-    //     const lenis = new Lenis({
-    //       duration: 1.2,   // Durata dello scroll
-    //       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Easing
-    //       smooth: true,    // Scroll fluido
-    //       smoothTouch: true,  // Abilita scroll fluido su touch
-    //     });
-    
-    //     // Start immediato del loop di Lenis
-    //     const raf = (time) => {
-    //       lenis.raf(time);
-    //       requestAnimationFrame(raf);
-    //     };
-    //     requestAnimationFrame(raf);
-    
-    //     // Cleanup quando il componente viene smontato
-    //     return () => {
-    //       lenis.destroy();
-    //     };
-    // }, []);
-
     const treDTitle = useRef(null);
     const treDpar = useRef(null);
 
@@ -68,14 +47,13 @@ function Page3d() {
 
     return (
         <>
-            <div data-scroll-container>
+            <div >
 
-                {/* <Loader></Loader> */}
-                
                 <AudioPlayer></AudioPlayer>
                 <Cursor></Cursor>
                 <Navbar page3d={true}></Navbar>
                 <BottomNav page3d={true}></BottomNav>
+                <Loader></Loader>
             
                 
                 <div  id="tredtext">

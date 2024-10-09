@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import fofeCover from '../assets/logo_fofeys.png';
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
@@ -26,18 +26,21 @@ function Navbar({page3d}) {
 
 
     const catText = useRef(null);
+    const location  =useLocation();
     
     useEffect(() => {
-    
-        gsap.to(catText.current, {
-            opacity:0,
-            ease: "Power2.easeInOut",
-            scrollTrigger: {
-                trigger: ".third-box",
-                scrub: true,
-            }
-
-        })
+        if(location.pathname == "/"){
+            gsap.to(catText.current, {
+                opacity:0,
+                ease: "Power2.easeInOut",
+                scrollTrigger: {
+                    trigger: ".third-box",
+                    scrub: true,
+                }
+        
+            })
+        }
+            
     })
 
 
@@ -56,15 +59,15 @@ function Navbar({page3d}) {
                     {(!page3d)?
                     
                         <span ref={catText} className="lovecats text-success">
-                            [i also love cats. Type in the little terminal]  <i class="uil uil-corner-right-down"></i>
+                            [i also love cats. Type in the little terminal]  <i className="uil uil-corner-right-down"></i>
                         </span>
                         : ""
                     }
                 </span>
                 :
                 // caricamento spinner bootstrap se non trova lo stato currentTime
-                <div class="spinner-grow spinner-grow-sm" role="status">
-                    <span class="sr-only"></span>
+                <div className="spinner-grow spinner-grow-sm" role="status">
+                    <span className="sr-only"></span>
                 </div>
                 
             }
@@ -77,8 +80,8 @@ function Navbar({page3d}) {
                 </div>
                 :
                 
-                <div class="spinner-grow spinner-grow-sm" role="status">
-                    <span class="sr-only"></span>
+                <div className="spinner-grow spinner-grow-sm" role="status">
+                    <span className="sr-only"></span>
                 </div>
 
             }

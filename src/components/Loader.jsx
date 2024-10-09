@@ -1,48 +1,38 @@
 import { useEffect, useRef, useState } from "react"
-
-
+import gsap from "gsap";
+import { useLocation } from "react-router-dom";
 
 function Loader() {
 
-    // uso le ref per gli elementi
     const loadBkg = useRef(null);
     const logoCont = useRef(null);
+    const location = useLocation();
 
-    const [loaded, setLoaded] = useState(false);
-    
-    useEffect(() =>{
+    //finta animazione di caricamento della pagina-> ogni volta che cambia location(url) nelle dipendenze viene rieseguita l'animazione
+    const handleLoad = () => {
+        setTimeout(() => {
+            // Imposta l'opacità a 1 prima di iniziare l'animazione
+            if (logoCont.current && loadBkg.current) {
+                // Animazione di scomparsa
+                gsap.to(logoCont.current, { opacity: 0, duration: 0.1 });
+                gsap.to(loadBkg.current, { opacity: 0, duration: 0.1 });
+            }
+        }, 1500);
+    };
 
-        const handleLoad = () => {
-            setTimeout(() => {
-                if (logoCont.current && loadBkg.current) {
-                    logoCont.current.style.opacity = 0;
-                    loadBkg.current.style.opacity = 0;
-                }
-                setTimeout(() => {
-                    setLoaded(true);
-                }, 1000);
-            }, 1500);
-        };
-
-        window.addEventListener("load", handleLoad);
-        
-        /*In React, quando utilizzi useEffect per aggiungere un event listener, come in questo caso con window.addEventListener("load", handleLoad),
-        è buona pratica rimuovere l'event listener quando il componente si smonta. Se non lo fai, possono verificarsi delle situazioni di memory leak */
-        return () =>{ 
-            window.removeEventListener("load", handleLoad)
-        };
-
-    }, []);
-
+    useEffect(() => {
+        // Chiama handleLoad ogni volta che la posizione cambia
+        handleLoad();
+    }, [location]); // Esegui ogni volta che cambia la posizione
 
 
 
     return (
         <>
          
-            <div ref={loadBkg} class="loading">
-                <div ref={logoCont} class="logoCont">
-                    <a href="/" class="alieno"></a>
+            <div ref={loadBkg} className="loading">
+                <div ref={logoCont} className="logoCont">
+                    <a href="/" className="alieno"></a>
                 </div>
                 {/* <p className="loaderText">loading</p>*/}
             </div>

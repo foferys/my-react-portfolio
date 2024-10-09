@@ -137,7 +137,7 @@ const Canvas = () => {
             timeline.to(linea.current, {
                 width: "400px",
                 opacity: 1,
-                duration: 0.5,
+                // duration: 0.5,
             })
             gsap.to(linea.current, {
                 scrollTrigger: {
@@ -163,22 +163,21 @@ const Canvas = () => {
 
   return (
     <div id="canvasbox">
+        
         <canvas ref={canvasRef} className="canvas" />
 
-      
-        <h2 className="trigText" ref={titolo3dtext}>Crea. Anima. Incanta.</h2>
+        <h2 className="trigText" ref={titolo3dtext}>Create. Animate. Enchant.</h2>
         <div className="trigText2" ref={par3dtext}>
             <p>
-                Attirare l'attenzione e aumentare l'attrattiva visiva complessiva del tuo sito. 
+                Capture attention and enhance the overall visual appeal of your site.
             </p>
         </div>
 
-
         <p className="copy" ref={copy}>
-            <strong>Tecniche di illuminazione</strong> studiate con cura lavorano insieme per eliminare le distrazioni,   
-            <span className="green-text">avvolgendoti</span> in un mondo visivo di pura &nbsp;meraviglia.
-            
+            <strong>Carefully crafted lighting techniques</strong> work together to eliminate distractions,  
+            <span className="green-text">wrapping you</span> in a visual world of pure &nbsp;wonder.
         </p>
+
 
         <div className="lineCont">
             <div className="line" ref={linea}></div>

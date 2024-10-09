@@ -105,8 +105,8 @@ function Motivate() {
                     <p>{fetching?
                         
                         // caricamento spinner bootstrap se non trova lo stato currentTime
-                        <div class="spinner-grow spinner-grow-sm" role="status">
-                            <span class="sr-only"></span>
+                        <div className="spinner-grow spinner-grow-sm" role="status">
+                            <span className="sr-only"></span>
                         </div>
                         :
                         ""

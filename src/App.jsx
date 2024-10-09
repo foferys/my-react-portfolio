@@ -312,8 +312,10 @@ function App() {
     </div>
 
  
-    {/* <Canvas></Canvas> */}
+    <span id="3d"></span>
+    <Canvas></Canvas>
 
+{/* 
     <span id="3d"></span>
     <div className="panel panel--white">
       <div className="container3d">
@@ -333,7 +335,9 @@ function App() {
         <img className="img-big-center2 watch2 fade-in" src={fuji} alt="prototipo fujifilm xe5 3D"/>
 
       </div>
-    </div>
+    </div> */}
+
+    
 
 
     <div className="imgBox">
