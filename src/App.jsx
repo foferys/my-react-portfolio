@@ -342,18 +342,18 @@ function App() {
     {/* <span id="3d"></span> */}
     <div className="panel panel--white">
       <div className="container3d">
-        <p className="watch2 fade-in">Modellazione 3D</p>
-        <h2 className="watch2 fade-in title-med"> Un mondo duro da plasmare.<br/> </h2>
+        <p className="watch2 fade-in">3D Modeling</p>
+        <h2 className="watch2 fade-in title-med"> Shaping a tough world.<br/> </h2>
 
         <p className="watch2 fade-in subtitle">
-        La <b>modellazione 3D</b> è un'arte incredibilmente versatile che può essere utilizzata per arricchire
-        i contenuti dei siti web in modo sorprendente. <br/><br/> Grazie alla mia esperienza e alle mie competenze, sono in grado
-          di creare modelli 3D dettagliati e realistici che possono rendere i contenuti dei siti web ancora più <b>coinvolgenti </b>
-          e <b>attraenti</b> per gli utenti.
+        <b>3D modeling</b> is an incredibly versatile craft that can enhance web content in extraordinary ways. <br/><br/> 
+        With my expertise and skills, I can design detailed and lifelike 3D models that bring an extra level of <b>engagement</b> 
+        and <b>visual appeal</b> to websites, creating a more immersive experience for users.
         </p>
         <p className="watch2 fade-in ">
-          <Link to={"/3d"} ><a className="orange-text link3d"  style={{color: '#f56900 !important',}}>Entra nel mio mondo 3D</a></Link>
+          <Link to={"/3d"} ><a className="orange-text link3d" style={{color: '#f56900 !important',}}>Step into my 3D world</a></Link>
         </p>
+
         <img className="img-big-center watch2 fade-in" src={fuji4} alt="prototipo fujifilm xe5"/>
         <img className="img-big-center2 watch2 fade-in" src={fuji} alt="prototipo fujifilm xe5 3D"/>
 

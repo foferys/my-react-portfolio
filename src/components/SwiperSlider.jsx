@@ -46,6 +46,8 @@ function SwiperSlider() {
         <>
         <div className='swContainer'>
 
+            <h2 className='text-black text-center mb-5'>Swipe the cards</h2>
+
             <Swiper //swiper si usa cosi di default (vedi documentazione)
                 effect={'cards'}
                 grabCursor={true}

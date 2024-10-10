@@ -55,23 +55,19 @@ function Page3d() {
                 <BottomNav page3d={true}></BottomNav>
                 <Loader></Loader>
             
-                
-                <div  id="tredtext">
-                    <div  id="intro3d">
-                        <h3 ref={treDTitle}>Fantasia Virtuale:Un Mondo di Possibilità</h3><br/>
+                <div id="tredtext">
+                    <div id="intro3d">
+                        <h3 ref={treDTitle}>Virtual Imagination: A World of Possibilities</h3><br/>
 
                         <p className="" ref={treDpar}>
-                            La mia passione per l'<strong>arte</strong> e la <b>creatività</b>  mi ha ispirato a esplorare il mondo della modellazione 3D utilizzando <b>Blender</b>. 
-                            Attraverso questa esperienza, ho creato diversi modelli che hanno contribuito a migliorare le mie abilità, applicando tali 
-                            competenze nella realizzazione e l'implementazione di elementi 3D per <b>siti web</b> e <b>piattaforme online</b>, 
-                            arricchendo così ulteriormente l'esperienza utente.
+                            My passion for <strong>art</strong> and <b>creativity</b> has driven me to dive into the world of 3D modeling using <b>Blender</b>. 
+                            Throughout this journey, I've developed various models that have sharpened my skills, applying them to create and integrate 3D elements for 
+                            <b>websites</b> and <b>online platforms</b>, enriching the overall user experience.
                             <br/><br/>
-                            Nella galleria che segue, alcuni dei miei <b>progetti 3D</b> più recenti, che includono oggetti di design, 
-                            personaggi, ambienti e oggetti di fantasia.
-                            
+                            In the gallery below, you’ll find some of my latest <b>3D projects</b>, featuring design objects, characters, environments, and imaginative creations.
                         </p>
                     </div>
-                    <img id="stacco" src={stacco} alt="blocco"/>
+                    <img id="stacco" src={stacco} alt="divider"/>
                 </div>
 
 

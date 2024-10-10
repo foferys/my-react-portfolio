@@ -12,7 +12,7 @@ function Motivate() {
 
     //animazione con gsap - useRef come attributo nell'elemento del terminalegatto 
     const catTerminal = useRef(null);
-
+    //animazione iniziale comparsa terminalino
     useEffect(() =>{
         gsap.to(catTerminal.current, {
             opacity:1,
