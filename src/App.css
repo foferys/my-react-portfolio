@@ -133,17 +133,17 @@ a{text-decoration:none !important}
 
 .line2:nth-child(2) {
   animation-delay: 0.1s;
-  height: 9px;
+  height: 5px;
   /* Aggiungi un ritardo alle linee successive per creare un effetto più interessante */
 }
 .line2:nth-child(3) {
   animation-delay: 0.4s;
-  height: 12px;
+  height: 5px;
 
 }
 .line2:nth-child(4) {
   animation-delay: 0.6s;
-  height: 9px;
+  height: 5px;
 
 }
 .line2:nth-child(5) {
@@ -1447,7 +1447,7 @@ canvas {
   height: 1px;
   background-color: #ffffff;
   position: absolute;
-  top: -230px;
+  top: -410px;
   opacity: 0;
   left: 652px;
   transform: rotate(180deg);

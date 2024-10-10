@@ -27,6 +27,7 @@ function Navbar({page3d}) {
 
     const catText = useRef(null);
     const location  =useLocation();
+    const header = useRef(null);
     
     useEffect(() => {
         if(location.pathname == "/"){
@@ -41,7 +42,15 @@ function Navbar({page3d}) {
             })
         }
             
-    })
+        gsap.fromTo(header.current, {top: "-75px"}, {
+            top: "20px",
+            ease: "Power2.easeInOut",
+            delay: .6,
+            duration:1,
+        })
+    },[])
+
+
 
 
     return (
@@ -87,7 +96,7 @@ function Navbar({page3d}) {
             }
         </div>
 
-        <nav id="header" className="navbar navbar-expand-lg ">
+        <nav id="header" className="navbar navbar-expand-lg " ref={header}>
             <div className="container-fluid">
                 <a className="header_logo navbar-brand">
                     <Link to={"/"}>
