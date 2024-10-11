@@ -12,16 +12,29 @@ function Motivate() {
 
     //animazione con gsap - useRef come attributo nell'elemento del terminalegatto 
     const catTerminal = useRef(null);
-    //animazione iniziale comparsa terminalino
+
+    
+    //animazione iniziale comparsa terminalino, senza dipendenza perché abbiamo bisogno che l'animazine sia presente sempre nel componente
     useEffect(() =>{
         gsap.to(catTerminal.current, {
-            opacity:1,
-            duration: 2.9,
-            ease: "expo.out",
-            delay: 1.2,
+            opacity:0,
+            ease: "Power2.easeInOut",
+            scrollTrigger: {
+                trigger: ".third-box",
+                scrub: true,
+            }
         })
-        
-    })
+    }) 
+    
+    
+    //animazione iniziale comparsa terminalino, con dipendenza vuota per dire che lo fa solo al montaggio del componente 
+    //(tra l'altro se lo metto sopra all'altro non esegue quello che deve)
+    useEffect(() => {
+        gsap.fromTo(catTerminal.current, {opacity: 0,}, {
+            opacity:1,
+            ease: "Power2.easeInOut",
+        })
+    }, [])
 
   
 

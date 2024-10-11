@@ -213,13 +213,14 @@ b.goback {
 }
 
 /* api frasi */
-
+  .cat-logo {
+    width: 30px;
+  }
   div#fraseMotivazionale {
     position: fixed;
     bottom: 43px;
     left: 35px;
     z-index: 2;
-    opacity: 0;
   }
   div#fraseMotivazionale p{
     font-size: 13px;

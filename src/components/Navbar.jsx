@@ -1,7 +1,8 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import fofeCover from '../assets/logo_fofeys.png';
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import catLogo from "../assets/Logo-Cat.white.svg";
 
 //(page3d) indica true o false che viene passato dal componente iniziale e decide giu cosa mostrare col ternario
 function Navbar({page3d}) {
@@ -25,12 +26,14 @@ function Navbar({page3d}) {
     }, []);
 
 
-    const catText = useRef(null);
-    const location  =useLocation();
-    const header = useRef(null);
-    
-    useEffect(() => {
-        if(location.pathname == "/"){
+    //---testo indicazione terminale gatto
+        const catText = useRef(null);
+        const header = useRef(null);
+        const catlogo = useRef(null);
+        const [catAnimating, setCatAnimating] = useState(false);
+        
+        useEffect(() => {
+
             gsap.to(catText.current, {
                 opacity:0,
                 ease: "Power2.easeInOut",
@@ -39,16 +42,32 @@ function Navbar({page3d}) {
                     scrub: true,
                 }
         
+            }) 
+        }) //senza dipendenze perché funziona sempre durante il ciclo di vita del componente
+
+        //animazione icona gatto
+        useEffect(() => {
+            setInterval(() => {
+                gsap.to(catlogo.current, {
+                  x: Math.round(Math.random() * 10),  // Spostamento casuale orizzontale
+                  y: Math.round(Math.random() * 10),  // Spostamento casuale verticale
+                  duration: 0.1,  // Durata breve
+                  repeat: 3,  // Numero di vibrazioni
+                  yoyo: true,  // Ritorna alla posizione originale
+                  ease: "power1.inOut",  // Easing per shake fluido
+                });
+            }, 3000);
+        },[])
+
+        useEffect(() => {
+            gsap.fromTo(header.current, {top: "-75px"}, {
+                top: "20px",
+                ease: "Power2.easeInOut",
+                delay: .6,
+                duration:1,
             })
-        }
-            
-        gsap.fromTo(header.current, {top: "-75px"}, {
-            top: "20px",
-            ease: "Power2.easeInOut",
-            delay: .6,
-            duration:1,
-        })
-    },[])
+        }, []) //lo fa solo appena si arriva sul componente
+    //---fine testo indicazione terminale gatto
 
 
 
@@ -68,7 +87,8 @@ function Navbar({page3d}) {
                     {(!page3d)?
                     
                         <span ref={catText} className="lovecats text-success">
-                            [i also love cats. Type in the little terminal]  <i className="uil uil-corner-right-down"></i>
+                            [i also love cats. Type in the little terminal]
+                            <img ref={catlogo} className='cat-logo mx-2' src={catLogo} alt="" />
                         </span>
                         : ""
                     }
