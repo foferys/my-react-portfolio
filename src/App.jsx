@@ -27,6 +27,7 @@ import Motivate from './components/Motivate';
 import Loader from './components/Loader';
 import Canvas from './components/Canvas';
 import gsap from 'gsap';
+import { ClickTermCatProvider } from './store/ClickTermCatProvider';
 
 
 function App() {
@@ -155,8 +156,13 @@ function App() {
     <>
     <AudioPlayer></AudioPlayer>
     <Cursor></Cursor>
-    <Motivate></Motivate>
-    <Navbar page3d={false}></Navbar>
+
+    {/* USO DEL contesto ClickTermCat creato nello store, che conteinte i due componenti nel quale è usato lo stato implementato in  ClickTermCat*/}
+    <ClickTermCatProvider>
+      <Motivate></Motivate>
+      <Navbar page3d={false}></Navbar>
+    </ClickTermCatProvider>
+
     <Loader></Loader>
     <BottomNav></BottomNav>
     
@@ -274,7 +280,7 @@ function App() {
             <p>00-2</p> <br />
             <a href="https://www.oliveoilfromeurope.eu/" target="_blank">Olivicola<span>*</span></a> <br />
             <span>
-              <p>2023 <br />Piattaforma Web con Giochi</p>
+              <p>2023 <br />website with Games</p>
             </span>
           </div>
           <img className="img" src={olivicola} alt="immagine sito Olivicola" />
@@ -292,7 +298,7 @@ function App() {
             <p>00-4</p> <br />
             <a href="https://www.letermedigalatro.it/" target="_blank">Terme di Galatro<span>*</span></a> <br />
             <span>
-              <p>2023 <br />Centro Termale</p>
+              <p>2023 <br />Website</p>
             </span>
           </div>
           <img className="img" src={galatro} alt="immagine sito Terme di Galatro" />
@@ -326,20 +332,19 @@ function App() {
 
 
           <br /><br />
-          <p className="asterisco">* Progetti realizzati per Primacom S.r.l.</p>
+          <p className="asterisco">* Projects developed for Primacom S.r.l. see more on    <a href="https://github.com/foferys" target="_blank"> GitHub </a></p>
           <br /><br />
 
         </div>
       </div>
         
     </div>
-
- 
+    
     <span id="3d"></span>
     {/* <Canvas></Canvas> */}
 
 
-    {/* <span id="3d"></span> */}
+    {/*     
     <div className="panel panel--white">
       <div className="container3d">
         <p className="watch2 fade-in">3D Modeling</p>
@@ -358,7 +363,7 @@ function App() {
         <img className="img-big-center2 watch2 fade-in" src={fuji} alt="prototipo fujifilm xe5 3D"/>
 
       </div>
-    </div> 
+    </div>  */}
 
     
 

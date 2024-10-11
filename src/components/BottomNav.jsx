@@ -60,7 +60,7 @@ function BottomNav({page3d}) {
                 : (
                     <ul className="header_menu">
                         <li><a href="#siti">Websites</a></li>
-                        <li><a href="#3d">3D</a></li>
+                        {/* <li><a href="#3d">3D</a></li> */}
                         {/* <li><a href="">Grafica</a></li> */}
                         <li><a href="#footer">Contatti</a></li>
                     </ul>

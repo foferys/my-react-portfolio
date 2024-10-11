@@ -11,6 +11,7 @@ import gsap from "gsap";
 import Loader from "../components/Loader";
 import SwiperSlider from "../components/SwiperSlider";
 import { useLocation } from "react-router-dom";
+import { ClickTermCatContext, ClickTermCatProvider } from "../store/ClickTermCatProvider";
 
 
 
@@ -51,7 +52,10 @@ function Page3d() {
 
                 <AudioPlayer></AudioPlayer>
                 <Cursor></Cursor>
-                <Navbar page3d={true}></Navbar>
+                {/* riferimento context per stato click logo cat */}
+                <ClickTermCatProvider>
+                    <Navbar page3d={true}></Navbar>
+                </ClickTermCatProvider>
                 <BottomNav page3d={true}></BottomNav>
                 <Loader></Loader>
             

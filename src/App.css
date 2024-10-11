@@ -449,7 +449,6 @@ h2.title.h2 {
  
   #canvasbox{display: none;}
 
-  .loading {right: 17px !important; left: inherit !important;}
 
   .img-big-left {
       width: 105vw;
@@ -695,16 +694,14 @@ h2.title.h2 {
 
 
 /* logo anim */
-
-
 .loading {
   width: 50px;
   height: 100px;
+  top: 20%;
+  left: 50%;
   /* background-color: #29142dfc; */
   z-index: 9;
   position:fixed; 
-  top: 67px;
-  left: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -821,7 +818,13 @@ h2.title.h2 {
 }
 
 @media (max-width: 768px) {
+  .loading {top: 5%; right: 40%; left: inherit;}
 
+  .lovecats{    
+    position: absolute;
+    top: 276%;
+    text-align: right;
+  }
   .cursor, .outline {
       display: none;
   }
@@ -847,7 +850,7 @@ h2.title.h2 {
   .header_menu li {width: 100%; border-bottom: 1px solid #444;}
   .menu--open .header_menu{height: 100vh; padding: 1%;}
 
-  .data, .lovecats {
+  .data{
     display: none;
   }
   .scroll_down {
