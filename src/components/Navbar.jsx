@@ -1,8 +1,9 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import fofeCover from '../assets/logo_fofeys.png';
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import catLogo from "../assets/Logo-Cat.white.svg";
+import { ClickTermCatContext } from '../store/ClickTermCatProvider';
 
 //(page3d) indica true o false che viene passato dal componente iniziale e decide giu cosa mostrare col ternario
 function Navbar({page3d}) {
@@ -30,7 +31,6 @@ function Navbar({page3d}) {
         const catText = useRef(null);
         const header = useRef(null);
         const catlogo = useRef(null);
-        const [catAnimating, setCatAnimating] = useState(false);
         
         useEffect(() => {
 
@@ -49,15 +49,16 @@ function Navbar({page3d}) {
         useEffect(() => {
             setInterval(() => {
                 gsap.to(catlogo.current, {
-                  x: Math.round(Math.random() * 10),  // Spostamento casuale orizzontale
-                  y: Math.round(Math.random() * 10),  // Spostamento casuale verticale
-                  duration: 0.1,  // Durata breve
-                  repeat: 3,  // Numero di vibrazioni
-                  yoyo: true,  // Ritorna alla posizione originale
-                  ease: "power1.inOut",  // Easing per shake fluido
+                    x: Math.round(Math.random() * 10),  // Spostamento casuale orizzontale
+                    y: Math.round(Math.random() * 10),  // Spostamento casuale verticale
+                    duration: 0.1,  // Durata breve
+                    repeat: 3,  // Numero di vibrazioni
+                    yoyo: true,  // Ritorna alla posizione originale
+                    ease: "power1.inOut",  // Easing per shake fluido
                 });
-            }, 3000);
+            }, 4000);
         },[])
+        
 
         useEffect(() => {
             gsap.fromTo(header.current, {top: "-75px"}, {
@@ -69,7 +70,10 @@ function Navbar({page3d}) {
         }, []) //lo fa solo appena si arriva sul componente
     //---fine testo indicazione terminale gatto
 
-
+    // USO DEL contesto ClickTermCat creato nello store in ClickTermCatProvider.jsx, che conteinte i due componenti nel quale è usato lo stato 
+    //implementato in  ClickTermCat -> questo lo uso giu per mostrare il gatto se non si è ancora cliccato sul terminalino
+    const location = useLocation();
+    const {terminalClicked} = useContext(ClickTermCatContext);
 
 
     return (
@@ -87,8 +91,18 @@ function Navbar({page3d}) {
                     {(!page3d)?
                     
                         <span ref={catText} className="lovecats text-success">
-                            [i also love cats. Type in the little terminal]
-                            <img ref={catlogo} className='cat-logo mx-2' src={catLogo} alt="" />
+                            [i also love cats. <br /> Type in the little terminal <i class="uil uil-arrow-down"></i> ] <br />
+
+                            {(terminalClicked == "no")?
+
+                                <div>
+                                    <img ref={catlogo} className='cat-logo mx-2' src={catLogo} alt="" />
+                                </div>
+                                :
+                                ""
+                            }
+                            
+
                         </span>
                         : ""
                     }
@@ -144,7 +158,7 @@ function Navbar({page3d}) {
                                 <a className="nav-link active" aria-current="page"><Link to={"/"}>Home</Link></a>
                             </li>
                             <li><a href="#siti">Websites</a></li>
-                            <li><a href="#3d">3D</a></li>
+                            {/* <li><a href="#3d">3D</a></li> */}
                             {/* <li><a href="">Grafica</a></li> */}
                             <li><a href="#footer">Contatti</a></li>
                         </ul>

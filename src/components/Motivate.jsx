@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import { ClickTermCatContext } from "../store/ClickTermCatProvider";
 
 
 function Motivate() {
@@ -111,6 +112,14 @@ function Motivate() {
         setFrase("")
     }
 
+
+    const {setTerminalClicked} = useContext(ClickTermCatContext);
+
+    const clickTerminal = () => {
+        setTerminalClicked("si");
+    }
+
+
     return(
         <>
             <div id="fraseMotivazionale" ref={catTerminal}>
@@ -133,7 +142,7 @@ function Motivate() {
                 
 
                 <div className="terminalCont">
-                    <div className="catTerminalInput"><span className="text-success">cat@facts</span>: ~$</div><input onBlur={handleFocusOut} onChange={handleChange} onKeyDown={handleKeyDown} type="text" id="catTerminal" />
+                    <div className="catTerminalInput"><span className="text-success">cat@facts</span>: ~$</div><input onBlur={handleFocusOut} onChange={handleChange} onKeyDown={handleKeyDown} onClick={clickTerminal} type="text" id="catTerminal" />
                 </div>
             </div>
             
