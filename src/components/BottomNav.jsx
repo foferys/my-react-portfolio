@@ -41,7 +41,17 @@ function BottomNav({page3d}) {
         <>
         
         <div className="goBack" style={{ bottom: goBackBottom }}>
-            <a href="#header"><img src={arrowup} alt="torna su" /></a>
+            <a onClick={(e) => { //senza metterlo cosi non si sposta
+                e.preventDefault();
+                    const headerElement = document.querySelector('#header');
+                    if (headerElement) {
+                        window.scrollTo({
+                            top: headerElement.offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                }}><img src={arrowup} alt="torna su" />
+            </a>
         </div>
         <div className="header2" style={{ bottom: headerBottom }}>
             <div className="header_content">

@@ -8,7 +8,22 @@ import { ClickTermCatContext } from '../store/ClickTermCatProvider';
 //(page3d) indica true o false che viene passato dal componente iniziale e decide giu cosa mostrare col ternario
 function Navbar({page3d}) {
 
+    const location = useLocation();
+
     const [currentTime, setCurrentTime] = useState("");
+    
+    const handleHome = () => {
+        const headerElement = document.querySelector('#header');
+        if(location.pathname == "/") {
+            if (headerElement) {
+                window.scrollTo({
+                    top: headerElement.offsetTop,
+                    behavior: 'smooth'
+                });
+            }
+            
+        }
+    }
 
 
     // Aggiorna l'ora ogni secondo in base al tempo trascorso
@@ -72,7 +87,6 @@ function Navbar({page3d}) {
 
     // USO DEL contesto ClickTermCat creato nello store in ClickTermCatProvider.jsx, che conteinte i due componenti nel quale è usato lo stato 
     //implementato in  ClickTermCat -> questo lo uso giu per mostrare il gatto se non si è ancora cliccato sul terminalino
-    const location = useLocation();
     const {terminalClicked} = useContext(ClickTermCatContext);
 
 
@@ -122,7 +136,6 @@ function Navbar({page3d}) {
                     <p className="m-0">V-002</p>
                 </div>
                 :
-                
                 <div className="spinner-grow spinner-grow-sm" role="status">
                     <span className="sr-only"></span>
                 </div>
@@ -155,7 +168,7 @@ function Navbar({page3d}) {
                     : (
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <a className="nav-link active" aria-current="page"><Link to={"/"}>Home</Link></a>
+                                <a className="nav-link active" aria-current="page" onClick={handleHome}><Link to={"/"}>Home</Link></a>
                             </li>
                             <li><a href="#siti">Websites</a></li>
                             {/* <li><a href="#3d">3D</a></li> */}

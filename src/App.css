@@ -475,7 +475,8 @@ h2.title.h2 {
     width: fit-content;
     top: 12px;
     left: 95px;
-    background-color: transparent !important;
+    background-color: #11391633 !important;
+    
   }
   .versionInfo {
     top: 40px !important;
