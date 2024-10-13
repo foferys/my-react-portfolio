@@ -47,18 +47,7 @@ function Navbar({page3d}) {
         const header = useRef(null);
         const catlogo = useRef(null);
         
-        useEffect(() => {
-
-            gsap.to(catText.current, {
-                opacity:0,
-                ease: "Power2.easeInOut",
-                scrollTrigger: {
-                    trigger: ".third-box",
-                    scrub: true,
-                }
-        
-            }) 
-        }) //senza dipendenze perché funziona sempre durante il ciclo di vita del componente
+       
 
         //animazione icona gatto
         useEffect(() => {
@@ -89,6 +78,22 @@ function Navbar({page3d}) {
     //implementato in  ClickTermCat -> questo lo uso giu per mostrare il gatto se non si è ancora cliccato sul terminalino
     const {terminalClicked} = useContext(ClickTermCatContext);
 
+    useEffect(() => {
+        const thbox = document.querySelector(".third-box");
+        if(thbox)  {
+
+            gsap.to(catText.current, {opacity:1}, {
+                opacity:0,
+                ease: "Power2.easeInOut",
+                scrollTrigger: {
+                    trigger: ".third-box",
+                    scrub: true,
+                }
+        
+            }) 
+        }
+    }) //senza dipendenze perché funziona sempre durante il ciclo di vita del componente
+
 
     return (
         <>
@@ -105,7 +110,7 @@ function Navbar({page3d}) {
                     {(!page3d)?
                     
                         <span ref={catText} className="lovecats text-success">
-                            [i also love cats. <br /> Type in the little terminal <i class="uil uil-arrow-down"></i> ] <br />
+                            [i also love cats. <br /> Type in the little terminal <i className="uil uil-arrow-down"></i> ] <br />
 
                             {(terminalClicked == "no")?
 
@@ -145,11 +150,11 @@ function Navbar({page3d}) {
 
         <nav id="header" className="navbar navbar-expand-lg " ref={header}>
             <div className="container-fluid">
-                <a className="header_logo navbar-brand">
-                    <Link to={"/"}>
-                        <img className="logo" src={fofeCover} alt="" />
-                    </Link>
-                </a>
+    
+                <Link className="header_logo navbar-brand" to={"/"}>
+                    <img className="logo" src={fofeCover} alt="" />
+                </Link>
+                
 
 
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -168,10 +173,13 @@ function Navbar({page3d}) {
                     : (
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" onClick={handleHome}><Link to={"/"}>Home</Link></a>
+                                <Link className="nav-link active" aria-current="page" onClick={handleHome} to={"/"}>Home</Link>
                             </li>
                             <li><a href="#siti">Websites</a></li>
                             {/* <li><a href="#3d">3D</a></li> */}
+                            <li>
+                                <Link to={"/project"}>Project</Link>
+                            </li>
                             {/* <li><a href="">Grafica</a></li> */}
                             <li><a href="#footer">Contatti</a></li>
                         </ul>

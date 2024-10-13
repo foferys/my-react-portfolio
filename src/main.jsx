@@ -8,6 +8,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import Page3d from './pages/3d.jsx';
 import { AudioProvider } from './store/AudioContext.jsx';
+import ProjDetail from './pages/ProjDetail.jsx';
+
 
 const router = createBrowserRouter([
   {
@@ -17,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/3d",
     element: <Page3d></Page3d>,
+  },
+  {
+    path: "/project",
+    element: <ProjDetail></ProjDetail>,
   }
 
 

@@ -28,6 +28,7 @@ import Loader from './components/Loader';
 import Canvas from './components/Canvas';
 import gsap from 'gsap';
 import { ClickTermCatProvider } from './store/ClickTermCatProvider';
+import OrizScrollingPage from './components/OrizScrollingPage';
 
 
 function App() {
@@ -338,6 +339,7 @@ function App() {
         </div>
       </div>
         
+      {/* <OrizScrollingPage></OrizScrollingPage> */}
     </div>
     
     <span id="3d"></span>

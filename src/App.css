@@ -499,9 +499,9 @@ h2.title.h2 {
   }
 }
 
+/* --------- */
 
-
-
+/* --------- */
 .img-big-center {
   display: block;
   height: 500px;
@@ -633,8 +633,6 @@ h2.title.h2 {
 }
 .lovecats{
   font-size: 10px; 
-  mix-blend-mode: difference;
-  opacity: 1;
 }
 
 
@@ -746,6 +744,12 @@ h2.title.h2 {
 }
 /* fine anim */
 
+
+/* --page horz scroll */
+
+
+
+/* --page horz scroll */
 
 
 /*----3d----*/
@@ -892,6 +896,11 @@ h2.title.h2 {
   .mainTitle {
       font-size: 32px !important;
       width: 255px;
+  }
+
+
+  .horScrollElement {
+    display: none;
   }
 
  

@@ -15,17 +15,6 @@ function Motivate() {
     const catTerminal = useRef(null);
 
     
-    //animazione iniziale comparsa terminalino, senza dipendenza perché abbiamo bisogno che l'animazine sia presente sempre nel componente
-    useEffect(() =>{
-        gsap.to(catTerminal.current, {
-            opacity:0,
-            ease: "Power2.easeInOut",
-            scrollTrigger: {
-                trigger: ".third-box",
-                scrub: true,
-            }
-        })
-    }) 
     
     
     //animazione iniziale comparsa terminalino, con dipendenza vuota per dire che lo fa solo al montaggio del componente 
@@ -36,7 +25,19 @@ function Motivate() {
             ease: "Power2.easeInOut",
         })
     }, [])
-
+    
+    //animazione iniziale comparsa terminalino, senza dipendenza perché abbiamo bisogno che l'animazine sia presente sempre nel componente
+    useEffect(() =>{
+        gsap.fromTo(catTerminal.current, { opacity: 1 },{  // Stato iniziale 
+                opacity: 0,   // Stato finale
+                ease: "power1.inOut",
+                scrollTrigger: {
+                    trigger: ".third-box",
+                    scrub: true,
+                }
+            }
+        );
+    }) 
   
 
     /*-| Quando serve useEffect:
@@ -124,16 +125,16 @@ function Motivate() {
         <>
             <div id="fraseMotivazionale" ref={catTerminal}>
 
-                    <p>{fetching?
-                        
-                        // caricamento spinner bootstrap se non trova lo stato currentTime
-                        <div className="spinner-grow spinner-grow-sm" role="status">
-                            <span className="sr-only"></span>
-                        </div>
-                        :
-                        ""
+                <p>{fetching?
+                    
+                    // caricamento spinner bootstrap se non trova lo stato currentTime
+                    <div className="spinner-grow spinner-grow-sm" role="status">
+                        <span className="sr-only"></span>
+                    </div>
+                    :
+                    ""
 
-                    }</p>
+                }</p>
 
                 {/* imposto classe in base a se frase c'è o no */}
                 <div className={`catmodal ${(frase || modalRest)? "":"hidden"}`} onMouseMove={handleRest} onMouseLeave={handleLeave}>
