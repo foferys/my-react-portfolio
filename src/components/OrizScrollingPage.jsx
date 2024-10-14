@@ -56,19 +56,22 @@ function OrizScrollingPage() {
 
     return (
       
-        <section style={{padding: "0 5rem"}} className="horScrollElement">
+        <section className="horScrollElement">
+
             <div className="container" ref={scrollCont}>
-                <div ref={sezHorzScroll} className="vh-100 d-flex align-items-center sezhorizScroll" style={{"gap": "40px", width: "max-content"}}>
-                    <h1 style={{"font-size": "18vh",}}>Horizontal</h1>
 
-                    <img src={img1} alt="" style={{"object-fit": "cover",
-    "object-position": "center", "aspect-ratio": 3 / 4, "height": "100%"}} />
+                <div ref={sezHorzScroll} className="vh-100 d-flex align-items-center sezhorizScroll" >
+
+                    <h1 className="text-success" style={{"font-size": "18vh",}}>Horizontal</h1>
+
+                    <img className="" src={img1} alt="" style={{"object-fit": "cover", "object-position": "center", "aspect-ratio": 3 / 4, "height": "100%"}} />
+
                     <div className="" style={{"align-self": "flex-end",}}>
-                        <p style={{"font-size": "18vh",}}>Horizontal</p>
+                        <p className="text-success" style={{"font-size": "18vh",}}>Horizontal</p>
 
-                        <img src={img1} alt="" style={{"object-fit": "cover",
-        "object-position": "center", "aspect-ratio": 3 / 4, "height": "100%"}} />
+                        <img src={img1} alt="" style={{"object-fit": "cover", "object-position": "center", "aspect-ratio": 3 / 4, "height": "100%"}} />
                     </div>
+                    
                 </div>
 
             </div>

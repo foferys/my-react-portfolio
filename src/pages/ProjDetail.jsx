@@ -10,7 +10,6 @@ import { ClickTermCatProvider } from "../store/ClickTermCatProvider";
 function ProjDetail() {
 
 
-
     return(
         <>
             <AudioPlayer></AudioPlayer>

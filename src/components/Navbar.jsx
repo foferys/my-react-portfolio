@@ -9,6 +9,13 @@ import { ClickTermCatContext } from '../store/ClickTermCatProvider';
 function Navbar({page3d}) {
 
     const location = useLocation();
+    //se sono nella pagina principale metto lo sfondo nero altrimenti non si vede vene
+    useEffect(() => {
+        if(location.pathname == "/") {
+            document.querySelector("body").classList.remove("whiteBG");
+            document.querySelector("body").classList.add("blackBG")
+        }
+    }, [location])
 
     const [currentTime, setCurrentTime] = useState("");
     
@@ -82,11 +89,11 @@ function Navbar({page3d}) {
         const thbox = document.querySelector(".third-box");
         if(thbox)  {
 
-            gsap.to(catText.current, {opacity:1}, {
+            gsap.fromTo(catText.current, {opacity:1}, {
                 opacity:0,
                 ease: "Power2.easeInOut",
                 scrollTrigger: {
-                    trigger: ".third-box",
+                    trigger: thbox,
                     scrub: true,
                 }
         
