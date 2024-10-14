@@ -758,12 +758,40 @@ h2.title.h2 {
   padding: 0 5rem;
   background-color: white;
   width: 100vw;
+  position: relative;
+}
+#whatIs {
+  position: fixed;
+  bottom: 20px;
+  left: 40px;
+}
+#whatIs h6{
+  color: #000;
+  line-height: 10px;
+  font-weight: 900;
 }
 .sezhorizScroll{
   width: max-content;
   padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center !important;
+  height: 100vh;
+  margin: 0 auto;
 }
 
+.boxProject {
+  height: 70%;
+  width: 20vw;
+  border-radius: 15px;
+  overflow: hidden;
+  margin-bottom: 5%;
+}
+.boxProject  video{
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
 
 /* --page horz scroll */
 
@@ -912,11 +940,6 @@ h2.title.h2 {
   .mainTitle {
       font-size: 32px !important;
       width: 255px;
-  }
-
-
-  .horScrollElement {
-    display: none;
   }
 
  
@@ -1072,6 +1095,16 @@ h2.title.h2 {
     --bs-navbar-toggler-border-color: #15a402;
     --bs-navbar-toggler-icon-bg: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e);
   }
+
+  
+/* --page horz scroll */
+
+
+.boxProject {
+  min-width: 60vw;
+}
+
+/* --page horz scroll */
 }
 
 .collab {

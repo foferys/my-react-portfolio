@@ -1,5 +1,6 @@
 import { createContext, useEffect, useRef, useState } from "react";
 import { Howl } from 'howler';
+import audioFru from "../assets/audio/john.aac"
 
 // Crea il contesto audio - Utilizzo AudioContext.Provider per avvolgere i componenti che devono avere accesso ai dati del contesto. 
 // in fondo, nel return, sto passando lo stato isPlaying e la funzione handleClick come valore del contesto.
@@ -23,7 +24,7 @@ export const AudioProvider = ({children}) => {
 
     useEffect(() => {
         soundRef.current = new Howl({
-            src: ['src/assets/audio/john.aac'],
+            src: [audioFru],
             loop: true,
             volume: 0.3,
             mobileAutoplay: true,

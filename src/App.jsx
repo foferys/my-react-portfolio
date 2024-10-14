@@ -270,7 +270,8 @@ function App() {
         <div className="textAndImg ">
           <div className="servizi watch2 fade-in">
             <p>00-1</p>
-            <a href="https://github.com/Agarbala/mysmartwallet" target="_blank">My Smart Wallet</a>
+            {/* <a href="https://github.com/Agarbala/mysmartwallet" target="_blank"></a> */}
+            <Link to={"/project?site=myWallet"}>My Smart Wallet</Link>
             <span>
               <p>2023 <br />Java Spring Project</p>
             </span>
