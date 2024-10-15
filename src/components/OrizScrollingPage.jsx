@@ -37,22 +37,56 @@ function OrizScrollingPage() {
             let isMobile = window.innerWidth <= 768; // Puoi cambiare il breakpoint secondo necessità
             console.log(isMobile)
 
-            ScrollTrigger.create({
-                animation: tl,
-                trigger: sezHorzScroll.current,
-                start: "top top",
-                end: () => "+=4000", // Diversi valori di fine per mobile e desktop
-                scrub: 1,
-                pin: true,
-                // markers: true
-            });
+            // ScrollTrigger.create({
+            //     animation: tl,
+            //     trigger: sezHorzScroll.current,
+            //     start: "top top",
+            //     end: () => "+=4000", // Diversi valori di fine per mobile e desktop
+            //     scrub: 1,
+            //     pin: true,
+            //     // markers: true
+            // });
             
             tl.to(sezHorzScroll.current, {
                 x: isMobile 
                     ? scrollCont.current.clientWidth - sezHorzScroll.current.clientWidth * 1.1  //Stai sottraendo la metà della larghezza di sezHorzScroll.current.clientWidth.
                     // Questo significa che l'animazione su mobile non scorre l'intera larghezza del contenitore come su desktop, ma solo la metà.
                     : scrollCont.current.clientWidth - sezHorzScroll.current.clientWidth,
-                duration: 3
+                duration: 3,
+
+                scrollTrigger: {
+                    trigger: sezHorzScroll.current,
+                    start: "top top",
+                    end: () => "+=4000", // Diversi valori di fine per mobile e desktop
+                    scrub: 1,
+                    pin: true,
+                    // markers: true
+
+                    /* l'oggetto self all'interno del callback onUpdate rappresenta il contesto corrente del trigger, che contiene 
+                    informazioni utili riguardo allo stato dello scroll, la direzione, e altro. self è un oggetto fornito da ScrollTrigger che 
+                    contiene informazioni sullo stato corrente del trigger. La proprietà più usata, self.direction, ti dice se lo scroll sta 
+                    avvenendo verso il basso/destra o verso l'alto/sinistra.*/
+                    onUpdate: (self) => {
+                        if (self.direction !== 0) {
+                            // Applica un leggero zoom in quando l'utente scorre
+                            gsap.to(sezHorzScroll.current, {
+                                scale: 1.08, // Effetto zoom in
+                                duration: 0.4, // Durata maggiore per maggiore fluidità
+                                ease: "power2.out" // Ease più morbido
+                            });
+                        }
+                    
+                        // Torna alla dimensione originale quando lo scroll rallenta
+                        gsap.to(sezHorzScroll.current, {
+                            scale: 1, // Torna alla scala originale
+                            duration: 1.2, // Durata ancora più lunga per un effetto smooth
+                            // delay: 0.1, // Un piccolo ritardo per non renderlo immediato
+                            ease: "power2.out" // Ease fluido per un ritorno più graduale
+                        });
+                    }
+                    
+                }
+
             });
             // .to(".sezhorizScroll >*", {
             //     y:-300,

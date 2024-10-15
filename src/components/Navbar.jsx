@@ -89,7 +89,7 @@ function Navbar({page3d}) {
         const thbox = document.querySelector(".third-box");
         if(thbox)  {
 
-            gsap.fromTo(catText.current, {opacity:1}, {
+            gsap.to(catText.current,{
                 opacity:0,
                 ease: "Power2.easeInOut",
                 scrollTrigger: {
@@ -110,27 +110,30 @@ function Navbar({page3d}) {
             {
                 currentTime?
                 <span>
+                    {(!page3d)?
+                    <>
                     <div>
                         <p className="m-0">{`~ Cosenza, `} {`${currentTime.split(" ")[1]} [IT]`}</p>
                         <p className="m-0 data">{`~ ${currentTime.split(" ")[0]}`}</p>
                     </div>
-                    {(!page3d)?
-                    
-                        <span ref={catText} className="lovecats text-success">
-                            [i also love cats. <br /> Type in the little terminal <i className="uil uil-arrow-down"></i> ] <br />
+                
+                    <span ref={catText} className="lovecats text-success">
+                        [i also love cats. <br /> Type in the little terminal <i className="uil uil-arrow-down"></i> ] <br />
 
-                            {(terminalClicked == "no")?
+                        {(terminalClicked == "no")?
 
-                                <div>
-                                    <img ref={catlogo} className='cat-logo mx-2' src={catLogo} alt="" />
-                                </div>
-                                :
-                                ""
-                            }
-                            
+                            <div>
+                                <img ref={catlogo} className='cat-logo mx-2' src={catLogo} alt="" />
+                            </div>
+                            :
+                            ""
+                        }
+                        
 
-                        </span>
-                        : ""
+                    </span>
+                    </>
+                    : 
+                    ""
                     }
                 </span>
                 :
