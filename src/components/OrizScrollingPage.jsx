@@ -18,13 +18,16 @@ function OrizScrollingPage() {
             ref:"myWallet",
             title: "My Smart Wallet",
             tecs: ["E-Commerce","Creative Website Architecture","Back-end Development","WebGl blabla"],
-            date: 2023
+            date: 2023,
+            imgs: ["src/img/myWallet/account.png","src/img/myWallet/account.png","src/img/myWallet/account.png","src/img/myWallet/account.png","src/img/myWallet/account.png","src/img/myWallet/account.png","src/img/myWallet/account.png"]
         }, 
         {
             ref:"olivicola",
             title: "Olive Oil from Europe",
             tecs: ["E-Commerce","Creative Website Architecture","Back-end Development","WebGl blabla"],
-            date: 2023
+            date: 2023,
+            imgs: ["src/img/myWallet/account.png","src/img/myWallet/account.png","src/img/myWallet/account.png","src/img/myWallet/account.png","src/img/myWallet/account.png","src/img/myWallet/account.png","src/img/myWallet/account.png"]
+
         }
     ]
     const location = useLocation(); // Ottieni l'oggetto location
@@ -35,11 +38,14 @@ function OrizScrollingPage() {
 
 
     const [tecs,setTecs] = useState([]);
-    const [title,setTitle] = useState([]);
-    const [date,setDate] = useState([]);
+    const [title,setTitle] = useState("");
+    const [date,setDate] = useState();
+
+    const [imgsArr, setImgsArr] = useState([]); //array che contiene le immagini
 
     //imposto gli stati in base a cosa ricevo nei parametri url
     useEffect(() =>{
+
         progetti.forEach(element => {
             if(element.ref == site) {
 
@@ -48,15 +54,45 @@ function OrizScrollingPage() {
                         setTitle(element.title)
                         setTecs(element.tecs)
                         setDate(element.date)
+                        setImgsArr(element.imgs)
+                        console.log("Imgs for myWallet:", element.imgs); // Log per controllare le immagini
+
+                        break;
                     case "olivicola": 
                             setTitle(element.title)
                             setTecs(element.tecs)
                             setDate(element.date)
+                            setImgsArr(element.imgs)
+
+                            break;
                 }
             }
         });
-    }, [site])
 
+        // if (site) {
+        //     // Carica tutte le immagini e filtra per la directory "site"
+        //     const allImages = import.meta.glob('../img/*/*.{jpg,jpeg,png,svg}');
+        //     const filteredImages = Object.keys(allImages).filter((path) => path.includes(`/img/${site}/`));
+
+        //     console.log("Filtered images:", filteredImages); // Log per verificare le immagini filtrate
+
+
+        //     // Usa Promise.all per attendere tutte le immagini
+        //     Promise.all(
+        //         filteredImages.map(async (filePath) => {
+        //             const module = await allImages[filePath]();
+        //             return {
+        //                 src: module.default, // URL dell'immagine
+        //                 alt: filePath.replace(`../img/${site}/`, '').replace(/\.(png|jpe?g|svg)$/, ''),
+        //             };
+        //         })
+        //     ).then(setImgsArr);
+        // }
+
+    }, [site, location])
+
+
+    console.log(imgsArr);
 
 
     const sezHorzScroll = useRef(null);
@@ -78,7 +114,7 @@ function OrizScrollingPage() {
             //     }
             //   }); //uguale a questa sotto
             let isMobile = window.innerWidth <= 768; // Puoi cambiare il breakpoint secondo necessità
-            console.log(isMobile)
+            // console.log(isMobile)
 
             // ScrollTrigger.create({
             //     animation: tl,
@@ -167,11 +203,12 @@ function OrizScrollingPage() {
 
                 <div ref={sezHorzScroll} className="gap-2 sezhorizScroll" >
 
+                  
                     <div className="boxProject" style={{"align-self": "flex-end",}}>
                         <video autoPlay loop src={(site == "myWallet")? codeboy:video1}></video>
                     </div>
                     <div className="boxProject" style={{"align-self": "flex-end",}}>
-                        <video autoPlay loop src={video1}></video>
+                        <video autoPlay loop src={video1}></video> 
                     </div>
                     <div className="boxProject" style={{"align-self": "flex-end",}}>
                         <video autoPlay loop src={video1}></video>
@@ -187,7 +224,7 @@ function OrizScrollingPage() {
                     </div>
                     <div className="boxProject" style={{"align-self": "flex-end",}}>
                         <video autoPlay loop src={video1}></video>
-                    </div>
+                    </div> 
                     
                 </div>
 

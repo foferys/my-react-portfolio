@@ -800,6 +800,11 @@ h2.title.h2 {
   height: 100%;
   width: 100%;
 }
+.boxProject img{
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
 
 /* --page horz scroll */
 
