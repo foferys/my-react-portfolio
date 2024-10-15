@@ -2,7 +2,7 @@ import { current } from "@reduxjs/toolkit";
 import img1 from "../img/ecommerce.jpg";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import video1 from '../assets/video/code.mp4';
 import codeboy from '../assets/video/codeboy.mp4';
 import { useLocation, useParams } from "react-router-dom";
@@ -11,14 +11,57 @@ import mywallet from "../img/mysmartwallet.jpg"
 gsap.registerPlugin(ScrollTrigger);
 
 function OrizScrollingPage() {
+    //array dei progetti
+    const progetti = [
+
+        {
+            ref:"myWallet",
+            title: "My Smart Wallet",
+            tecs: ["E-Commerce","Creative Website Architecture","Back-end Development","WebGl blabla"],
+            date: 2023
+        }, 
+        {
+            ref:"olivicola",
+            title: "Olive Oil from Europe",
+            tecs: ["E-Commerce","Creative Website Architecture","Back-end Development","WebGl blabla"],
+            date: 2023
+        }
+    ]
+    const location = useLocation(); // Ottieni l'oggetto location
+    const queryParams = new URLSearchParams(location.search); // Crea un oggetto URLSearchParams per avere tutta la stringa dei parametri url
+
+    const site = queryParams.get('site'); // Recupera il valore della chiave "site" passato da App.jsx nella sezione dei siti
+    // console.log(site)
+
+
+    const [tecs,setTecs] = useState([]);
+    const [title,setTitle] = useState([]);
+    const [date,setDate] = useState([]);
+
+    //imposto gli stati in base a cosa ricevo nei parametri url
+    useEffect(() =>{
+        progetti.forEach(element => {
+            if(element.ref == site) {
+
+                switch(site) {
+                    case "myWallet": 
+                        setTitle(element.title)
+                        setTecs(element.tecs)
+                        setDate(element.date)
+                    case "olivicola": 
+                            setTitle(element.title)
+                            setTecs(element.tecs)
+                            setDate(element.date)
+                }
+            }
+        });
+    }, [site])
+
+
 
     const sezHorzScroll = useRef(null);
     const scrollCont = useRef(null);
 
-    const location = useLocation(); // Ottieni l'oggetto location
-    const queryParams = new URLSearchParams(location.search); // Crea un oggetto URLSearchParams
-    const site = queryParams.get('site'); // Recupera il valore della chiave "site"
-    console.log(site)
     
     useEffect(() => {
         if (sezHorzScroll.current && scrollCont.current) {
@@ -105,11 +148,19 @@ function OrizScrollingPage() {
     return (
       
         <section className="horScrollElement">
+            {/* //stampo la lista che ho recuperato sopra */}
+            <div id="progTitle">
+                <h2>{title}</h2>
+                <p>{date}</p>
+            </div>
             <div id="whatIs">
-                <h6>E-Commerce</h6>
-                <h6>Creative Website Architecture</h6>
-                <h6>Back-end Development</h6>
-                <h6>WebGl blabla</h6>
+                {
+                    //stampo la lista che ho recuperato sopra
+                    tecs.map((el, index) => {
+                        //in React, se utilizzi una funzione senza return esplicito, non restituirà nulla
+                        return <h6 key={index}>{el}</h6>
+                    })
+                }
             </div>
 
             <div className="container" ref={scrollCont}>

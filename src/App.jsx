@@ -280,7 +280,8 @@ function App() {
 
           <div className="servizi watch2 fade-in">
             <p>00-2</p> <br />
-            <a href="https://www.oliveoilfromeurope.eu/" target="_blank">Olivicola<span>*</span></a> <br />
+            {/* <a href="https://www.oliveoilfromeurope.eu/" target="_blank"><span>*</span></a> <br /> */}
+            <Link to={"/project?site=olivicola"}>Olivicola</Link>
             <span>
               <p>2023 <br />website with Games</p>
             </span>
