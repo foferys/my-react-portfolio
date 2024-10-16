@@ -765,6 +765,19 @@ h2.title.h2 {
   bottom: 20px;
   left: 40px;
 }
+#desc {
+  position: fixed;
+  bottom: 36px;
+  right: 10%;
+  width: 27rem;
+
+}
+#desc p{
+  font-size: 10px;
+  font-weight: 900;
+  width: 100%;
+  margin: 0;
+}
 #progTitle {
   position: fixed;
   top: 20px;
@@ -794,6 +807,7 @@ h2.title.h2 {
   border-radius: 15px;
   overflow: hidden;
   margin-bottom: 5%;
+  align-self: flex-end;
 }
 .boxProject  video{
   object-fit: cover;

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './App.css';
 // import './js/main.js';
 import Navbar from './components/Navbar';
@@ -7,31 +7,21 @@ import AudioPlayer from './components/Audio';
 import BottomNav from './components/BottomNav';
 import Footer from './components/Footer';
 import fofeCoverVid from './assets/video/noise.mp4';
-import code from './assets/video/code.mp4';
 import coding from './assets/video/coding.mp4';
 import cover_coding from './assets/video/cover_coding.mp4';
 import cover_binary from './assets/video/cover_binary.mp4';
 import codeboy2 from './assets/video/codeboy2.mp4';
 import tv from './assets/video/tv.mp4';
-import myWallett from './img/mysmartwallet.jpg';
-import olivicola from './img/olivicola.png';
-import fuji4 from './img/fuji4.png';
-import fuji from './img/fuji.png';
-import bergamotto from './img/bergamotto.png';
-import galatro from './img/galatro.jpg';
-import primacom from './img/primacom.png';
-import bilanciophp from './img/bilanciophp.jpg';
-import ecomm from './img/ecommerce.jpg';
+import code from './assets/video/code.mp4';
 import { Link, useFetcher } from 'react-router-dom';
 import Motivate from './components/Motivate';
 import Loader from './components/Loader';
-import Canvas from './components/Canvas';
 import gsap from 'gsap';
 import { ClickTermCatProvider } from './store/ClickTermCatProvider';
-import OrizScrollingPage from './components/OrizScrollingPage';
-
+import { progetti } from './dataprojects/progData';
 
 function App() {
+
 
   // ---- indicatore scroll home---
     const [scrollHidden, setScrollHidden] = useState(false);
@@ -263,83 +253,32 @@ function App() {
         
       </div>
 
-
-      <div className="internCont ">
-
-
+      {/* creaione dinamica dei progetti in base alla lista "progetti" importata da progData.js |=> passa l'id quando si fa click (gestione id indicata anche 
+      nella root in main.jsx)  |==> recuperiamo l'id nella pagina project e lo usiamo per stampare i dati con riferimento sempre alla lista*/}
+      <div id='projects' className="internCont ">
         <div className="textAndImg ">
-          <div className="servizi watch2 fade-in">
-            <p>00-1</p>
-            {/* <a href="https://github.com/Agarbala/mysmartwallet" target="_blank"></a> */}
-            <Link to={"/project?site=myWallet"}>My Smart Wallet</Link>
-            <span>
-              <p>2023 <br />Java Spring Project</p>
-            </span>
-          </div>
-          <img className="img" src={myWallett} alt="applicazione java mysmartwallet" />
+          {
+            progetti.map((el, index) => (
+              <React.Fragment key={index}>
+                <div className="servizi watch2 fade-in">
+                  <p>00-{el.id}</p>
+                  <Link to={`/project/${el.id}`}>{el.name}</Link>
+                  <span>
+                    <p>{el.date}<br />{el.whatis}</p>
+                  </span>
+                </div>
+                <img className="img" src={el.preimg} alt={el.whatis} />
+              </React.Fragment>
 
-          <div className="servizi watch2 fade-in">
-            <p>00-2</p> <br />
-            {/* <a href="https://www.oliveoilfromeurope.eu/" target="_blank"><span>*</span></a> <br /> */}
-            <Link to={"/project?site=olivicola"}>Olivicola</Link>
-            <span>
-              <p>2023 <br />website with Games</p>
-            </span>
-          </div>
-          <img className="img" src={olivicola} alt="immagine sito Olivicola" />
-
-          <div className="servizi watch2 fade-in">
-            <p>00-3</p> <br />
-            <a href="https://www.consorzioditutelabergamottorc.it/" target="_blank">Bergamotto RC<span>*</span></a> <br />
-            <span>
-              <p>2023 <br />Website</p>
-            </span>
-          </div>
-          <img className="img" src={bergamotto} alt="immagine sito Bergarè" />
-
-          <div className="servizi watch2 fade-in">
-            <p>00-4</p> <br />
-            <a href="https://www.letermedigalatro.it/" target="_blank">Terme di Galatro<span>*</span></a> <br />
-            <span>
-              <p>2023 <br />Website</p>
-            </span>
-          </div>
-          <img className="img" src={galatro} alt="immagine sito Terme di Galatro" />
-
-          <div className="servizi watch2 fade-in">
-            <p>00-5</p>
-            <a href="https://primacom.cloud/" target="_blank">Primacom<span>*</span></a>
-            <span>
-              <p>2023<br />Website</p>
-            </span>
-          </div>
-          <img className="img" src={primacom} alt="sito Primacom" />
-
-          <div className="servizi watch2 fade-in">
-            <p>00-6</p>
-            <a href="https://marcoferraro.netsons.org/" target="_blank">Bilancio</a>
-            <span>
-              <p>2022 <br />PHP Project</p>
-            </span>
-          </div>
-          <img className="img" src={bilanciophp} alt="progetto bilancio in php" />
-
-          <div className="servizi watch2 fade-in">
-            <p>00-7</p>
-            <a href="https://github.com/gianpieroferraro/E-commerce" target="_blank">e-commerce</a>
-            <span>
-              <p>2022 <br />Full stack Project</p>
-            </span>
-          </div>
-          <img className="img" src={ecomm} alt="progetto ecommerce" />
-
-
+            ))
+          }
           <br /><br />
-          <p className="asterisco">* Projects developed for Primacom S.r.l. see more on    <a href="https://github.com/foferys" target="_blank"> GitHub </a></p>
+          <p className="asterisco">* Projects developed for Primacom S.r.l. see more on    <a className='text-success' href="https://github.com/foferys" target="_blank" title='github foferys(Gianpiero Ferraro)'> GitHub </a></p>
           <br /><br />
 
         </div>
       </div>
+
         
       {/* <OrizScrollingPage></OrizScrollingPage> */}
     </div>

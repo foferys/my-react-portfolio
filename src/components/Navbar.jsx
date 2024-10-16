@@ -58,16 +58,19 @@ function Navbar({page3d}) {
 
         //animazione icona gatto
         useEffect(() => {
-            setInterval(() => {
-                gsap.to(catlogo.current, {
-                    x: Math.round(Math.random() * 10),  // Spostamento casuale orizzontale
-                    y: Math.round(Math.random() * 10),  // Spostamento casuale verticale
-                    duration: 0.1,  // Durata breve
-                    repeat: 3,  // Numero di vibrazioni
-                    yoyo: true,  // Ritorna alla posizione originale
-                    ease: "power1.inOut",  // Easing per shake fluido
-                });
-            }, 4000);
+            if(location.pathname === "/") { //per evitare avvisi in console se mi sposto di pagina
+
+                setInterval(() => {
+                    gsap.to(catlogo.current, {
+                        x: Math.round(Math.random() * 10),  // Spostamento casuale orizzontale
+                        y: Math.round(Math.random() * 10),  // Spostamento casuale verticale
+                        duration: 0.1,  // Durata breve
+                        repeat: 3,  // Numero di vibrazioni
+                        yoyo: true,  // Ritorna alla posizione originale
+                        ease: "power1.inOut",  // Easing per shake fluido
+                    });
+                }, 4000);
+            }
         },[])
         
 
@@ -185,11 +188,9 @@ function Navbar({page3d}) {
                             <li className="nav-item">
                                 <Link className="nav-link active" aria-current="page" onClick={handleHome} to={"/"}>Home</Link>
                             </li>
-                            <li><a href="#siti">Websites</a></li>
+                            <li><a href="#siti">Projects</a></li>
                             {/* <li><a href="#3d">3D</a></li> */}
-                            <li>
-                                <Link to={"/project"}>Project</Link>
-                            </li>
+
                             {/* <li><a href="">Grafica</a></li> */}
                             <li><a href="#footer">Contatti</a></li>
                         </ul>

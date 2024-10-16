@@ -1,99 +1,20 @@
-import { current } from "@reduxjs/toolkit";
-import img1 from "../img/ecommerce.jpg";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { useEffect, useRef, useState } from "react";
 import video1 from '../assets/video/code.mp4';
 import codeboy from '../assets/video/codeboy.mp4';
 import { useLocation, useParams } from "react-router-dom";
-import mywallet from "../img/mysmartwallet.jpg"
+import { progetti } from "../dataprojects/progData";
 
 gsap.registerPlugin(ScrollTrigger);
 
 function OrizScrollingPage() {
-    //array dei progetti
-    const progetti = [
-
-        {
-            ref:"myWallet",
-            title: "My Smart Wallet",
-            tecs: ["E-Commerce","Creative Website Architecture","Back-end Development","WebGl blabla"],
-            date: 2023,
-            imgs: ["src/img/myWallet/account.png","src/img/myWallet/account.png","src/img/myWallet/account.png","src/img/myWallet/account.png","src/img/myWallet/account.png","src/img/myWallet/account.png","src/img/myWallet/account.png"]
-        }, 
-        {
-            ref:"olivicola",
-            title: "Olive Oil from Europe",
-            tecs: ["E-Commerce","Creative Website Architecture","Back-end Development","WebGl blabla"],
-            date: 2023,
-            imgs: ["src/img/myWallet/account.png","src/img/myWallet/account.png","src/img/myWallet/account.png","src/img/myWallet/account.png","src/img/myWallet/account.png","src/img/myWallet/account.png","src/img/myWallet/account.png"]
-
-        }
-    ]
+  
     const location = useLocation(); // Ottieni l'oggetto location
-    const queryParams = new URLSearchParams(location.search); // Crea un oggetto URLSearchParams per avere tutta la stringa dei parametri url
 
-    const site = queryParams.get('site'); // Recupera il valore della chiave "site" passato da App.jsx nella sezione dei siti
-    // console.log(site)
-
-
-    const [tecs,setTecs] = useState([]);
-    const [title,setTitle] = useState("");
-    const [date,setDate] = useState();
-
-    const [imgsArr, setImgsArr] = useState([]); //array che contiene le immagini
-
-    //imposto gli stati in base a cosa ricevo nei parametri url
-    useEffect(() =>{
-
-        progetti.forEach(element => {
-            if(element.ref == site) {
-
-                switch(site) {
-                    case "myWallet": 
-                        setTitle(element.title)
-                        setTecs(element.tecs)
-                        setDate(element.date)
-                        setImgsArr(element.imgs)
-                        console.log("Imgs for myWallet:", element.imgs); // Log per controllare le immagini
-
-                        break;
-                    case "olivicola": 
-                            setTitle(element.title)
-                            setTecs(element.tecs)
-                            setDate(element.date)
-                            setImgsArr(element.imgs)
-
-                            break;
-                }
-            }
-        });
-
-        // if (site) {
-        //     // Carica tutte le immagini e filtra per la directory "site"
-        //     const allImages = import.meta.glob('../img/*/*.{jpg,jpeg,png,svg}');
-        //     const filteredImages = Object.keys(allImages).filter((path) => path.includes(`/img/${site}/`));
-
-        //     console.log("Filtered images:", filteredImages); // Log per verificare le immagini filtrate
-
-
-        //     // Usa Promise.all per attendere tutte le immagini
-        //     Promise.all(
-        //         filteredImages.map(async (filePath) => {
-        //             const module = await allImages[filePath]();
-        //             return {
-        //                 src: module.default, // URL dell'immagine
-        //                 alt: filePath.replace(`../img/${site}/`, '').replace(/\.(png|jpe?g|svg)$/, ''),
-        //             };
-        //         })
-        //     ).then(setImgsArr);
-        // }
-
-    }, [site, location])
-
-
-    console.log(imgsArr);
-
+    // id passato nei parametri url dalla home
+    const {id} = useParams();
+    const progetto = progetti.find(prog => prog.id === parseInt(id));  //-> progetti è la lista importata da progData.js
 
     const sezHorzScroll = useRef(null);
     const scrollCont = useRef(null);
@@ -103,28 +24,9 @@ function OrizScrollingPage() {
         if (sezHorzScroll.current && scrollCont.current) {
 
             const tl = gsap.timeline({paused:true}) 
-            // const tl = gsap.timeline({
-            //     scrollTrigger: {
-            //       trigger: sezHorzScroll.current,
-            //       start: "center center",
-            //       // end: "+=4000", // Puoi definire la fine se necessario
-            //       scrub: 1,
-            //       pin: true,
-            //       markers: true
-            //     }
-            //   }); //uguale a questa sotto
             let isMobile = window.innerWidth <= 768; // Puoi cambiare il breakpoint secondo necessità
             // console.log(isMobile)
 
-            // ScrollTrigger.create({
-            //     animation: tl,
-            //     trigger: sezHorzScroll.current,
-            //     start: "top top",
-            //     end: () => "+=4000", // Diversi valori di fine per mobile e desktop
-            //     scrub: 1,
-            //     pin: true,
-            //     // markers: true
-            // });
             
             tl.to(sezHorzScroll.current, {
                 x: isMobile 
@@ -179,52 +81,73 @@ function OrizScrollingPage() {
         return () => {
           ScrollTrigger.getAll().forEach(trigger => trigger.kill());
         };
-      }, []); // Dipendenza vuota: esegui solo al montaggio
+    }, []); // Dipendenza vuota: esegui solo al montaggio
+
+
 
     return (
       
         <section className="horScrollElement">
             {/* //stampo la lista che ho recuperato sopra */}
             <div id="progTitle">
-                <h2>{title}</h2>
-                <p>{date}</p>
+                <h2 className="text-uppercase">{progetto.name}</h2>
+                <p>{progetto.date}</p>
             </div>
             <div id="whatIs">
-                {
-                    //stampo la lista che ho recuperato sopra
-                    tecs.map((el, index) => {
-                        //in React, se utilizzi una funzione senza return esplicito, non restituirà nulla
-                        return <h6 key={index}>{el}</h6>
-                    })
-                }
+                {  
+                //stampo la lista che ho recuperato sopra
+                progetto.tecs.map((el, index) => {
+                    //in React, se utilizzi una funzione senza return esplicito, non restituirà nulla
+                    return <h6 key={index}>{el}</h6>
+                })}
             </div>
+            <div id="desc">
+               <p className="text-black">{progetto.desc}</p>
+            </div>
+
+            
 
             <div className="container" ref={scrollCont}>
 
                 <div ref={sezHorzScroll} className="gap-2 sezhorizScroll" >
 
-                  
-                    <div className="boxProject" style={{"align-self": "flex-end",}}>
+                    { 
+                    
+                        progetto.imgs.map((img, index) => {
+                            return (
+                                <div key={index} className="boxProject" >
+
+                                    <img key={index} src={img} alt="" />
+
+                                    
+                                </div>
+                            )
+                        })
+                    }
+
+
+                    {/*                     
+                    <div className="boxProject">
                         <video autoPlay loop src={(site == "myWallet")? codeboy:video1}></video>
                     </div>
-                    <div className="boxProject" style={{"align-self": "flex-end",}}>
+                    <div className="boxProject">
                         <video autoPlay loop src={video1}></video> 
                     </div>
-                    <div className="boxProject" style={{"align-self": "flex-end",}}>
+                    <div className="boxProject">
                         <video autoPlay loop src={video1}></video>
                     </div>
-                    <div className="boxProject" style={{"align-self": "flex-end",}}>
+                    <div className="boxProject">
                         <video autoPlay loop src={video1}></video>
                     </div>
-                    <div className="boxProject" style={{"align-self": "flex-end",}}>
+                    <div className="boxProject">
                         <video autoPlay loop src={video1}></video>
                     </div>
-                    <div className="boxProject" style={{"align-self": "flex-end",}}>
+                    <div className="boxProject">
                         <video autoPlay loop src={video1}></video>
                     </div>
-                    <div className="boxProject" style={{"align-self": "flex-end",}}>
+                    <div className="boxProject">
                         <video autoPlay loop src={video1}></video>
-                    </div> 
+                    </div>   */}
                     
                 </div>
 
