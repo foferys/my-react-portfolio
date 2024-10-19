@@ -26,6 +26,7 @@ export const progetti = [
     tecs: ["Back-end Development", "Creative Website Architecture", "SpringBoot", "MVC pattern"],
     desc: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptates sequi nulla neque doloremque modi totam.",
     date: 2023,
+    href: "https://github.com/Agarbala/mysmartwallet",
     preimg: myWallett,
     imgs: [account, pattern, dashboard, login, sidebar, tendina, obiettivo]
   },
@@ -47,6 +48,7 @@ export const progetti = [
     tecs: ["Wordpress", "Creative Website Architecture", "GSAP animations", "custom implementations", ],
     desc: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptates sequi nulla neque doloremque modi totam.",
     date: 2023,
+    href: "https://github.com/Agarbala/mysmartwallet",
     preimg: bergamotto,
     imgs: ["src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png"]
   },
@@ -57,6 +59,7 @@ export const progetti = [
     tecs: [],
     desc: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptates sequi nulla neque doloremque modi totam.",
     date: 2023,
+    href: "https://github.com/Agarbala/mysmartwallet",
     preimg: galatro,
     imgs: ["src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png"]
   },
@@ -67,6 +70,7 @@ export const progetti = [
     tecs: [],
     desc: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptates sequi nulla neque doloremque modi totam.",
     date: 2023,
+    href: "https://github.com/Agarbala/mysmartwallet",
     preimg: primacom,
     imgs: ["src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png"]
 
@@ -78,6 +82,7 @@ export const progetti = [
     tecs: [],
     desc: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptates sequi nulla neque doloremque modi totam.",
     date: 2022,
+    href: "https://github.com/Agarbala/mysmartwallet",
     preimg: bilanciophp,
     imgs: ["src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png"]
 
@@ -89,6 +94,7 @@ export const progetti = [
     tecs: [],
     desc: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptates sequi nulla neque doloremque modi totam.",
     date: 2022,
+    href: "https://github.com/Agarbala/mysmartwallet",
     preimg: ecomm,
     imgs: ["src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png"]
 

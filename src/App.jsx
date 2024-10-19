@@ -19,6 +19,9 @@ import Loader from './components/Loader';
 import gsap from 'gsap';
 import { ClickTermCatProvider } from './store/ClickTermCatProvider';
 import { progetti } from './dataprojects/progData';
+import TextHoverEff from './components/TextHoverEff';
+import { HoverProvider } from './store/HoverContext';
+
 
 function App() {
 
@@ -273,8 +276,14 @@ function App() {
             ))
           }
           <br /><br />
-          <p className="asterisco">* Projects developed for Primacom S.r.l. see more on    <a className='text-success' href="https://github.com/foferys" target="_blank" title='github foferys(Gianpiero Ferraro)'> GitHub </a></p>
-          <br /><br />
+          <div className='d-flex gap-2'>
+            <p className="asterisco">* Projects developed for Primacom S.r.l. </p>
+            <p style={{fontSize: "10px"}}>see more on &nbsp;
+              <HoverProvider>
+                <TextHoverEff text={"GitHub"} goto={"https://github.com/foferys"} />
+              </HoverProvider>
+            </p>
+          </div>
 
         </div>
       </div>

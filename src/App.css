@@ -675,6 +675,10 @@ h2.title.h2 {
 .header2 .logo {
   height: 45px;
   padding: 6px 13px;
+  transition: all .2s ease-in-out;
+}
+.header2 .logo:hover {
+  zoom: .9;
 }
 
 .goBack{
@@ -818,6 +822,26 @@ h2.title.h2 {
   object-fit: cover;
   height: 100%;
   width: 100%;
+}
+#goToProjectIcon:hover svg {
+  color: green;
+}
+.externalLinkicon {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  width: fit-content;
+}
+.externalLinkicon svg {
+  width: 18px;
+  color: orange;
+  position: absolute;
+  top: -11px;
+  right: -23px;
+}
+.externalLinkicon a {
+  font-size: 11px;
 }
 
 /* --page horz scroll */

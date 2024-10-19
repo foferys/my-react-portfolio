@@ -5,6 +5,10 @@ import video1 from '../assets/video/code.mp4';
 import codeboy from '../assets/video/codeboy.mp4';
 import { useLocation, useParams } from "react-router-dom";
 import { progetti } from "../dataprojects/progData";
+import { UilExpandFromCorner } from '@iconscout/react-unicons'
+import { HoverProvider } from "../store/HoverContext";
+import TextHoverEff from "./TextHoverEff";
+import { UilDirection } from '@iconscout/react-unicons'
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -83,15 +87,28 @@ function OrizScrollingPage() {
         };
     }, []); // Dipendenza vuota: esegui solo al montaggio
 
-
-
     return (
       
         <section className="horScrollElement">
             {/* //stampo la lista che ho recuperato sopra */}
-            <div id="progTitle">
-                <h2 className="text-uppercase">{progetto.name}</h2>
+            <div id="progTitle" className="z-3">
+                <span className="d-flex gap-4">
+                    <h2 className="text-uppercase">{progetto.name}</h2>
+                    <a id="goToProjectIcon" className="text-orange p-0" href={progetto.href} target="_blank">
+                         
+                    </a>
+                </span>
                 <p>{progetto.date}</p>
+
+                {/* <a ref={hovText} class="toHov" href="https://iconscout.com/unicons/free-line-icons/arrows">Allinaword</a> */}
+
+                {/* link creato come context per utilizzarlo con animazione per diversi testi */}
+                <div className="externalLinkicon">
+                    <HoverProvider>
+                        <TextHoverEff text="Visit" goto={progetto.href} /> <UilExpandFromCorner />  
+                    </HoverProvider>
+                </div>
+
             </div>
             <div id="whatIs">
                 {  

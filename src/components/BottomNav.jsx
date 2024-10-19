@@ -54,7 +54,7 @@ function BottomNav({page3d}) {
                             behavior: 'smooth'
                         });
                     }
-                }}><img src={ (location.pathname == "/project")? arrowleft : arrowup} alt="torna su" />
+                }}><img src={ (location.pathname.includes("/project"))? arrowleft : arrowup} alt="torna su" />
             </a>
         </div>
         <div className="header2" style={{ bottom: headerBottom }}>
