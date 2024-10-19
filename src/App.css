@@ -282,7 +282,7 @@ b.goback {
   display: flex;
   z-index: 1;
   justify-content: center;
-  width: 100%;
+  width: 100lvw;
   height: 100vh;
   align-items: center;
 }
@@ -294,7 +294,7 @@ b.goback {
   justify-content: center;
   align-items: center;
   top: 0;
-  width: 700px;
+  width: 60lvw;
   text-align: center;
   position: fixed;
   transform: scale(1);
@@ -376,7 +376,7 @@ h2.title.h2 {
 
 .panel {
   height: auto;
-  width: 100%;
+  width: 100lvw;
   background-color: #f7f7f7;
   position: relative;
   z-index: 2;
@@ -1266,7 +1266,7 @@ h2.title.h2 {
 }
 
 .textAndImg{
-  width: 900px;
+  width: 70lvw;
   border-top: 1px, solid #fff;
   position: relative;
 }
@@ -1300,7 +1300,7 @@ h2.title.h2 {
   color: #1d3d47;
   text-decoration: none;
   text-transform: uppercase;
-  font-size: 63px;
+  font-size: 4.4lvw;
   text-align: left;
   font-weight: 900;
   line-height: 62px;
