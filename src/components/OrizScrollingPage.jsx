@@ -133,8 +133,13 @@ function OrizScrollingPage() {
                         progetto.imgs.map((img, index) => {
                             return (
                                 <div key={index} className="boxProject" >
-
+                                    {img.includes("mp4")?
+                                  
+                                    <video loop autoPlay muted src={img}></video>
+                                   
+                                    :
                                     <img key={index} src={img} alt="" />
+                                    }
 
                                     
                                 </div>

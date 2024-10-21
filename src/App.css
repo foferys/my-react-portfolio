@@ -812,6 +812,10 @@ h2.title.h2 {
   overflow: hidden;
   margin-bottom: 5%;
   align-self: flex-end;
+  transition: all 0.5s ease-in-out;
+}
+.boxProject:hover {
+  width: 60vw;
 }
 .boxProject  video{
   object-fit: cover;
@@ -1153,6 +1157,9 @@ h2.title.h2 {
 
 .boxProject {
   min-width: 60vw;
+}
+.boxProject:hover {
+  width: inherit;
 }
 
 /* --page horz scroll */

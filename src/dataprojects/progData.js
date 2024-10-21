@@ -14,6 +14,14 @@ import login from '../img/myWallet/login.png';
 import sidebar from '../img/myWallet/sidebar.png';
 import tendina from '../img/myWallet/tendina.png';
 import obiettivo from '../img/myWallet/obiettivo.png';
+//brmtt
+import brg from '../img/bergamotto/begamotto-reggio-calabria-consorzio.png';
+import brgslider from '../img/bergamotto/begamotto-reggio-calabria-consorzio-slider.png';
+import brg2 from '../img/bergamotto/begamotto-reggio-calabria-consorzio-2.png';
+import brg3 from '../img/bergamotto/begamotto-reggio-calabria-consorzio-3.png';
+import brg4 from '../img/bergamotto/begamotto-reggio-calabria-consorzio-4.png';
+import brgvideo from '../img/bergamotto/bergamotto.mp4';
+
 
 
 
@@ -45,12 +53,12 @@ export const progetti = [
     id: 3,
     name: "Bergamotto RC",
     whatis: "Website",
-    tecs: ["Wordpress", "Creative Website Architecture", "GSAP animations", "custom implementations", ],
+    tecs: ["Wordpress PHP", "Creative Website Architecture", "GSAP animations", "custom implementations", ],
     desc: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptates sequi nulla neque doloremque modi totam.",
     date: 2023,
-    href: "https://github.com/Agarbala/mysmartwallet",
+    href: "https://www.consorzioditutelabergamottorc.it/",
     preimg: bergamotto,
-    imgs: ["src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png"]
+    imgs: [brg,brgslider,brg2,brg3,brg4,brgvideo]
   },
   {
     id: 4,
