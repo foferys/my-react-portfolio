@@ -21,7 +21,7 @@ export function HoverProvider({children}) {
 
     useEffect(() => { //--> implementazione animazione testo
         if(hovText.current) {
-            // const hovButs = document.querySelectorAll(".toHov");
+            
             const hovButs = document.querySelectorAll(".toHov");
             const elems = ["-","-","-","+","-","-", ];
             

@@ -1279,10 +1279,8 @@ h2.title.h2 {
 }
 .textAndImg .img {
   position: absolute;
-  z-index: 4;
-  transform: translate(-50%, -50%);
   opacity: 0;
-  width: 550px;
+  width: 35lvw;
   border-radius: 5px;
   transition: opacity 0.5s ease-in-out;
   z-index: 98;
@@ -1299,10 +1297,10 @@ h2.title.h2 {
 .servizi span p{
   text-align: right;
 }
-.servizi:hover + .img{
+/* .servizi:hover + .img{
   opacity: 0.95;
 
-}
+} */
 .servizi a {
   color: #1d3d47;
   text-decoration: none;

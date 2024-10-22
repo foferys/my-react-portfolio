@@ -6,12 +6,6 @@ import Cursor from './components/Cursor';
 import AudioPlayer from './components/Audio';
 import BottomNav from './components/BottomNav';
 import Footer from './components/Footer';
-import fofeCoverVid from './assets/video/noise.mp4';
-import coding from './assets/video/coding.mp4';
-import cover_coding from './assets/video/cover_coding.mp4';
-import cover_binary from './assets/video/cover_binary.mp4';
-import codeboy2 from './assets/video/codeboy2.mp4';
-import tv from './assets/video/tv.mp4';
 import code from './assets/video/code.mp4';
 import { Link, useFetcher } from 'react-router-dom';
 import Motivate from './components/Motivate';
@@ -87,6 +81,7 @@ function App() {
 
   //--fine OBSERVER ANIMAZIONE ALLO SCROLL ---------
 
+  // animazione immagine su link progetti
   useEffect(() => {
     const text = document.querySelectorAll(".servizi");
     const texto = document.querySelectorAll(".servizi a");
@@ -94,11 +89,15 @@ function App() {
 
     for(let i=0; i<text.length; i++) {
 
-      text[i].addEventListener("mousemove", function(event) {
-        image[i].style.left = `${event.clientX}px`;
-        image[i].style.top = event.clientY + "px";
+      texto[i].addEventListener("mousemove", function(event) {
+
         image[i].style.opacity="1";
         image[i].style.zIndex="999";
+        image[i].style.left = `${event.clientX - 100}px`; //-100 per centrarlo un po'
+        image[i].style.top = event.clientY + "px";
+        
+
+
 
         let key = text[i];
         for(let x=0; x<text.length; x++) {
@@ -107,14 +106,14 @@ function App() {
           }else{
             texto[x].style.opacity="1";
           }
-        }
+        } 
 
       });
 
-      text[i].addEventListener("mouseleave", function(event) {
+      texto[i].addEventListener("mouseleave", function(event) {
         image[i].style.opacity="0";
-        image[i].style.zIndex="9";
-        for(let x=0; x<text.length; x++) {
+        image[i].style.zIndex="1";
+        for(let x=0; x<texto.length; x++) {
           
           text[x].style.opacity="1";
         }
@@ -265,7 +264,9 @@ function App() {
               <React.Fragment key={index}>
                 <div className="servizi watch2 fade-in">
                   <p>00-{el.id}</p>
-                  <Link to={`/project/${el.id}`}>{el.name}</Link>
+                  <Link to={`/project/${el.id}`}>{el.name}
+                    {el.primacom? <span>*</span>:""}
+                  </Link>
                   <span>
                     <p>{el.date}<br />{el.whatis}</p>
                   </span>

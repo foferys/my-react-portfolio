@@ -46,6 +46,7 @@ export const progetti = [
     desc: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptates sequi nulla neque doloremque modi totam.",
     date: 2023,
     preimg: olivicola,
+    primacom: true,
     imgs: ["src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png"]
 
   },
@@ -58,6 +59,7 @@ export const progetti = [
     date: 2023,
     href: "https://www.consorzioditutelabergamottorc.it/",
     preimg: bergamotto,
+    primacom: true,
     imgs: [brg,brgslider,brg2,brg3,brg4,brgvideo]
   },
   {
@@ -69,6 +71,7 @@ export const progetti = [
     date: 2023,
     href: "https://github.com/Agarbala/mysmartwallet",
     preimg: galatro,
+    primacom: true,
     imgs: ["src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png"]
   },
   {
@@ -80,6 +83,7 @@ export const progetti = [
     date: 2023,
     href: "https://github.com/Agarbala/mysmartwallet",
     preimg: primacom,
+    primacom: true,
     imgs: ["src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png"]
 
   },

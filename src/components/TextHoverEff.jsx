@@ -10,7 +10,7 @@ function TextHoverEff({text, goto}) {
 
     return(
         <>
-        <a ref={hovText} class="toHov" href={goto} target="_blank"
+        <a ref={hovText} className="toHov" href={goto} target="_blank"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             style={{
