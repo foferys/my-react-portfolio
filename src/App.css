@@ -813,6 +813,8 @@ h2.title.h2 {
   margin-bottom: 5%;
   align-self: flex-end;
   transition: all 0.5s ease-in-out;
+  -webkit-box-shadow: 0px 1px 50px -5px #593f1fb5;
+    box-shadow: 0px 1px 50px -5px #62482470;
 }
 .boxProject:hover {
   width: 60vw;
