@@ -143,7 +143,10 @@ function Motivate() {
                 
 
                 <div className="terminalCont">
-                    <div className="catTerminalInput"><span className="text-success">cat@facts</span>: ~$</div><input onBlur={handleFocusOut} onChange={handleChange} onKeyDown={handleKeyDown} onClick={clickTerminal} type="text" id="catTerminal" />
+                    <div className="catTerminalInput">
+                        <span className="text-success">cat@facts</span>: ~$
+                    </div>
+                    <input onBlur={handleFocusOut} onChange={handleChange} onKeyDown={handleKeyDown} onClick={clickTerminal} type="text" id="catTerminal" />
                 </div>
             </div>
             

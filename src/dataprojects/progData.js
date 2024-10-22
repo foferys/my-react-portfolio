@@ -7,13 +7,13 @@ import primacom from '../img/primacom.png';
 import bilanciophp from '../img/bilanciophp.jpg';
 import ecomm from '../img/ecommerce.jpg';
 //msw
-import account from '../img/myWallet/account.png';
-import pattern from '../img/myWallet/pattern.png';
 import dashboard from '../img/myWallet/dashboard.png';
-import login from '../img/myWallet/login.png';
-import sidebar from '../img/myWallet/sidebar.png';
-import tendina from '../img/myWallet/tendina.png';
-import obiettivo from '../img/myWallet/obiettivo.png';
+import wall1 from '../img/myWallet/wall1.png';
+import wall2 from '../img/myWallet/wall2.png';
+import wall3 from '../img/myWallet/wall3.png';
+import wall4 from '../img/myWallet/wall4.png';
+import wall5 from '../img/myWallet/wall5.png';
+import wall6 from '../img/myWallet/wall6.png';
 //gal
 import gal1 from '../img/galatro/gal1.png';
 import gal2 from '../img/galatro/gal2.png';
@@ -50,6 +50,14 @@ import bilavid3 from '../img/bilancio/bilavid3.mp4';
 import bila1 from '../img/bilancio/bila1.png';
 import bila2 from '../img/bilancio/bila2.png';
 import bila3 from '../img/bilancio/bila3.png';
+//ecom
+import ecomvid1 from '../img/ecom/ecomvid1.mp4';
+import ecom1 from '../img/ecom/ecom1.png';
+import ecom2 from '../img/ecom/ecom2.png';
+import ecom3 from '../img/ecom/ecom3.png';
+import ecom4 from '../img/ecom/ecom4.png';
+import ecom5 from '../img/ecom/ecom5.png';
+import ecom6 from '../img/ecom/ecom6.png';
 
 
 export const progetti = [
@@ -63,7 +71,7 @@ export const progetti = [
     date: 2023,
     href: "https://github.com/Agarbala/mysmartwallet",
     preimg: myWallett,
-    imgs: [account, pattern, dashboard, login, sidebar, tendina, obiettivo]
+    imgs: [wall1,dashboard,wall2,wall3,wall4,wall5,wall6,]
   },
   {
     id: 2,
@@ -100,7 +108,7 @@ export const progetti = [
     href: "https://www.letermedigalatro.it/",
     preimg: galatro,
     primacom: true,
-    imgs: [gal1,galvid1,gal2,gal3,galvid2,gal4,galvid3]
+    imgs: [galvid3,galvid1,gal2,gal1,gal3,galvid2,gal4]
   },
   {
     id: 5,
@@ -130,12 +138,12 @@ export const progetti = [
     id: 7,
     name: "E-commerce",
     whatis: "Full stack Project",
-    tecs: [],
+    tecs: ["PHP", "Full stack project", "e-commerce", "shop manager"],
     desc: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptates sequi nulla neque doloremque modi totam.",
     date: 2022,
     href: "https://github.com/Agarbala/mysmartwallet",
     preimg: ecomm,
-    imgs: ["src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png", "src/img/myWallet/account.png"]
+    imgs: [ecomvid1,ecom1,ecom2,ecom3,ecom4,ecom5,ecom6]
 
   }
 ]
