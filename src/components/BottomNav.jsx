@@ -43,8 +43,8 @@ function BottomNav({page3d}) {
 
     return (
         <>
-        
-        <div className="goBack" style={{ bottom: goBackBottom }}>
+        {/* inserisco la classe progetto solo se mi trovo nella pagina project per usarlo nel css per mettere la freccia goBack piu a destra e nella home lasciarla dove era */}
+        <div className={`goBack ${(location.pathname.includes("/project"))? 'progetto' : ''}`} style={{ bottom: goBackBottom }}>
             <a onClick={(e) => { //senza metterlo cosi non si sposta
                 e.preventDefault();
                     const headerElement = document.querySelector('#header');

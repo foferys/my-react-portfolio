@@ -478,13 +478,15 @@ h2.title.h2 {
       width: 100% !important;
       max-width: 150px;
   }
+  .navbar> .container-fluid {
+    flex-wrap: nowrap !important;
+  }
   nav#header {
     position: fixed;
     width: fit-content;
     top: 12px;
     left: 95px;
     background-color: #11391633 !important;
-    
   }
   .versionInfo {
     top: 40px !important;
@@ -582,6 +584,7 @@ h2.title.h2 {
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
+  transition: all .4s ease-in-out;
 }
 .header {
   position: absolute;
@@ -692,6 +695,9 @@ h2.title.h2 {
   z-index: 3 !important;
   transition: all 1s ease-in-out;
   backdrop-filter: blur(.3rem);
+}
+.goBack.progetto {
+  left: 30vw;
 }
 .goBack--visible {
   transition: bottom 0.8s ;
@@ -1075,27 +1081,27 @@ h2.title.h2 {
       
   }
   .textAndImg img {
-      display: none !important;        
+    display: none !important;        
   }
   .internCont {
-      margin: 10px 8% !important;
+    margin: 10px 8% !important;
   }
   .container_ {
-      width: 100%;
-      padding: 70px 70px 30px;
-      text-align: left;
+    width: 100%;
+    padding: 70px 70px 30px;
+    text-align: left;
   }
   .pAbout {
-      width: 100% !important;
-      margin: 0 !important;
-      position: inherit !important;
-      padding-top: 30px !important;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      top: inherit !important;
-      left: inherit !important;
+    width: 100% !important;
+    margin: 0 !important;
+    position: inherit !important;
+    padding-top: 30px !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    top: inherit !important;
+    left: inherit !important;
   }
   .title-med {
       width: 80%;
@@ -1154,17 +1160,34 @@ h2.title.h2 {
   }
 
   
-/* --page horz scroll */
+  /* --page horz scroll */
 
 
-.boxProject {
-  min-width: 60vw;
-}
-.boxProject:hover {
-  width: inherit;
-}
+  .boxProject {
+    min-width: 60vw;
+  }
+  .boxProject:hover {
+    width: inherit;
+  }
 
-/* --page horz scroll */
+   #progTitle {
+    top: 105px;
+    left: 24px;
+  }
+  #whatIs h6, #progTitle {
+    line-height: 5px;
+  } 
+  #header .navbar-collapse {
+    background: #d5dbd6;
+    width: 200px;
+    border-radius: 0 10px 10px 0;
+    padding: 5px;
+    border: 1px solid;
+  }
+
+  .goBack.progetto {right: 126px; left: inherit;}
+ 
+  /* --page horz scroll */
 }
 
 .collab {

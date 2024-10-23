@@ -118,9 +118,9 @@ function OrizScrollingPage() {
                     return <h6 key={index}>{el}</h6>
                 })}
             </div>
-            <div id="desc">
+            {/* <div id="desc">
                <p className="text-black">{progetto.desc}</p>
-            </div>
+            </div> */}
 
             
 
@@ -147,30 +147,6 @@ function OrizScrollingPage() {
                         })
                     }
 
-
-                    {/*                     
-                    <div className="boxProject">
-                        <video autoPlay loop src={(site == "myWallet")? codeboy:video1}></video>
-                    </div>
-                    <div className="boxProject">
-                        <video autoPlay loop src={video1}></video> 
-                    </div>
-                    <div className="boxProject">
-                        <video autoPlay loop src={video1}></video>
-                    </div>
-                    <div className="boxProject">
-                        <video autoPlay loop src={video1}></video>
-                    </div>
-                    <div className="boxProject">
-                        <video autoPlay loop src={video1}></video>
-                    </div>
-                    <div className="boxProject">
-                        <video autoPlay loop src={video1}></video>
-                    </div>
-                    <div className="boxProject">
-                        <video autoPlay loop src={video1}></video>
-                    </div>   */}
-                    
                 </div>
 
             </div>

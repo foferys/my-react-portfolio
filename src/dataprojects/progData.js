@@ -58,6 +58,13 @@ import ecom3 from '../img/ecom/ecom3.png';
 import ecom4 from '../img/ecom/ecom4.png';
 import ecom5 from '../img/ecom/ecom5.png';
 import ecom6 from '../img/ecom/ecom6.png';
+//ghibli
+import ghibvid1 from '../img/ghibli/ghibvid1.mp4';
+import ghibvid2 from '../img/ghibli/ghibvid2.mp4';
+import ghib1 from '../img/ghibli/ghib1.png';
+import ghib2 from '../img/ghibli/ghib2.png';
+import ghib3 from '../img/ghibli/ghib3.png';
+import ghib4 from '../img/ghibli/ghib4.png';
 
 
 export const progetti = [
@@ -75,6 +82,19 @@ export const progetti = [
   },
   {
     id: 2,
+    name: "Ghibli cards",
+    whatis: "React Project", 
+    tecs: ["React Vite", "Bootstrap", "GSAP animations", "React-router-dom", ],
+    desc: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptates sequi nulla neque doloremque modi totam.",
+    date: 2024,
+    href: "https://deft-beignet-70039e.netlify.app/",
+    preimg: ghib4,
+    primacom: true,
+    imgs: [ghibvid1, ghib1, ghib2,ghibvid2, ghib3]
+
+  },
+  {
+    id: 3,
     name: "Primacom",
     whatis: "Website",
     tecs: ["Wordpress PHP", "Creative Website Architecture", "GSAP animations", "custom implementations", ],
@@ -87,7 +107,7 @@ export const progetti = [
 
   },
   {
-    id: 3,
+    id: 4,
     name: "Bergamotto RC",
     whatis: "Website",
     tecs: ["Wordpress PHP", "Creative Website Architecture", "GSAP animations", "custom implementations", ],
@@ -99,7 +119,7 @@ export const progetti = [
     imgs: [berg1,bergvid1, berg2,bergvid3, berg3, bergvid2]
   },
   {
-    id: 4,
+    id: 5,
     name: "Terme di Galatro",
     whatis: "Website",
     tecs: ["Wordpress PHP", "Creative Website Architecture", "GSAP animations", "custom implementations", ],
@@ -111,7 +131,7 @@ export const progetti = [
     imgs: [galvid3,galvid1,gal2,gal1,gal3,galvid2,gal4]
   },
   {
-    id: 5,
+    id: 6,
     name: "Bilancio",
     whatis: "PHP Project",
     tecs: ["PHP", "mySql database", "vanilla javascript"],
@@ -122,7 +142,7 @@ export const progetti = [
     imgs: [bila1,bilavid1,bilavid2,bilavid3,bila2,bila3]
   },
   {
-    id: 6,
+    id: 7,
     name: "Olive oil from Eu",
     whatis: "website with Games",
     tecs: ["Wordpress", "Creative Website Architecture", "Recipe blog", "mini-game development", ],
@@ -135,7 +155,7 @@ export const progetti = [
 
   },
   {
-    id: 7,
+    id: 8,
     name: "E-commerce",
     whatis: "Full stack Project",
     tecs: ["PHP", "Full stack project", "e-commerce", "shop manager"],
