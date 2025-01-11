@@ -160,7 +160,9 @@ function App() {
     <BottomNav></BottomNav>
     
     
-    <video className="video-bg" src={code} loop autoPlay muted></video>
+    <video className="video-bg" autoPlay loop muted playsInline>
+      <source src={code} type="video/mp4"/>
+    </video>
     
     <div className="section watch">
       <div className="title mediafont">
