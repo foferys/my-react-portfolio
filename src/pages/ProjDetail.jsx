@@ -1,7 +1,6 @@
 import AudioPlayer from "../components/Audio";
 import BottomNav from "../components/BottomNav";
 import Cursor from "../components/Cursor";
-import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import OrizScrollingPage from "../components/OrizScrollingPage";
 import { ClickTermCatProvider } from "../store/ClickTermCatProvider";

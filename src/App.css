@@ -1170,13 +1170,22 @@ h2.title.h2 {
     width: inherit;
   }
 
-   #progTitle {
-    top: 105px;
-    left: 24px;
+  #progTitle {
+    top: 86px;
+    left: 21px;
   }
-  #whatIs h6, #progTitle {
-    line-height: 5px;
+  #progTitle.titoli {
+    line-height: 0;
+    font-size: 8px;
   } 
+  #whatIs h6{
+    line-height: 5px;
+    font-size: 10px;
+  } 
+  #whatIs{
+    left: 21px;
+  } 
+ 
   #header .navbar-collapse {
     background: #d5dbd6;
     width: 200px;

@@ -1,8 +1,6 @@
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { useEffect, useRef, useState } from "react";
-import video1 from '../assets/video/code.mp4';
-import codeboy from '../assets/video/codeboy.mp4';
 import { useLocation, useParams } from "react-router-dom";
 import { progetti } from "../dataprojects/progData";
 import { UilExpandFromCorner } from '@iconscout/react-unicons'
@@ -91,7 +89,7 @@ function OrizScrollingPage() {
       
         <section className="horScrollElement">
             {/* //stampo la lista che ho recuperato sopra */}
-            <div id="progTitle" className="z-3">
+            <div id="progTitle" className="z-3 titoli">
                 <span className="d-flex gap-4">
                     <h2 className="text-uppercase">{progetto.name}</h2>
                     <a id="goToProjectIcon" className="text-orange p-0" href={progetto.href} target="_blank">
@@ -134,8 +132,14 @@ function OrizScrollingPage() {
                             return (
                                 <div key={index} className="boxProject" >
                                     {img.includes("mp4")?
-                                  
-                                    <video loop autoPlay muted src={img}></video>
+
+                                    //   <video className="video-bg" autoPlay loop muted playsInline>
+                                    //       <source src={code} type="video/mp4"/>
+                                    //     </video>
+
+                                    <video autoPlay loop muted playsInline>
+                                        <source src={img} type="video/mp4" />
+                                    </video>
                                    
                                     :
                                     <img key={index} src={img} alt="" />
