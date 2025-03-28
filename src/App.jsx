@@ -7,6 +7,7 @@ import AudioPlayer from './components/Audio';
 import BottomNav from './components/BottomNav';
 import Footer from './components/Footer';
 import code from './assets/video/code.mp4';
+import ani from './assets/video/0328.mp4';
 import { Link, useFetcher } from 'react-router-dom';
 import Motivate from './components/Motivate';
 import Loader from './components/Loader';
@@ -161,7 +162,7 @@ function App() {
     
     
     <video className="video-bg" autoPlay loop muted playsInline>
-      <source src={code} type="video/mp4"/>
+      <source src={ani} type="video/mp4"/>
     </video>
     
     <div className="section watch">
