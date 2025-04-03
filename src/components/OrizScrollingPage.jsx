@@ -103,7 +103,7 @@ function OrizScrollingPage() {
                 {/* link creato come context per utilizzarlo con animazione per diversi testi */}
                 <div className="externalLinkicon">
                     <HoverProvider>
-                        <TextHoverEff text="Visit" goto={progetto.href} /> <UilExpandFromCorner />  
+                        <TextHoverEff text="Visita" goto={progetto.href} /> <UilExpandFromCorner />  
                     </HoverProvider>
                 </div>
 

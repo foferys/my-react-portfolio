@@ -120,8 +120,8 @@ function Navbar({page3d}) {
                         <p className="m-0 data">{`~ ${currentTime.split(" ")[0]}`}</p>
                     </div>
                 
-                    <span ref={catText} className="lovecats text-success">
-                        [i also love cats. <br /> Type in the little terminal <i className="uil uil-arrow-down"></i> ] <br />
+                    <span ref={catText} className="lovecats text-white">
+                        [Adoro i gatti. Scrivi nel piccolo terminale in basso <i className="uil uil-arrow-down"></i> ] <br />
 
                         {(terminalClicked == "no")?
 

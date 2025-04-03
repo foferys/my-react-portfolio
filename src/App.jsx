@@ -168,7 +168,7 @@ function App() {
     <div className="section watch">
       <div className="title mediafont">
         <div>
-          <h5 className="mestesso h6">Hi, my name is Gianpiero</h5>
+          <h5 className="mestesso h6">Ciao, il mio nome è Gianpiero</h5>
          
           <span id='loghiTech'>
             <div className='d-flex gap-2 align-items-center justify-content-center' >
@@ -213,7 +213,7 @@ function App() {
           
         </div>
         <p className="title subtitle1">
-          💻 Passionate about <b className='text-orange'>&nbsp;Technology&nbsp;</b> and <b className='text-orange'>&nbsp;Programming</b>.&nbsp; 千里の道も一歩から <br /> 
+          💻 Appassionato di <b className='text-orange'>&nbsp;Tecnologia&nbsp;</b> e <b className='text-orange'>&nbsp;Programmazione</b>.&nbsp; 千里の道も一歩から <br /> 
         </p>
       </div>
       <div className="scroll_box">
@@ -223,21 +223,17 @@ function App() {
 
     <div className="section watch">
         <h2 className="title mediafont_big testiIniziali">
-          I craft Web Apps and Websites that align with your brand
-          and engage your audience – creating
-          meaningful and memorable experiences.
+         Realizzo Web Apps e siti Web in linea con il tuo marchio in grado di coinvolgere il tuo pubblico, creando esperienze immersive e memorabili.
         </h2>
     </div>
 
     <div className="section watch third-box">
       <p className="title">
-        Animations and interactions are crucial for creating
-        dynamic and engaging digital experiences. I utilise
-        the latest tools to design and implement rich
-        interactive elements, from subtle movements to
-        complex animations.
+        Animazioni e interazioni sono essenziali per creare esperienze digitali dinamiche e coinvolgenti. 
+        Utilizzo gli strumenti più recenti per progettare e implemento diversi elementi interattivi, 
+        da movimenti a comparsa ad animazioni complesse.
       </p>
-      <a className="title button" href="mailto:gianpieroweno@hotmail.it" >Let's collaborate</a>
+      <a className="title button" href="mailto:gianpieroweno@hotmail.it" >Scrivimi ora!</a>
     </div>    
 
 
@@ -247,9 +243,9 @@ function App() {
       <span id="siti"></span>
       <div className="container_">
 
-        <h2 className="intro watch2 fade-in">Recent Progects</h2>
+        <h2 className="intro watch2 fade-in">Progetti Recenti</h2>
         <p className="watch2 fade-in">
-          Starting a new Project? Choosing the right tools is key. <br /> <b className='text-uppercase'>I've been there, and I can help you find the best options.</b>
+          Vuoi avviare un nuovo progetto? Scegliere gli strumenti adatti è la chiave. <br /> <b className='text-uppercase'>Ci sono passato e posso aiutarti a trovare le opzioni migliori.</b>
         </p>
 
 
@@ -281,8 +277,9 @@ function App() {
           }
           <br /><br />
           <div className='d-flex gap-2'>
-            <p className="asterisco">* Projects developed for Primacom S.r.l. </p>
-            <p style={{fontSize: "10px"}}>see more on &nbsp;
+            <p className="asterisco">* Progetti svilluppati per Primacom S.r.l. </p>
+            <p style={{fontSize: "10px"}}>vedi altro su &nbsp;
+              
               <HoverProvider>
                 <TextHoverEff text={"GitHub"} goto={"https://github.com/foferys"} />
               </HoverProvider>
@@ -328,22 +325,23 @@ function App() {
 
     <div className="imgBox" ref={about}>
       <div className="pAbout">
-        <h2 className="watch2 fade-in">Helping Businesses Shine </h2>
+        <h2 className="watch2 fade-in">Aiuto le aziende a brillare ✨</h2>
         <p className="watch2 fade-in">
       
-          My creative journey started 15 years ago when I discovered my passion for computers. Fascinated by technology and driven 
-          by a strong desire to learn, I dedicated countless hours to <b className='text-orange'>programming</b>, a touch of <b className='text-orange'>graphic design</b> and <b className='text-orange'>3D</b> 
-          through online resources and personal projects. <br />
-          This passion naturally led me to pursue further studies in these areas, allowing 
-          me to quickly apply my skills in a professional environment. <br /><br /> I also have a deep appreciation for <b className='text-orange'>Japanese culture</b>, which inspires 
-          my creative work and fuels my enthusiasm for all things digital.
+          Il mio viaggio creativo è iniziato 15 anni fa, quando ho scoperto la mia passione per i computer. Affascinato dalla tecnologia e 
+          spinto da un forte desiderio di imparare, ho dedicato innumerevoli ore a 
+          <b className='text-orange'>Programmare</b>, con un tocco di <b className='text-orange'>Graphic Design</b> e <b className='text-orange'>3D</b> 
+          attraverso risorse online e progetti personali. <br />
+          Questa passione mi ha portato naturalmente a proseguire gli studi in questi ambiti, consentendomi
+          di applicare rapidamente le mie competenze in ambito professionale. <br /><br /> Nutro anche un profondo apprezzamento per <b className='text-orange'>la cultura giapponese</b>, 
+          che ispira il mio lavoro creativo e alimenta il mio entusiasmo per tutto ciò che è digitale.
 
         </p>
         <br/>
         <div className="socialAbout watch2 fade-in">
-          <a href="https://www.linkedin.com/in/gianpiero-ferraro/" target="_blank">Lin </a>|
-          <a href="https://github.com/foferys" target="_blank"> GitH </a>|
-          <a href="https://www.instagram.com/gianpieroferraro.ph/" target="_blank"> Ins</a>
+          <a href="https://www.linkedin.com/in/gianpiero-ferraro/" target="_blank">Linkedin </a>|
+          <a href="https://github.com/foferys" target="_blank"> GitHub </a>|
+          <a href="https://www.instagram.com/gianpieroferraro.ph/" target="_blank"> Instagram</a>
 
         </div>
       </div>
