@@ -58,12 +58,12 @@ function Motivate() {
 
             const jsonData = await response.json();
             //prendo un numero casuale in base alla lunghezza delle parole filtrate con quella impostata nello stato
-            const randomnum = Math.floor(Math.random() * jsonData.data.filter(parola => parola.includes(keyWord)).length)
+            const randomnum = Math.floor(Math.random() * jsonData.data.filter(parola => parola.includes(keyWord.toLowerCase())).length)
             // Imposta il fatto dei gatti nello stato filtrato per la parola presa col numero casuale e impostata giu
-            setFrase(jsonData.data.filter(parola => parola.includes(keyWord))[randomnum]); 
+            setFrase(jsonData.data.filter(parola => parola.includes(keyWord.toLowerCase()))[randomnum]); 
             
             // se non ci sono frasi con quella parola imposto lo stato della frase con un messaggio di avviso
-            if(jsonData.data.filter(parola => parola.includes(keyWord)).length <=0) {
+            if(jsonData.data.filter(parola => parola.includes(keyWord.toLowerCase())).length <=0) {
                 setFrase("Nothing relevant with " + keyWord);
             }
 
@@ -73,7 +73,9 @@ function Motivate() {
 
             // console.log(jsonData.data);
             // console.log("numero casuale: "+randomnum);
-            // console.log("frasi filtrate: " + jsonData.data.filter(parola => parola.includes(keyWord)));
+            // console.log("parola normale: " + keyWord);
+            // console.log("parol lowercase: " + keyWord.toLowerCase());
+            // console.log("frasi filtrate: " + jsonData.data.filter(parola => parola.includes(keyWord.toLowerCase())));
             // console.log("lunghezza filtrato: " + jsonData.data.filter(parola => parola.includes(keyWord)).length);
             // console.log(jsonData.data.filter(parola => parola.includes(keyWord))[0]);
         } catch (error) {
