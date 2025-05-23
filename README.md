@@ -18,12 +18,22 @@ Questo è il mio portfolio personale costruito con React e Vite. Un'applicazione
 - 🎯 SEO friendly
 
 ## 🛠️ Tecnologie Utilizzate
-- React 18+
-- Vite
+- React 18.3.1
+- Vite 5.4.1
+- React Router DOM 6.26.2
+- Redux Toolkit 2.2.7
+- Bootstrap 5.3.3
+- GSAP 3.12.5
+- Swiper 11.1.14
+- Lenis Scroll 1.0.42
+- React Unicons 2.0.2
+- Howler.js 2.2.4
+
+### 🛠️ Strumenti di Sviluppo
+- ESLint 9.9.0
 - TypeScript
-- TailwindCSS
-- ESLint
-- Prettier
+- React Redux 9.1.2
+- Popper.js 2.11.8
 
 ## 🚀 Come Iniziare
 
