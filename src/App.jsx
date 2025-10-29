@@ -341,7 +341,7 @@ function App() {
         <div className="socialAbout watch2 fade-in">
           <a href="https://www.linkedin.com/in/gianpiero-ferraro/" target="_blank">Linkedin </a>|
           <a href="https://github.com/foferys" target="_blank"> GitHub </a>|
-          <a href="https://www.instagram.com/gianpieroferraro.ph/" target="_blank"> Instagram</a>
+          <a href="https://www.instagram.com/g_whoami_/" target="_blank"> Instagram</a>
 
         </div>
       </div>
