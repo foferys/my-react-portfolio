@@ -53,9 +53,9 @@ function Footer() {
 
             <div id="footerLinks">
 
-                <p id="copy">© 2023 - <b> <a href="https://www.instagram.com/gianpieroferraro.ph/?hl=it" target="_blank">Gianpiero Ferraro</a></b></p>
+                <p id="copy">© 2023 - <b> <a href="https://www.instagram.com/g_whoami_/" target="_blank">Gianpiero Ferraro</a></b></p>
                 <div id="socials">
-                    <p><a href="https://www.instagram.com/gianpieroferraro.ph/?hl=it" target="_blank">Instagram </a></p>
+                    <p><a href="https://www.instagram.com/g_whoami_/" target="_blank">Instagram </a></p>
                     <p><a href="https://www.linkedin.com/in/gianpiero-ferraro/" target="_blank"> LinkedIn</a></p>
                 </div>
             </div>
