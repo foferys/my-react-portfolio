@@ -73,12 +73,31 @@ import ghib1 from '../img/ghibli/ghib1.png';
 import ghib2 from '../img/ghibli/ghib2.png';
 import ghib3 from '../img/ghibli/ghib3.png';
 import ghib4 from '../img/ghibli/ghib4.png';
+//rendano
+import rendano1 from '../img/rendano/rendano1.png';
+import rendano2 from '../img/rendano/rendano2.png';
+import rendano3 from '../img/rendano/rendano3.png';
+import rendano4 from '../img/rendano/rendano4.png';
+import rendano5 from '../img/rendano/rendano5.png';
+import rendano6 from '../img/rendano/rendano6.png';
 
 
 export const progetti = [
 
   {
     id: 1,
+    name: "Teatro Rendano",
+    whatis: "Sito web",
+    tecs: ["Sviluppo Back/Front-end", "Creative Website Architecture", "Wordpress"],
+    desc: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptates sequi nulla neque doloremque modi totam.",
+    date: 2025,
+    href: "https://teatrorendanocosenza.it/",
+    preimg: rendano1,
+    primacom:true,
+    imgs: [rendano1,rendano2,rendano3,rendano4,rendano5,rendano6,]
+  },
+  {
+    id: 2,
     name: "Eucarebeef",
     whatis: "PHP portal",
     tecs: ["Back/Front-end Development", "Creative Website Architecture", "Wordpress", "blog"],
@@ -90,7 +109,7 @@ export const progetti = [
     imgs: [eucare1,eucare2,eucare3,eucare4,eucare5,eucare6,]
   },
   {
-    id: 2,
+    id: 3,
     name: "My Smart Wallet",
     whatis: "Java Spring Project",
     tecs: ["Back-end Development", "Creative Website Architecture", "SpringBoot", "MVC pattern"],
@@ -101,7 +120,7 @@ export const progetti = [
     imgs: [wall1,dashboard,wall2,wall3,wall4,wall5,wall6,]
   },
   {
-    id: 3,
+    id: 4,
     name: "Ghibli cards",
     whatis: "React Project", 
     tecs: ["React Vite", "Bootstrap", "GSAP animations", "React-router-dom", ],
@@ -114,7 +133,7 @@ export const progetti = [
 
   },
   {
-    id: 4,
+    id: 5,
     name: "Primacom",
     whatis: "Website",
     tecs: ["Wordpress PHP", "Creative Website Architecture", "GSAP animations", "custom implementations", ],
@@ -127,7 +146,7 @@ export const progetti = [
 
   },
   {
-    id: 5,
+    id: 6,
     name: "Bergamotto RC",
     whatis: "Website",
     tecs: ["Wordpress PHP", "Creative Website Architecture", "GSAP animations", "custom implementations", ],
@@ -139,7 +158,7 @@ export const progetti = [
     imgs: [berg1,bergvid1, berg2,bergvid3, berg3, bergvid2]
   },
   {
-    id: 6,
+    id: 7,
     name: "Terme di Galatro",
     whatis: "Website",
     tecs: ["Wordpress PHP", "Creative Website Architecture", "GSAP animations", "custom implementations", ],
@@ -151,7 +170,7 @@ export const progetti = [
     imgs: [galvid3,galvid1,gal2,gal1,gal3,galvid2,gal4]
   },
   {
-    id: 7,
+    id: 8,
     name: "Bilancio",
     whatis: "PHP Project",
     tecs: ["PHP", "mySql database", "vanilla javascript"],
@@ -162,7 +181,7 @@ export const progetti = [
     imgs: [bila1,bilavid1,bilavid2,bilavid3,bila2,bila3]
   },
   {
-    id: 8,
+    id: 9,
     name: "Olive oil from Eu",
     whatis: "website with Games",
     tecs: ["Wordpress", "Creative Website Architecture", "Recipe blog", "mini-game development", ],
@@ -175,7 +194,7 @@ export const progetti = [
 
   },
   {
-    id: 9,
+    id: 10,
     name: "E-commerce",
     whatis: "Full stack Project",
     tecs: ["PHP", "Full stack project", "e-commerce", "shop manager"],
