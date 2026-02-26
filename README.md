@@ -16,6 +16,7 @@ Questo è il mio portfolio personale costruito con React e Vite. Un'applicazione
 - 🔄 Hot Module Replacement (HMR)
 - 📱 Mobile-first approach
 - 🎯 SEO friendly
+- 🖱️ Custom cursor con switch ON/OFF persistente
 
 ## 🛠️ Tecnologie Utilizzate
 - React 18.3.1
@@ -72,6 +73,22 @@ yarn dev
 - `npm run preview` - Anteprima della build di produzione
 - `npm run lint` - Esegue il linting del codice
 - `npm run format` - Formatta il codice con Prettier
+
+## 🖱️ Gestione Custom Cursor
+- È disponibile uno switch fisso in alto a destra per attivare/disattivare il cursore custom.
+- Lo stato viene salvato in `localStorage` tramite la chiave `cursorEnabled`.
+- Quando il cursore custom è attivo viene applicata la classe `html.cursor-enabled` e il cursore di sistema viene nascosto.
+- Quando è disattivo il cursore di sistema torna immediatamente visibile senza side effects.
+- Su dispositivi touch/coarse pointer e con `prefers-reduced-motion: reduce` il cursore custom è disabilitato di default.
+- Lo switch è accessibile con tastiera e screen reader (`role="switch"`, `aria-checked`, `focus-visible`).
+
+### ✅ Checklist Verifica Manuale
+1. Apri il sito e verifica che lo switch compaia in alto a destra.
+2. Imposta switch su ON e controlla che compaia il cursore tondo animato e sparisca la freccia di sistema.
+3. Imposta switch su OFF e verifica ritorno immediato del cursore di sistema.
+4. Ricarica la pagina e controlla che lo stato resti quello scelto.
+5. Naviga tra `/`, `/3d`, `/project/:id` e verifica persistenza e comportamento coerente.
+6. Con emulazione touch o `prefers-reduced-motion: reduce`, verifica che il custom cursor resti disattivato.
 
 ## 🏗️ Struttura del Progetto
 ```

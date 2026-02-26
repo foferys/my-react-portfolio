@@ -11,8 +11,12 @@ body, html{
   margin: 0;padding: 0;
   overflow-x: hidden;
   scroll-behavior: smooth;
-  cursor: none; 
-  /* Nasconde il cursore di default */
+}
+
+html.cursor-enabled,
+html.cursor-enabled body,
+html.cursor-enabled * {
+  cursor: none !important;
 }
 .whiteBG{
   background-color: #fff !important;
@@ -58,47 +62,69 @@ a{text-decoration:none !important}
     height: 110px;
   }
 /* fine cursore */
-
-/* box per disattivare il cursore --*/
-  #noCursor {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    width: 80px;
-    height: 40px;
-    position: fixed;
-    background: #F5F5DC;
-    top: 100px;
-    right: 40px;
-    border-radius: 20px;
-    transition: all 0.5s ease;
-    z-index: 99;
-    /* per cambiare colore quando va su una superficie dove non sarebbe visibile */
-    -moz-mix-blend-mode: difference;
-    -webkit-mix-blend-mode: difference;
-    mix-blend-mode: difference;
-  }
-
-  #cursorSwitch{
-      display: flex;
-      justify-content: center;
-      width: 33px;
-      background: red;
-      height: 80%;
-      border-radius: 100%;
-      margin: 5px;
-  }
-  #cursorSwitch a{
-      color: rgb(253, 253, 253);
-      font-size: 10px;
-      cursor: pointer;
-      z-index: 4;
-  }
-  .cursorText i {
-      font-size: 20px;
-  }
-
-/* ----fine disatt curs -------------*/
+.cursor-toggle {
+  position: fixed;
+  top: 52px;
+  right: 2%;
+  z-index: 10000;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(8, 18, 22, 0.76);
+  color: #fff;
+  border-radius: 999px;
+  padding: 7px 10px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+  transition: background-color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+.cursor-toggle:hover:not(:disabled) {
+  background: rgba(20, 38, 45, 0.9);
+  border-color: rgba(235, 144, 50, 0.8);
+}
+.cursor-toggle:active:not(:disabled) {
+  transform: scale(0.98);
+}
+.cursor-toggle:focus-visible {
+  outline: 2px solid #eb9032;
+  outline-offset: 3px;
+}
+.cursor-toggle:disabled {
+  opacity: 0.55;
+}
+.cursor-toggle__label {
+  line-height: 1;
+}
+.cursor-toggle__track {
+  width: 42px;
+  height: 23px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  display: inline-flex;
+  align-items: center;
+  padding: 2px;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+.cursor-toggle__track.is-on {
+  background: rgba(235, 144, 50, 0.3);
+  border-color: rgba(235, 144, 50, 0.9);
+}
+.cursor-toggle__thumb {
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: #fff;
+  transform: translateX(0);
+  transition: transform 0.25s cubic-bezier(.215, .61, .355, 1), background-color 0.25s ease;
+}
+.cursor-toggle__track.is-on .cursor-toggle__thumb {
+  transform: translateX(18px);
+  background: #eb9032;
+}
 
 
 /* ____MUSICA_____ */
@@ -943,9 +969,8 @@ h2.title.h2 {
   .cursor, .outline {
       display: none;
   }
-
-  #noCursor{
-      display: none;
+  .cursor-toggle {
+    display: none !important;
   }
   
   .carousel-item {
@@ -1055,7 +1080,7 @@ h2.title.h2 {
     width: 130px;
     font-size: 10px !important;
 }
-  
+
   .pAbout p {
       width: 270px;
   }
@@ -1674,3 +1699,12 @@ canvas {
 }
 
 /* fine canvas an */
+
+@media (prefers-reduced-motion: reduce) {
+  .outline,
+  .cursor-toggle,
+  .cursor-toggle__track,
+  .cursor-toggle__thumb {
+    transition: none !important;
+  }
+}

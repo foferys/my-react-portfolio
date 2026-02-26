@@ -1,74 +1,152 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+
+const CURSOR_STORAGE_KEY = 'cursorEnabled';
+const HOVER_TARGETS = 'a, button, [role="button"], input[type="button"], input[type="submit"]';
+
+const canUseCustomCursor = () => {
+  if (typeof window === 'undefined') return false;
+
+  const isSmallViewport = window.matchMedia('(max-width: 768px)').matches;
+  const hasCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hasTouchSupport = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+  return !isSmallViewport && !hasCoarsePointer && !prefersReducedMotion && !hasTouchSupport;
+};
+
+const readStoredPreference = () => {
+  if (typeof window === 'undefined') return false;
+
+  const stored = localStorage.getItem(CURSOR_STORAGE_KEY);
+  const supported = canUseCustomCursor();
+
+  if (stored === null) {
+    return supported;
+  }
+
+  return stored === 'true' && supported;
+};
 
 const Cursor = () => {
-    // Usare useRef per i riferimenti agli elementi cursor e outline
-    // cursorRef e outlineRef sono come delle "etichette" che ci permettono di manipolare questi due elementi direttamente dal codice.
-    /*--useRef-- è un Hook di React che viene utilizzato per creare un oggetto di riferimento mutabile che non provoca un re-render 
-     * del componente quando cambia. In parole semplici, useRef ti permette di "puntare" a un elemento o a un valore che vuoi mantenere 
-     * stabile anche se il componente si aggiorna o cambia stato. 
-     * Qui, useRef(null) crea un oggetto di riferimento e inizializza .current a null.*/
-    const cursorRef = useRef(null);
-    const outlineRef = useRef(null);
+  const cursorRef = useRef(null);
+  const outlineRef = useRef(null);
+  const [cursorEnabled, setCursorEnabled] = useState(readStoredPreference);
+  const [cursorSupported, setCursorSupported] = useState(canUseCustomCursor);
 
+  const isCursorActive = cursorEnabled && cursorSupported;
 
-    // useEffect è come una scatola in cui mettiamo del codice che vogliamo eseguire quando il componente è "montato" (cioè quando compare sullo schermo).
-    // cursor e outline sono variabili che rappresentano gli elementi HTML a cui puntano cursorRef e outlineRef.
-    useEffect(() => {
-      /*React assegna l'elemento HTML reale alla proprietà .current del riferimento cursorRef. In questo caso, l'elemento <div className="cursor">
-      viene assegnato a cursorRef.current. */
-      const cursor = cursorRef.current;
-      const outline = outlineRef.current;
+  useEffect(() => {
+    const evaluateSupport = () => {
+      const supported = canUseCustomCursor();
+      setCursorSupported(supported);
 
-      const handleMouseMove = (e) => {
-        const x = e.clientX;
-        const y = e.clientY;
+      if (!supported) {
+        setCursorEnabled(false);
+      } else {
+        const stored = localStorage.getItem(CURSOR_STORAGE_KEY);
+        if (stored === 'true') {
+          setCursorEnabled(true);
+        }
+      }
+    };
 
-        cursor.style.transform = `translate( calc(${x}px - 50%), calc(${y}px - 50%) )`;
-        outline.style.transform = `translate( calc(${x}px - 50%), calc(${y}px - 50%) )`;
-      };
+    evaluateSupport();
 
-      const handleMouseOver = () => {
-        outline.classList.add('hover');
-      };
+    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const coarsePointerQuery = window.matchMedia('(pointer: coarse)');
 
-      const handleMouseLeave = () => {
-        outline.classList.remove('hover');
-      };
+    reducedMotionQuery.addEventListener('change', evaluateSupport);
+    coarsePointerQuery.addEventListener('change', evaluateSupport);
+    window.addEventListener('resize', evaluateSupport);
 
-      document.addEventListener('mousemove', handleMouseMove);
+    return () => {
+      reducedMotionQuery.removeEventListener('change', evaluateSupport);
+      coarsePointerQuery.removeEventListener('change', evaluateSupport);
+      window.removeEventListener('resize', evaluateSupport);
+    };
+  }, []);
 
-      const links = document.querySelectorAll('a');
-      links.forEach((link) => {
-        link.addEventListener('mouseover', handleMouseOver);
-        link.addEventListener('mouseleave', handleMouseLeave);
+  useEffect(() => {
+    localStorage.setItem(CURSOR_STORAGE_KEY, String(cursorEnabled));
+  }, [cursorEnabled]);
+
+  useEffect(() => {
+    const html = document.documentElement;
+    html.classList.toggle('cursor-enabled', isCursorActive);
+
+    return () => {
+      html.classList.remove('cursor-enabled');
+    };
+  }, [isCursorActive]);
+
+  useEffect(() => {
+    if (!isCursorActive) return;
+
+    const cursor = cursorRef.current;
+    const outline = outlineRef.current;
+    if (!cursor || !outline) return;
+
+    const handleMouseMove = (event) => {
+      const x = event.clientX;
+      const y = event.clientY;
+
+      cursor.style.transform = `translate(calc(${x}px - 50%), calc(${y}px - 50%))`;
+      outline.style.transform = `translate(calc(${x}px - 50%), calc(${y}px - 50%))`;
+    };
+
+    const handleMouseOver = () => {
+      outline.classList.add('hover');
+    };
+
+    const handleMouseLeave = () => {
+      outline.classList.remove('hover');
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+
+    const targets = document.querySelectorAll(HOVER_TARGETS);
+    targets.forEach((target) => {
+      target.addEventListener('mouseover', handleMouseOver);
+      target.addEventListener('mouseleave', handleMouseLeave);
+    });
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      targets.forEach((target) => {
+        target.removeEventListener('mouseover', handleMouseOver);
+        target.removeEventListener('mouseleave', handleMouseLeave);
       });
+    };
+  }, [isCursorActive]);
 
-      // Cleanup function to remove event listeners when component is unmounted
-      /*La funzione return dentro useEffect si chiama funzione di "cleanup".
-      Serve a rimuovere gli eventi quando il componente viene eliminato, così il programma non continua a cercare di muovere un cursore che non esiste più.   */
-      return () => {
-          document.removeEventListener('mousemove', handleMouseMove);
-          links.forEach((link) => {
-            link.removeEventListener('mouseover', handleMouseOver);
-            link.removeEventListener('mouseleave', handleMouseLeave);
-          });
-      };
-    }, []);
+  const handleToggle = () => {
+    if (!cursorSupported) return;
+    setCursorEnabled((prev) => !prev);
+  };
 
-    return (
+  return (
     <>
-      {/* Cursore */}
-      <div ref={cursorRef} className="cursor"></div>
-      <div ref={outlineRef} className="outline"></div>
+      <button
+        type="button"
+        className="cursor-toggle"
+        role="switch"
+        aria-checked={isCursorActive}
+        aria-label="Attiva o disattiva cursore custom"
+        onClick={handleToggle}
+        disabled={!cursorSupported}
+      >
+        <span className="cursor-toggle__label">Cursor</span>
+        <span className={`cursor-toggle__track ${isCursorActive ? 'is-on' : ''}`} aria-hidden="true">
+          <span className="cursor-toggle__thumb"></span>
+        </span>
+      </button>
 
-      {/* Pulsante per disattivare il cursore estetico */}
-      {/* <div id="noCursor">
-        <div id="cursorSwitch">
-          <a className="cursorText">
-            <i className="uil uil-mouse-alt"></i>
-          </a>
-        </div>
-      </div> */}
+      {isCursorActive && (
+        <>
+          <div ref={cursorRef} className="cursor"></div>
+          <div ref={outlineRef} className="outline"></div>
+        </>
+      )}
     </>
   );
 };
