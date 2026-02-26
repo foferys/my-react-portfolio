@@ -2,201 +2,141 @@ import { useContext, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ClickTermCatContext } from "../store/ClickTermCatProvider";
 
-
 function Motivate() {
+  const [frase, setFrase] = useState("");
+  const [keyWord, setkeyWord] = useState("");
+  const [modalRest, setModalRest] = useState(false);
+  const [fetching, setFetching] = useState(false);
 
-    const [frase, setFrase] = useState('');
-    const [keyWord, setkeyWord] = useState('');
-    const [modalRest, setModalRest] = useState(false);
-    const [fetching ,setFetching] = useState(false); // -> lo uso nella gestione del caricamento per la risposta del fetch
+  const catTerminal = useRef(null);
 
+  useEffect(() => {
+    gsap.fromTo(
+      catTerminal.current,
+      { opacity: 0 },
+      {
+        opacity: 1,
+        ease: "Power2.easeInOut"
+      }
+    );
+  }, []);
 
-    //animazione con gsap - useRef come attributo nell'elemento del terminalegatto 
-    const catTerminal = useRef(null);
-
-    
-    
-    
-    //animazione iniziale comparsa terminalino, con dipendenza vuota per dire che lo fa solo al montaggio del componente 
-    //(tra l'altro se lo metto sopra all'altro non esegue quello che deve)
-    useEffect(() => {
-        gsap.fromTo(catTerminal.current, {opacity: 0,}, {
-            opacity:1,
-            ease: "Power2.easeInOut",
-        })
-    }, [])
-    
-    //animazione iniziale comparsa terminalino, senza dipendenza perché abbiamo bisogno che l'animazine sia presente sempre nel componente
-    useEffect(() =>{
-        gsap.fromTo(catTerminal.current, { opacity: 1 },{  // Stato iniziale 
-                opacity: 0,   // Stato finale
-                ease: "power1.inOut",
-                scrollTrigger: {
-                    trigger: ".third-box",
-                    scrub: true,
-                }
-            }
-        );
-    }) 
-  
-
-    /*-| Quando serve useEffect:
-        useEffect è utile quando vuoi eseguire una funzione una volta che il componente è stato montato o ogni volta che una variabile di dipendenza cambia. 
-        Un esempio classico è il caricamento di dati appena il componente appare nella pagina, come ottenere dati da un'API all'inizio:
-        useEffect(() => {
-            fetchCatFact();
-        }, []); // L'array vuoto fa sì che la funzione venga chiamata solo una volta al montaggio 
-    */
-    const fetchCatFact = async () => {
-        try {
-            const url = `https://meowfacts.herokuapp.com/?count=100`;
-            const response = await fetch(url);
-            
-            if (!response.ok) {
-                throw new Error(`Errore nella richiesta: ${response.status}`);
-            }
-
-            // array parole per logica di piu parole
-            let arrParole = keyWord.split(" ");
-        
-            const jsonData = await response.json();
-            
-            //prendo un numero casuale in base alla lunghezza delle parole filtrate con quella impostata nello stato
-            const randomnum = Math.floor(Math.random() * jsonData.data.filter(parola => parola.includes(keyWord.toLowerCase())).length)
-
-            // // Imposta il fatto dei gatti nello stato filtrato per la parola presa col numero casuale e impostata giu
-            // setFrase(jsonData.data.filter(parola => parola.includes(keyWord.toLowerCase()))[randomnum]); 
-            
-            // // se non ci sono frasi con quella parola imposto lo stato della frase con un messaggio di avviso
-            // if(jsonData.data.filter(parola => parola.includes(keyWord.toLowerCase())).length <=0) {
-            //     setFrase("Nothing relevant with " + keyWord);
-            // }
-
-
-            // -- logica di piu parole
-                let arrSporco = [];
-                let nowords = false;
-                arrParole.forEach(par => {
-
-                    arrSporco.push(jsonData.data.filter(parola => parola.includes(par.toLowerCase()))[randomnum])
-                    
-                    if(jsonData.data.filter(parola => parola.includes(par.toLowerCase())).length <=0) {
-                        nowords = true;
-                    }
-                    
-                });
-    
-                let arrPulito = arrSporco.filter(el => el !== undefined)
-                let arrLen = arrPulito.length;
-
-                // Imposta il fatto dei gatti nello stato filtrato per la parola presa col numero casuale e impostata giu
-                setFrase(arrPulito[Math.floor(Math.random() * arrPulito.length)]); 
-                
-                // se non ci sono frasi con quella parola imposto lo stato della frase con un messaggio di avviso
-                if(arrPulito.length <=0) {
-                    setFrase("Nessuna parola con \"" + keyWord + "\"\nricordati di scrivere in inglese");
-                }
-
-                
-            // -- logica di piu parole
-
-
-            document.getElementById("catTerminal").value = ""; //porto a vuoto l'input
-
-            setFetching(false); //-> lo uso nella gestione del caricamento per la risposta del fetch
-
-
-
-            // console.log("array lunghezza: " + arrLen);
-            // arrPulito.forEach(element => {
-            //     console.log("array frasi disp: "+ element)
-            // });
-            // console.log("frase: " + arrPulito[Math.floor(Math.random() * arrPulito.length)]);
-
-            // console.log(jsonData.data);
-            // console.log("numero casuale: "+randomnum);
-            // console.log("parola scritta: " + keyWord);
-            // console.log("array parole: " + arrParole);
-            // console.log("parol lowercase: " + keyWord.toLowerCase());
-            // console.log("frasi filtrate: " + jsonData.data.filter(parola => parola.includes(keyWord.toLowerCase())));
-            // console.log("lunghezza filtrato: " + jsonData.data.filter(parola => parola.includes(keyWord)).length);
-            // console.log(jsonData.data.filter(parola => parola.includes(keyWord))[0]);
-        } catch (error) {
-            console.log(error.message); // Gestione degli errori
+  useEffect(() => {
+    gsap.fromTo(
+      catTerminal.current,
+      { opacity: 1 },
+      {
+        opacity: 0,
+        ease: "power1.inOut",
+        scrollTrigger: {
+          trigger: ".third-box",
+          scrub: true
         }
-    };
+      }
+    );
+  });
 
-    // Gestore per la pressione di "Invio"
-    const handleKeyDown = (e) => {
-        if (e.key === 'Enter') {
-            fetchCatFact(); // Chiama la funzione quando viene premuto "Invio"
-            setFetching(true) //lo uso nella gestione del caricamento per la risposta del fetch con useState e giu verifico se è impostato o meno
-        }
-    };
+  const fetchCatFact = async () => {
+    const query = keyWord.trim();
 
-    //all'input giu ho impostato che a ogni cambio deve impostare la parola con setKeyword() per far si che sia sempre la parola intera prima dell'invio
-    const handleChange = () => {
-        const word = document.querySelector("#catTerminal").value;
-        setkeyWord(word);
-    };
-
-    //nascondo la modalina perché impostando la frase a niente sotto ho un ternario che fa si che se 
-    //non è settata una frase deve aggiungere la classe hidden
-    const handleFocusOut = () => {
-        //modalRest fa riferimento allo stato per gestire la visibilità della modale con con hidden nel div sotto
-        if(!modalRest) {
-            setFrase("");
-        }
+    if (!query) {
+      setFrase('Inserisci una parola o frase (es: "sleep", "coda", "gatti curiosi").');
+      return;
     }
 
-    // gestione del mouse per far si che posso copiare il testo della modaleCat impostando i due eventi del mouse
-    const handleRest = () => {
-        setModalRest(true);
-    }
-    const handleLeave = () => {
-        setModalRest(false);
-        setFrase("")
+    if (query.length > 140) {
+      setFrase("Input troppo lungo. Mantieni la richiesta sotto i 140 caratteri.");
+      return;
     }
 
+    try {
+      setFetching(true);
 
-    const {setTerminalClicked} = useContext(ClickTermCatContext);
+      // The endpoint returns { data: [text] } to keep UI compatibility with the previous provider shape.
+      const response = await fetch(`/api/cat-facts?q=${encodeURIComponent(query)}`);
+      const jsonData = await response.json();
 
-    const clickTerminal = () => {
-        setTerminalClicked("si");
+      if (!response.ok) {
+        const fallback = jsonData?.error || "Errore durante la richiesta";
+        setFrase(fallback);
+        return;
+      }
+
+      setFrase(jsonData?.data?.[0] || "No relevant fact found.");
+      setkeyWord("");
+    } catch (error) {
+      setFrase("Servizio momentaneamente non disponibile.");
+      console.error(error);
+    } finally {
+      setFetching(false);
     }
+  };
 
+  const handleKeyDown = async (e) => {
+    if (e.key === "Enter") {
+      await fetchCatFact();
+    }
+  };
 
-    return(
-        <>
-            <div id="fraseMotivazionale" ref={catTerminal}>
+  const handleChange = (e) => {
+    setkeyWord(e.target.value);
+  };
 
-                <p>{fetching?
-                    
-                    // caricamento spinner bootstrap se non trova lo stato currentTime
-                    <div className="spinner-grow spinner-grow-sm" role="status">
-                        <span className="sr-only"></span>
-                    </div>
-                    :
-                    ""
+  const handleFocusOut = () => {
+    if (!modalRest) {
+      setFrase("");
+    }
+  };
 
-                }</p>
+  const handleRest = () => {
+    setModalRest(true);
+  };
 
-                {/* imposto classe in base a se frase c'è o no */}
-                <div className={`catmodal ${(frase || modalRest)? "":"hidden"}`} onMouseMove={handleRest} onMouseLeave={handleLeave}>
-                    <p>{frase}</p>
-                </div>
-                
+  const handleLeave = () => {
+    setModalRest(false);
+    setFrase("");
+  };
 
-                <div className="terminalCont">
-                    <div className="catTerminalInput">
-                        <span className="text-success">cat@facts</span>: ~$
-                    </div>
-                    <input onBlur={handleFocusOut} onChange={handleChange} onKeyDown={handleKeyDown} onClick={clickTerminal} type="text" id="catTerminal" />
-                </div>
+  const { setTerminalClicked } = useContext(ClickTermCatContext);
+
+  const clickTerminal = () => {
+    setTerminalClicked("si");
+  };
+
+  return (
+    <>
+      <div id="fraseMotivazionale" ref={catTerminal}>
+        <p>
+          {fetching ? (
+            <div className="spinner-grow spinner-grow-sm" role="status">
+              <span className="sr-only"></span>
             </div>
-            
-        </>
-    )
+          ) : (
+            ""
+          )}
+        </p>
+
+        <div className={`catmodal ${(frase || modalRest) ? "" : "hidden"}`} onMouseMove={handleRest} onMouseLeave={handleLeave}>
+          <p>{frase}</p>
+        </div>
+
+        <div className="terminalCont">
+          <div className="catTerminalInput">
+            <span className="text-success">cat@facts</span>: ~$
+          </div>
+          <input
+            onBlur={handleFocusOut}
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+            onClick={clickTerminal}
+            type="text"
+            id="catTerminal"
+            value={keyWord}
+          />
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default Motivate;

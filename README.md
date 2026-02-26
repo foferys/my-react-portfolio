@@ -104,6 +104,34 @@ my-react-portfolio/
 └── vite.config.js   # Configurazione Vite
 ```
 
+## 🐱 Cat Terminal (cat@facts)
+- UI terminale: `src/components/Motivate.jsx`
+- Endpoint API locale (dev middleware Vite): `GET /api/cat-facts` in `src/server/catFactsApi.js`
+- Motore relevance: `src/utils/catFactsEngine.js`
+- Fonte dati:
+  - locale IT: `src/data/localCatFacts.json`
+  - remota EN: `https://meowfacts.herokuapp.com/?count=120` (cache in-memory 10 minuti)
+
+### Architettura relevance (nuova)
+- Candidate retrieval:
+  - normalizzazione input, tokenizzazione robusta (multi-parola, punteggiatura)
+  - filtro lessicale + typo soft match (Levenshtein limitato) su pool lingua preferita
+- Ranking:
+  - BM25 lightweight + segnali semantici leggeri (coseno su trigrammi + Jaccard token)
+  - ordinamento finale su score combinato
+- Language routing:
+  - rilevamento lingua (`it`/`en`) da heuristics
+  - input italiano: priorità frasi IT; fallback traduzione lightweight in italiano se manca copertura
+  - input non italiano: risposta in inglese
+- API correctness:
+  - risposta compatibile con UI: `{ data: [text], lang, meta }`
+  - gestione input vuoto/lungo, rate-limit base, logging minimo
+
+### Punti di estensione
+- Sostituire ranking lightweight con embeddings + cosine nel modulo `catFactsEngine.js`.
+- Sostituire fallback traduzione con provider esterno nel file `catFactsApi.js`.
+- Migrare cache/rate-limit da memoria a Redis/KV mantenendo invariata la shape di risposta.
+
 ## 🤝 Contribuire
 Le contribuzioni sono benvenute! Per favore, segui questi passaggi:
 
