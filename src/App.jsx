@@ -8,7 +8,7 @@ import BottomNav from './components/BottomNav';
 import Footer from './components/Footer';
 import code from './assets/video/code.mp4';
 import ani from './assets/video/0328.mp4';
-import { Link, useFetcher } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Motivate from './components/Motivate';
 import Loader from './components/Loader';
 import gsap from 'gsap';
@@ -16,6 +16,8 @@ import { ClickTermCatProvider } from './store/ClickTermCatProvider';
 import { progetti } from './dataprojects/progData';
 import TextHoverEff from './components/TextHoverEff';
 import { HoverProvider } from './store/HoverContext';
+import { UilWhatsapp } from '@iconscout/react-unicons';
+import { trackLeadEvent } from './utils/analytics';
 
 
 function App() {
@@ -159,6 +161,17 @@ function App() {
 
     <Loader></Loader>
     <BottomNav></BottomNav>
+    <a
+      className="floating-whatsapp-cta"
+      href="https://wa.me/393454079281?text=Ciao%2C%20vorrei%20un%20preventivo%20per%20un%20sito%20web"
+      target="_blank"
+      rel="noreferrer"
+      aria-label="Chat WhatsApp per preventivo sito web"
+      title="Scrivimi su WhatsApp"
+      onClick={() => trackLeadEvent("click_whatsapp", { source: "home_floating_button" })}
+    >
+      <UilWhatsapp size={24} color="currentColor" />
+    </a>
     
     
     <video className="video-bg" autoPlay loop muted playsInline>

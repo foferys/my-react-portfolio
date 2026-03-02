@@ -1,0 +1,193 @@
+REPORT TECNICO - Miglioramento Relevance cat@facts
+Progetto: my-react-portfolio
+Data: 26 Febbraio 2026
+
+1) OBIETTIVO
+Analizzare il terminalino React "catTerminalInput (cat@facts)" e migliorare la logica API per restituire frasi realmente connesse all'input utente, con routing lingua IT/EN, robustezza edge-case e test.
+
+2) ANALISI INIZIALE DEL CODEBASE
+2.1 Componente terminalino
+- File: src/components/Motivate.jsx
+- Stato principale:
+  - frase: stringa mostrata nella modale
+  - keyWord: testo input utente
+  - fetching: stato loading spinner
+  - modalRest: persistenza modale al passaggio mouse
+- Handler principali:
+  - handleChange: aggiorna input
+  - handleKeyDown: trigger su Enter
+  - fetchCatFact: richiesta dati + selezione frase
+
+2.2 Endpoint e algoritmo originale
+- Endpoint: chiamata diretta client-side a https://meowfacts.herokuapp.com/?count=100
+- Algoritmo:
+  - split input in parole
+  - filtro con includes sulle frasi remoti
+  - selezione random della frase filtrata
+- Limiti:
+  - nessun ranking semantico
+  - nessuna API interna controllata
+  - nessun language routing robusto
+  - scarsa resilienza a typo/plurali/punteggiatura
+
+3) ARCHITETTURA IMPLEMENTATA (NUOVA)
+3.1 Endpoint locale
+- File: src/server/catFactsApi.js
+- Rotta: GET /api/cat-facts?q=...
+- Integrazione Vite middleware:
+  - File: vite.config.js
+  - Plugin custom cat-facts-api
+- Shape risposta mantenuta compatibile UI:
+  - { data: ["testo"], lang: "it|en", meta: { reason } }
+
+3.2 Data source
+- Locale IT: src/data/localCatFacts.json
+- Remoto EN: https://meowfacts.herokuapp.com/?count=120
+- Merge dei due dataset lato API
+
+3.3 Caching e costi/latency
+- Cache facts remoti in-memory (TTL 10 minuti)
+- Cache facts locali in-memory dopo prima lettura file
+- Beneficio: meno roundtrip rete, risposta più stabile e veloce
+
+3.4 Rate-limit e logging minimo
+- Rate-limit in-memory: 30 richieste/minuto per IP
+- Logging minimale:
+  - query
+  - lingua risposta
+  - reason del ranking/fallback
+  - numero totale facts
+
+4) RELEVANCE ENGINE (2 FASI)
+File: src/utils/catFactsEngine.js
+
+4.1 Fase A - Candidate Retrieval
+Implementato un retrieval lessicale robusto prima del ranking:
+- normalizeText:
+  - lowercase
+  - rimozione accenti combinati
+  - rimozione punteggiatura
+  - normalizzazione spazi
+- tokenize:
+  - stopwords IT/EN
+  - stemming leggero (suffix trimming)
+- typoSoftMatchScore:
+  - Levenshtein limitato (max 1 errore) per typo leggeri
+- retrieveCandidates:
+  - priorità pool lingua (IT per query IT, EN per query non IT)
+  - se pochi risultati, fallback pool misto
+  - top-N candidati (MAX_CANDIDATES = 25)
+
+Commento codice inserito:
+- "Weighted final score keeps lexical precision while adding semantic signal."
+- Questo rende esplicita la scelta progettuale: precisione lessicale + segnale semantico.
+
+4.2 Fase B - Ranking
+Ranking multi-segnale su candidati:
+- BM25 lightweight (term relevance classica IR)
+- cosine similarity su trigrammi di caratteri (proxy semantico leggero)
+- jaccard similarity tra set token query/documento
+- score finale pesato:
+  finalScore = bm25*0.6 + semantic*0.3 + jaccard*0.2 + lexical*0.1 + typo*0.1
+- ordinamento discendente e scelta top-1
+
+5) LANGUAGE ROUTING
+5.1 Language detection
+- Funzione: detectLanguage(input)
+- Heuristics:
+  - stopwords IT/EN
+  - suffix/hints italiani (es. -zione, -mente, gatti, fusa)
+  - caratteri accentati
+- tie-break: default EN per preservare comportamento storico
+
+5.2 Politica risposta lingua
+- Se query italiana:
+  - priorità facts italiani
+  - se top match EN -> fallback traduzione lightweight IT
+- Se query non italiana:
+  - risposta inglese
+
+5.3 Fallback translation
+- Funzione: lightweightTranslateEnToIt
+- Dizionario minimo e prefisso "Fatto sui gatti:"
+- Scelta voluta:
+  - nessuna dipendenza esterna
+  - latenza/costi bassi
+
+Commento codice inserito:
+- "Fallback translation is intentionally lightweight to avoid external API latency/cost."
+- "For Italian input, keep language guarantee even when only EN data matches."
+
+6) MODIFICHE UI (compatibilità mantenuta)
+File: src/components/Motivate.jsx
+
+6.1 Cambi fetch
+- Da: fetch diretto API esterna nel componente
+- A: fetch interno /api/cat-facts?q=...
+
+6.2 Compatibilità risposta
+- Il rendering continua a leggere jsonData.data[0]
+- Nessuna modifica al comportamento visuale della modale/spinner
+
+6.3 Edge cases input
+- Input vuoto -> messaggio guidato
+- Input > 140 caratteri -> blocco con messaggio
+- Gestione punteggiatura/multi-parola lato engine
+- input controllato (value={keyWord})
+
+Commento codice inserito:
+- "The endpoint returns { data: [text] } to keep UI compatibility with the previous provider shape."
+
+7) TEST IMPLEMENTATI
+7.1 Test engine
+File: tests/catFactsEngine.test.js
+- detectLanguage returns it for Italian query
+- detectLanguage returns en for English query
+- ranking prioritizes semantically close candidate
+- Italian fallback translates English best match when no Italian facts exist
+
+7.2 Test API
+File: tests/catFactsApi.test.js
+- API returns Italian response for Italian input
+- fetch remoto mockato
+- verifica status, lang e shape data
+
+7.3 Script test
+- package.json:
+  - "test": "node --test tests/*.test.js"
+
+8) README AGGIORNATO
+File: README.md
+Aggiunte sezioni:
+- Cat Terminal (cat@facts)
+- Architettura relevance nuova
+- Punti di estensione
+
+9) FILE MODIFICATI/CREATI
+Modificati:
+- src/components/Motivate.jsx
+- src/server/catFactsApi.js
+- src/utils/catFactsEngine.js
+- vite.config.js
+- package.json
+- README.md
+
+Creati:
+- src/data/localCatFacts.json
+- tests/catFactsEngine.test.js
+- tests/catFactsApi.test.js
+- docs/report-cat-terminal-relevance.txt
+- docs/report-cat-terminal-relevance.pdf
+
+10) VERIFICHE ESEGUITE
+- npm run test: PASS (5/5)
+- npm run build: PASS
+  Nota: warning CSS/chunk già presenti nel progetto, non bloccanti e non introdotti da questa modifica.
+
+11) ESTENSIONI FUTURE (SENZA IMPLEMENTAZIONE EXTRA)
+- Sostituzione scoring semantico lightweight con embeddings + cosine reali
+- Cache distribuita (Redis/KV) per produzione
+- Traduzione fallback con provider MT esterno (con guardrail costi)
+
+Conclusione
+Il terminalino ora usa una pipeline di retrieval + ranking più solida, con routing lingua coerente e API interna controllata, mantenendo la compatibilità UI preesistente e introducendo test automatici sui casi critici richiesti.

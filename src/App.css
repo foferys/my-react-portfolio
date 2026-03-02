@@ -1708,3 +1708,42 @@ canvas {
     transition: none !important;
   }
 }
+
+.floating-whatsapp-cta {
+  position: fixed;
+  right: -8px;
+  bottom: 104px;
+  z-index: 9999;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 52px;
+  padding: 0;
+  border-radius: 14px 0 0 14px;
+  background: #25d366;
+  color: #fff;
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  transition: right 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+
+.floating-whatsapp-cta:hover {
+  color: #fff;
+  background: #1cb957;
+  right: 0;
+  transform: translateY(-1px);
+}
+
+.floating-whatsapp-cta svg {
+  display: block;
+}
+
+@media (max-width: 767px) {
+  .floating-whatsapp-cta {
+    right: -6px;
+    bottom: 114px;
+    width: 52px;
+    height: 48px;
+  }
+}
