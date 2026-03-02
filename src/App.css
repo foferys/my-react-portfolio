@@ -254,42 +254,168 @@ b.goback {
     position: fixed;
     bottom: 43px;
     left: 35px;
-    z-index: 2;
+    z-index: 6;
+    font-family: "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   }
-  div#fraseMotivazionale p{
+  .terminalLauncherLine {
+    background-color: #101214;
+    color: #d7dadc;
+    border: 1px solid #4f5459;
+    border-radius: 12px;
     font-size: 13px;
+    line-height: 1;
+    padding: 12px 14px;
+    min-width: 180px;
+    text-align: left;
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+  }
+  .terminalLauncherLine:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.4);
   }
   .catTerminalInput {
     width: fit-content;
-    border: 2px solid #757474;
-    border-top: 0.4px solid #434343a8;
-    background-color: #000;
+    background-color: #101214;
+    color: #d4d4d4;
     border-right: none;
     font-size: 13px;
+    line-height: 1;
+    padding: 10px 10px;
   }
   .catmodal {
-    border: 2px solid #757474;
-    width: 274px;
-    background: #000000cc;
-    padding: 10px;
-    height: fit-content;
-    border-bottom: none;
+    width: min(760px, calc(100vw - 70px));
+    background: linear-gradient(180deg, #1f2328 0%, #101214 100%);
+    border: 1px solid #4f5459;
+    border-radius: 12px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+    overflow: hidden;
+  }
+  .catmodal.is-expanded {
+    position: fixed;
+    left: 35px;
+    bottom: 94px;
+    height: min(70vh, 460px);
+    display: flex;
+    flex-direction: column;
+    animation: terminalGrow 0.24s ease;
+  }
+  .catmodal-header {
+    min-height: 35px;
+    border-bottom: 1px solid #353a3f;
+    background: linear-gradient(180deg, #363b40 0%, #2a2f34 100%);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 12px;
+  }
+  .catmodal-actions {
+    display: flex;
+    gap: 8px;
+  }
+  .terminal-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    transition: filter 0.2s ease;
+  }
+  .terminal-dot:hover {
+    filter: brightness(0.88);
+  }
+  .terminal-dot--close {
+    background: #ff5f57;
+  }
+  .terminal-dot--minimize {
+    background: #febc2e;
+  }
+  .terminal-dot--maximize {
+    background: #28c840;
+  }
+  .catmodal-title {
+    color: #c9d1d9;
+    font-size: 12px;
+    letter-spacing: 0.02em;
+  }
+  .catmodal-body {
+    color: #d7dadc;
+    font-size: 13px;
+    padding: 12px;
+    min-height: 0;
+    flex: 1;
+    overflow: hidden;
+    background: #101214;
+  }
+  .terminalHistory {
+    height: 100%;
+    overflow: auto;
+    padding-right: 4px;
+  }
+  .terminalLine {
+    margin: 0 0 8px 0;
+    line-height: 1.45;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .terminalLine--command {
+    color: #9add6b;
+  }
+  .terminalLine--result {
+    color: #d7dadc;
+  }
+  .terminalLine--error {
+    color: #ff8d86;
+  }
+  .terminalHint {
+    color: #8c949e;
+  }
+  .terminalLoading {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #d7dadc;
+    margin: 0;
   }
 
   .terminalCont {
     display: flex;
   }
+  .terminalCont-expanded {
+    width: 100%;
+    border-top: 1px solid #353a3f;
+    background: #101214;
+    border-radius: 0 0 12px 12px;
+  }
 
   #catTerminal {
-    background-color: #000;
-    border-left: none;
-    color: white;
+    background-color: #101214;
+    border: none;
+    border-left: 1px solid #353a3f;
+    color: #d7dadc;
     outline: none;
     font-size: 13px;
+    width: 100%;
+    padding: 10px 10px;
+    font-family: inherit;
   }
  
 
 /* fine api frasi */
+
+@keyframes terminalGrow {
+  from {
+    transform: scale(0.96);
+    transform-origin: bottom left;
+    opacity: 0.75;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
 
 
 .video-bg {
@@ -529,9 +655,9 @@ h2.title.h2 {
     width: 100%;
   }
   .catmodal {
-
-    width: 222px;
-    
+    width: calc(100vw - 24px);
+    left: 12px;
+    bottom: 88px;
   }
 }
 
@@ -1648,6 +1774,17 @@ canvas {
 
 @media screen and (max-width: 767px) {
 
+  div#fraseMotivazionale {
+    left: 12px;
+  }
+
+  .catmodal.is-expanded {
+    left: 12px;
+    bottom: 94px;
+    width: calc(100vw - 24px);
+    height: min(64vh, 400px);
+  }
+
   .swContainer {
     padding: 20px ;
   }
@@ -1657,8 +1794,8 @@ canvas {
   } 
 
   #catTerminal {
-    width: 120px;
-}
+    width: 100%;
+  }
   .music-lines2 {
     bottom: 52px;
     right: 43px;
