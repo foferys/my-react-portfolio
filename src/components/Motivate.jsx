@@ -92,7 +92,7 @@ function Motivate() {
     }
 
     if (command === "pwd") {
-      pushLine(`/Users/utente/Documents/2024/_dev_mac/exe./REACT/my-react-portfolio${location.pathname}`);
+      pushLine(`/Users/fofe/my-react-portfolio${location.pathname}`);
       setkeyWord("");
       setIsExpanded(true);
       return;
@@ -100,18 +100,18 @@ function Motivate() {
 
     if (command === "man" || command.startsWith("man ")) {
       pushLine(`CAT TERMINAL MANUAL
-Comandi disponibili:
-- man           mostra questa guida
-- pwd           mostra posizione attuale (workspace + route)
-- ls            mostra file/cartelle principali del progetto
-- cd <path>     naviga tra pagine del sito
-               path validi: /, /3d, /project/<id>, ..
-               esempi: cd /   | cd /3d   | cd /project/1   | cd ..
-- clear / cls   pulisce tutta la schermata terminale
+      Comandi disponibili:
+      - man           mostra questa guida
+      - pwd           mostra posizione attuale (workspace + route)
+      - ls            mostra file/cartelle principali del progetto
+      - cd <path>     naviga tra pagine del sito
+                    path validi: /, /3d, /project/<id>, ..
+                    esempi: cd /   | cd /3d   | cd /project/1   | cd ..
+      - clear / cls   pulisce tutta la schermata terminale
 
-Uso libero:
-- Scrivi una frase sui gatti (es: "cats sleep", "fusa gatto", "gatti curiosi")
-  e il terminale restituisce una risposta dal motore cat-facts.`);
+      Uso libero:
+      - Scrivi una frase sui gatti (es: "cats sleep", "fusa gatto", "gatti curiosi")
+        e il terminale restituisce una risposta dal motore cat-facts.`);
       setkeyWord("");
       return;
     }
