@@ -2,6 +2,8 @@ import { useContext, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ClickTermCatContext } from "../store/ClickTermCatProvider";
+import { findBestFact } from "../utils/catFactsEngine";
+import localCatFacts from "../data/localCatFacts.json";
 
 function Motivate() {
   const [keyWord, setkeyWord] = useState("");
@@ -48,6 +50,16 @@ function Motivate() {
 
   const pushLine = (text, type = "result") => {
     setHistory((prev) => [...prev, { text, type }]);
+  };
+
+  const getLocalFallbackAnswer = (query) => {
+    try {
+      const best = findBestFact(query, localCatFacts);
+      return best?.text || "No relevant fact found.";
+    } catch (error) {
+      console.error("[cat-facts] local fallback error", error);
+      return "Servizio momentaneamente non disponibile.";
+    }
   };
 
   const resolveCdTarget = (targetRaw) => {
@@ -148,18 +160,20 @@ function Motivate() {
 
       // The endpoint returns { data: [text] } to keep UI compatibility with the previous provider shape.
       const response = await fetch(`/api/cat-facts?q=${encodeURIComponent(query)}`);
-      const jsonData = await response.json();
+      const contentType = response.headers.get("content-type") || "";
+      const hasJson = contentType.includes("application/json");
+      const jsonData = hasJson ? await response.json() : null;
 
-      if (!response.ok) {
-        const fallback = jsonData?.error || "Errore durante la richiesta";
-        pushLine(fallback, "error");
+      if (!response.ok || !jsonData) {
+        // Fallback locale: evita errori lato utente quando API/hosting/rete non raggiungono il backend.
+        pushLine(getLocalFallbackAnswer(query));
         return;
       }
 
       pushLine(jsonData?.data?.[0] || "No relevant fact found.");
       setkeyWord("");
     } catch (error) {
-      pushLine("Servizio momentaneamente non disponibile.", "error");
+      pushLine(getLocalFallbackAnswer(query));
       console.error(error);
     } finally {
       setFetching(false);
