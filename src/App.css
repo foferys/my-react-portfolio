@@ -1838,13 +1838,17 @@ canvas {
 
   div#fraseMotivazionale {
     left: 12px;
+    bottom: max(12px, env(safe-area-inset-bottom));
   }
 
   .catmodal.is-expanded {
-    left: 12px;
-    bottom: 94px;
-    width: calc(100vw - 24px);
-    height: min(64vh, 400px);
+    left: 8px;
+    right: 8px;
+    top: 155px;
+    bottom: auto;
+    width: auto;
+    height: calc(90dvh - 155px - env(safe-area-inset-bottom) - 8px);
+    max-height: none;
   }
 
   .swContainer {
@@ -1857,6 +1861,8 @@ canvas {
 
   #catTerminal {
     width: 100%;
+    font-size: 16px;
+    line-height: 1.3;
   }
   .music-lines2 {
     bottom: 52px;
