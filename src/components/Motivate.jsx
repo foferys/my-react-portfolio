@@ -5,11 +5,29 @@ import { ClickTermCatContext } from "../store/ClickTermCatProvider";
 import { findBestFact } from "../utils/catFactsEngine";
 import localCatFacts from "../data/localCatFacts.json";
 
+function TerminalPrompt({ pathSuffix = "", showArrow = true }) {
+  const basePath = "~ /REACT/fofe";
+  const resolvedPath = `${basePath}${pathSuffix && pathSuffix !== "/" ? pathSuffix : ""}`;
+
+  return (
+    <span className="terminalPromptShell">
+      <span className="terminalPromptPath">{resolvedPath}</span>
+      <span className="terminalPromptSep">|</span>
+      <span className="terminalPromptOn">on</span>
+      <span className="terminalPromptBranch">main</span>
+      {showArrow ? <span className="terminalPromptArrow">❯</span> : null}
+    </span>
+  );
+}
+
 function Motivate() {
   const [keyWord, setkeyWord] = useState("");
   const [history, setHistory] = useState([]);
   const [isExpanded, setIsExpanded] = useState(false);
   const [fetching, setFetching] = useState(false);
+  const [searchedItems, setSearchedItems] = useState([]);
+  const [gitStaged, setGitStaged] = useState(false);
+  const [gitCommitCount, setGitCommitCount] = useState(1);
 
   const catTerminal = useRef(null);
   const terminalOutput = useRef(null);
@@ -49,7 +67,114 @@ function Motivate() {
   }, [history, fetching, isExpanded]);
 
   const pushLine = (text, type = "result") => {
-    setHistory((prev) => [...prev, { text, type }]);
+    setHistory((prev) => [...prev, { text, type, path: location.pathname }]);
+  };
+
+  const pushCommandLine = (commandText) => {
+    setHistory((prev) => [...prev, { type: "command", text: commandText, path: location.pathname }]);
+  };
+
+  const handleGitCommand = (query) => {
+    const gitInput = query.trim();
+    const gitSub = gitInput.replace(/^git\s+/, "").trim().toLowerCase();
+
+    if (!gitSub) {
+      pushLine("usage: git <command> [<args>]", "git-info");
+      return true;
+    }
+
+    if (gitSub === "status") {
+      if (!searchedItems.length) {
+        pushLine("On branch main\nnothing to commit, working tree clean", "git-info");
+        return true;
+      }
+
+      if (gitStaged) {
+        const staged = searchedItems.map((item) => `\tnew file:   searched: ${item.query}/${item.answer}`).join("\n");
+        pushLine(`On branch main\nChanges to be committed:\n  (use "git restore --staged <file>..." to unstage)\n${staged}`, "git-info");
+        return true;
+      }
+
+      const modified = searchedItems.map((item) => `\tmodified:   searched: ${item.query}/${item.answer}`).join("\n");
+      pushLine(`On branch main\nChanges not staged for commit:\n  (use "git add <file>..." to update what will be committed)\n${modified}`, "git-warn");
+      return true;
+    }
+
+    if (gitSub === "add ." || gitSub.startsWith("add ")) {
+      if (!searchedItems.length) {
+        pushLine("fatal: pathspec did not match any searchable results", "git-warn");
+        return true;
+      }
+      setGitStaged(true);
+      return true;
+    }
+
+    if (gitSub.startsWith("commit")) {
+      if (!searchedItems.length) {
+        pushLine("On branch main\nnothing to commit, working tree clean", "git-info");
+        return true;
+      }
+      if (!gitStaged) {
+        pushLine("no changes added to commit (use \"git add\" and/or \"git commit -a\")", "git-warn");
+        return true;
+      }
+
+      const hasMessage = /-m\s+["'].+["']/.test(gitInput);
+      const message = hasMessage ? gitInput.match(/-m\s+["'](.+)["']/)?.[1] : "update searched entries";
+      const filesCount = searchedItems.length;
+
+      setGitCommitCount((prev) => prev + 1);
+      setGitStaged(false);
+      setSearchedItems([]);
+      pushLine(`[main ${Math.random().toString(16).slice(2, 9)}] ${message}\n ${filesCount} file changed`, "git-info");
+      return true;
+    }
+
+    if (gitSub === "log" || gitSub.startsWith("log ")) {
+      const latest = `commit ${Math.random().toString(16).slice(2, 9)}\nAuthor: cat-terminal <cat@facts.local>\nDate:   ${new Date().toString()}\n\n    searched results snapshot`;
+      const base = `commit 0000001\nAuthor: cat-terminal <cat@facts.local>\nDate:   ${new Date().toString()}\n\n    initial commit`;
+      pushLine(gitCommitCount > 1 ? `${latest}\n\n${base}` : base, "git-info");
+      return true;
+    }
+
+    if (gitSub === "branch" || gitSub === "branch -a") {
+      pushLine("* main", "git-info");
+      return true;
+    }
+
+    if (gitSub.startsWith("checkout")) {
+      if (gitSub.includes("main")) {
+        pushLine("Already on 'main'", "git-info");
+      } else {
+        pushLine("error: pathspec did not match any branch in this terminal", "git-warn");
+      }
+      return true;
+    }
+
+    if (gitSub === "diff") {
+      if (!searchedItems.length) {
+        pushLine("", "git-info");
+        return true;
+      }
+      const diffRows = searchedItems
+        .map((item) => `- searched: ${item.query}\n+ searched: ${item.query}/${item.answer}`)
+        .join("\n");
+      pushLine(`diff --git a/searched.log b/searched.log\n${diffRows}`, "git-warn");
+      return true;
+    }
+
+    if (gitSub === "push" || gitSub.startsWith("push ")) {
+      pushLine("Everything up-to-date", "git-info");
+      return true;
+    }
+
+    if (gitSub === "pull" || gitSub.startsWith("pull ")) {
+      pushLine("Already up to date.", "git-info");
+      return true;
+    }
+
+    pushLine(`git: '${gitSub.split(" ")[0]}' is not a git command. See 'man'.`, "git-warn");
+    return true;
   };
 
   const getLocalFallbackAnswer = (query) => {
@@ -89,7 +214,7 @@ function Motivate() {
 
     if (!query) return;
 
-    pushLine(`cat@facts: ~$ ${query}`, "command");
+    pushCommandLine(query);
 
     if (command === "clear" || command === "cls") {
       setHistory([]);
@@ -119,6 +244,7 @@ function Motivate() {
       - cd <path>     naviga tra pagine del sito
                     path validi: /, /3d, /project/<id>, ..
                     esempi: cd /   | cd /3d   | cd /project/1   | cd ..
+      - git <cmd>     simula git (status/add/commit/log/branch/diff/push/pull)
       - clear / cls   pulisce tutta la schermata terminale
 
       Uso libero:
@@ -132,6 +258,12 @@ function Motivate() {
       pushLine("src  public  tests  package.json  vite.config.js");
       setkeyWord("");
       setIsExpanded(true);
+      return;
+    }
+
+    if (command.startsWith("git")) {
+      handleGitCommand(query);
+      setkeyWord("");
       return;
     }
 
@@ -166,14 +298,19 @@ function Motivate() {
 
       if (!response.ok || !jsonData) {
         // Fallback locale: evita errori lato utente quando API/hosting/rete non raggiungono il backend.
-        pushLine(getLocalFallbackAnswer(query));
+        const fallbackAnswer = getLocalFallbackAnswer(query);
+        pushLine(fallbackAnswer);
+        setSearchedItems((prev) => [...prev, { query, answer: fallbackAnswer }]);
         return;
       }
 
       pushLine(jsonData?.data?.[0] || "No relevant fact found.");
+      setSearchedItems((prev) => [...prev, { query, answer: jsonData?.data?.[0] || "No relevant fact found." }]);
       setkeyWord("");
     } catch (error) {
-      pushLine(getLocalFallbackAnswer(query));
+      const fallbackAnswer = getLocalFallbackAnswer(query);
+      pushLine(fallbackAnswer);
+      setSearchedItems((prev) => [...prev, { query, answer: fallbackAnswer }]);
       console.error(error);
     } finally {
       setFetching(false);
@@ -216,7 +353,9 @@ function Motivate() {
       <div id="fraseMotivazionale" ref={catTerminal}>
         {!isExpanded ? (
           <button type="button" className="terminalLauncherLine" onClick={clickTerminal} aria-label="Apri terminale">
-            <span className="text-success">cat@facts</span>: ~$
+            <span className="terminalLauncherMiniPath">~/</span>
+            <span className="terminalLauncherHoverPath">/REACT/fofe</span>
+            <span className="terminalPromptArrow">❯</span>
           </button>
         ) : (
           <div className="catmodal is-expanded">
@@ -237,9 +376,16 @@ function Motivate() {
                 ) : null}
 
                 {history.map((line, index) => (
-                  <p key={`${line.type}-${index}`} className={`terminalLine terminalLine--${line.type}`}>
-                    {line.text}
-                  </p>
+                  line.type === "command" ? (
+                    <p key={`${line.type}-${index}`} className="terminalLine terminalLine--command">
+                      <TerminalPrompt pathSuffix={line.path} />
+                      <span className="terminalCmdText">{line.text}</span>
+                    </p>
+                  ) : (
+                    <p key={`${line.type}-${index}`} className={`terminalLine terminalLine--${line.type}`}>
+                      {line.text}
+                    </p>
+                  )
                 ))}
 
                 {fetching ? (
@@ -255,7 +401,7 @@ function Motivate() {
 
             <div className="terminalCont terminalCont-expanded">
               <div className="catTerminalInput">
-                <span className="text-success">cat@facts</span>: ~$
+                <TerminalPrompt pathSuffix={location.pathname} />
               </div>
               <input
                 onChange={handleChange}

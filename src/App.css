@@ -261,19 +261,41 @@ b.goback {
     background-color: #101214;
     color: #d7dadc;
     border: 1px solid #4f5459;
-    border-radius: 12px;
+    border-radius: 10px;
     font-size: 13px;
     line-height: 1;
-    padding: 12px 14px;
-    min-width: 180px;
-    text-align: left;
+    padding: 0 10px;
+    width: 72px;
+    height: 34px;
     box-shadow: 0 10px 22px rgba(0, 0, 0, 0.35);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: width 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
     cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
   }
   .terminalLauncherLine:hover {
+    width: 172px;
     transform: translateY(-1px);
     box-shadow: 0 14px 30px rgba(0, 0, 0, 0.4);
+  }
+  .terminalLauncherMiniPath {
+    color: #1aa7e8;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .terminalLauncherHoverPath {
+    color: #1aa7e8;
+    font-weight: 600;
+    opacity: 0;
+    max-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: opacity 0.16s ease, max-width 0.2s ease;
+  }
+  .terminalLauncherLine:hover .terminalLauncherHoverPath {
+    opacity: 1;
+    max-width: 120px;
   }
   .catTerminalInput {
     width: fit-content;
@@ -283,6 +305,30 @@ b.goback {
     font-size: 13px;
     line-height: 1;
     padding: 10px 10px;
+    flex-shrink: 0;
+  }
+  .terminalPromptShell {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    font-weight: 600;
+  }
+  .terminalPromptPath {
+    color: #1aa7e8;
+  }
+  .terminalPromptSep {
+    color: #6f757d;
+  }
+  .terminalPromptOn {
+    color: #a2a8af;
+  }
+  .terminalPromptBranch {
+    color: #75df43;
+  }
+  .terminalPromptArrow {
+    color: #e7eaee;
+    margin-left: 4px;
   }
   .catmodal {
     width: min(760px, calc(100vw - 70px));
@@ -361,13 +407,27 @@ b.goback {
     word-break: break-word;
   }
   .terminalLine--command {
-    color: #9add6b;
+    color: #d7dadc;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+    overflow-x: auto;
+  }
+  .terminalCmdText {
+    color: #e7eaee;
   }
   .terminalLine--result {
     color: #d7dadc;
   }
   .terminalLine--error {
     color: #ff8d86;
+  }
+  .terminalLine--git-warn {
+    color: #ff6b6b;
+  }
+  .terminalLine--git-info {
+    color: #d7dadc;
   }
   .terminalHint {
     color: #8c949e;
@@ -388,6 +448,7 @@ b.goback {
     border-top: 1px solid #353a3f;
     background: #101214;
     border-radius: 0 0 12px 12px;
+    align-items: center;
   }
 
   #catTerminal {
@@ -398,8 +459,9 @@ b.goback {
     outline: none;
     font-size: 13px;
     width: 100%;
-    padding: 10px 10px;
+    padding: 10px 12px;
     font-family: inherit;
+    min-width: 160px;
   }
  
 
