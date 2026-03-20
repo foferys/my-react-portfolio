@@ -10,6 +10,85 @@ const IT_HINTS = ["zione", "zioni", "mente", "gli", "che", "non", "gatto", "gatt
 
 const MAX_QUERY_LEN = 140;
 const MAX_CANDIDATES = 25;
+const QUESTION_STARTERS = {
+  it: [/^(chi|cosa|come|perche|quando|dove|quale|quali|quanto|quanti|quante)\b/u],
+  en: [/^(who|what|how|why|when|where|which|can|do|does|are|is)\b/i]
+};
+
+const QUERY_TOPICS = [
+  {
+    key: "communication",
+    queryPatterns: {
+      it: [/\bparl\w*/u, /\bcomunic\w*/u, /\bmiagol\w*/u, /\bvoce\b/u],
+      en: [/\btalk\w*/i, /\bspeak\w*/i, /\bcommunicat\w*/i, /\bmeow\w*/i, /\bvoice\b/i]
+    },
+    factPatterns: [/\bmiagol\w*/u, /\binterag\w*/u, /\bcommunicat\w*/i, /\bmeow\w*/i, /\bvocal\w*/i, /\bvoice\b/i],
+    answerTemplates: {
+      it: (factText) => `Non parlano come gli esseri umani, ma comunicano eccome: ${toSentenceFragment(factText)}`,
+      en: (factText) => `Not in the human sense, but they do communicate: ${toSentenceFragment(factText)}`
+    }
+  },
+  {
+    key: "sleep",
+    queryPatterns: {
+      it: [/\bdorm\w*/u, /\bripos\w*/u, /\bsonn\w*/u],
+      en: [/\bsleep\w*/i, /\bnap\w*/i, /\brest\w*/i]
+    },
+    factPatterns: [/\bdorm\w*/u, /\bsleep\w*/i, /\bnap\w*/i, /\brest\w*/i, /\benergy\b/i, /\benergia\b/u],
+    answerTemplates: {
+      it: (factText) => `Si, di solito dormono molto: ${toSentenceFragment(factText)}`,
+      en: (factText) => `Yes, they usually sleep a lot: ${toSentenceFragment(factText)}`
+    }
+  },
+  {
+    key: "tail",
+    queryPatterns: {
+      it: [/\bcod\w*/u, /\bequilibri\w*/u],
+      en: [/\btail\w*/i, /\bbalance\w*/i]
+    },
+    factPatterns: [/\bcod\w*/u, /\btail\w*/i, /\bbalance\b/i, /\bsicurezza\b/u, /\bconfidence\b/i],
+    answerTemplates: {
+      it: (factText) => `Si, e la coda puo dire molto del loro stato d'animo: ${toSentenceFragment(factText)}`,
+      en: (factText) => `Yes, and their tail can say a lot about how they feel: ${toSentenceFragment(factText)}`
+    }
+  },
+  {
+    key: "whiskers",
+    queryPatterns: {
+      it: [/\bvibriss\w*/u, /\bbaff\w*/u, /\bspaz\w*/u],
+      en: [/\bwhisker\w*/i, /\bspace\w*/i, /\bnarrow\b/i]
+    },
+    factPatterns: [/\bvibriss\w*/u, /\bwhisker\w*/i, /\bspaz\w*/u, /\bspace\w*/i, /\bnarrow\b/i],
+    answerTemplates: {
+      it: (factText) => `Le vibrisse non sono solo baffi: ${toSentenceFragment(factText)}`,
+      en: (factText) => `Whiskers are more than just cat moustaches: ${toSentenceFragment(factText)}`
+    }
+  },
+  {
+    key: "purr",
+    queryPatterns: {
+      it: [/\bfus\w*/u, /\bcalm\w*/u, /\btranquill\w*/u],
+      en: [/\bpurr\w*/i, /\bcalm\w*/i, /\brelax\w*/i]
+    },
+    factPatterns: [/\bfus\w*/u, /\bpurr\w*/i, /\bcalm\w*/i, /\btranquill\w*/u],
+    answerTemplates: {
+      it: (factText) => `Spesso si, soprattutto quando si sentono tranquilli: ${toSentenceFragment(factText)}`,
+      en: (factText) => `Often yes, especially when they feel safe or relaxed: ${toSentenceFragment(factText)}`
+    }
+  },
+  {
+    key: "water",
+    queryPatterns: {
+      it: [/\bacqua\b/u, /\bciotol\w*/u, /\bbev\w*/u],
+      en: [/\bwater\b/i, /\bbowl\w*/i, /\bdrink\w*/i]
+    },
+    factPatterns: [/\bacqua\b/u, /\bwater\b/i, /\bciotol\w*/u, /\bbowl\w*/i, /\bcibo\b/u, /\bfood\b/i],
+    answerTemplates: {
+      it: (factText) => `Molti gatti sono abbastanza selettivi con l'acqua: ${toSentenceFragment(factText)}`,
+      en: (factText) => `Many cats are surprisingly picky about water: ${toSentenceFragment(factText)}`
+    }
+  }
+];
 
 function normalizeText(text) {
   return (text || "")
@@ -20,6 +99,12 @@ function normalizeText(text) {
     .replace(/[^\p{L}\p{N}\s]/gu, " ")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+function toSentenceFragment(text) {
+  const trimmed = (text || "").trim();
+  if (!trimmed) return trimmed;
+  return `${trimmed.charAt(0).toLowerCase()}${trimmed.slice(1)}`;
 }
 
 function stemToken(token, lang) {
@@ -154,6 +239,68 @@ export function detectLanguage(input) {
 
   // Default to English on ties to preserve previous API behavior.
   return itScore > enScore ? "it" : "en";
+}
+
+function isQuestionLike(query, lang) {
+  const raw = query || "";
+  const normalized = normalizeText(raw);
+  if (!normalized) return false;
+  if (raw.includes("?")) return true;
+
+  return (QUESTION_STARTERS[lang] || QUESTION_STARTERS.en).some((pattern) => pattern.test(normalized));
+}
+
+function detectTopic(query, lang) {
+  const normalized = normalizeText(query);
+  if (!normalized) return null;
+
+  return (
+    QUERY_TOPICS.find((topic) => (topic.queryPatterns[lang] || topic.queryPatterns.en).some((pattern) => pattern.test(normalized))) ||
+    null
+  );
+}
+
+function factMatchesTopic(fact, topic) {
+  const normalizedFact = normalizeText(fact?.text || "");
+  return topic.factPatterns.some((pattern) => pattern.test(normalizedFact));
+}
+
+function selectTopicAwareMatch(ranked, topic) {
+  if (!topic) return ranked[0] || null;
+  return ranked.find(({ fact }) => factMatchesTopic(fact, topic)) || ranked[0] || null;
+}
+
+function composeAnswer({ query, factText, answerLang, topic, finalScore }) {
+  const questionLike = isQuestionLike(query, answerLang);
+
+  if (topic && questionLike) {
+    const template = topic.answerTemplates[answerLang] || topic.answerTemplates.en;
+    if (template) {
+      return {
+        text: template(factText),
+        reason: `topic-${topic.key}`
+      };
+    }
+  }
+
+  if (questionLike) {
+    if (finalScore < 0.08) {
+      return {
+        text:
+          answerLang === "it"
+            ? `Non ho una risposta precisa su questo, ma un fatto collegato e questo: ${factText}`
+            : `I do not have an exact answer for that, but a related cat fact is this: ${factText}`,
+        reason: "question-low-confidence"
+      };
+    }
+
+    return {
+      text: answerLang === "it" ? `Da quello che so, ${toSentenceFragment(factText)}` : `From what I know, ${toSentenceFragment(factText)}`,
+      reason: "question-answer"
+    };
+  }
+
+  return null;
 }
 
 function buildDocMeta(fact, index, langForTokens) {
@@ -356,7 +503,9 @@ export function findBestFact(rawQuery, rawFacts) {
 
   const retrieval = retrieveCandidates(query, factsMeta, queryLang, preferredLang);
   const ranked = rankCandidates(query, retrieval, stats, queryLang);
-  const best = ranked[0]?.fact;
+  const topic = detectTopic(query, queryLang);
+  const selectedMatch = selectTopicAwareMatch(ranked, topic);
+  const best = selectedMatch?.fact;
 
   if (!best) {
     return {
@@ -366,10 +515,28 @@ export function findBestFact(rawQuery, rawFacts) {
     };
   }
 
+  const translatedText = preferredLang === "it" && best.lang !== "it" ? lightweightTranslateEnToIt(best.text) : best.text;
+  const answerLang = preferredLang === "it" || best.lang === preferredLang ? preferredLang : best.lang;
+  const composed = composeAnswer({
+    query,
+    factText: translatedText,
+    answerLang,
+    topic,
+    finalScore: selectedMatch?.finalScore || 0
+  });
+
+  if (composed) {
+    return {
+      text: composed.text,
+      lang: answerLang,
+      reason: composed.reason
+    };
+  }
+
   if (preferredLang === "it" && best.lang !== "it") {
     return {
       // For Italian input, keep language guarantee even when only EN data matches.
-      text: lightweightTranslateEnToIt(best.text),
+      text: translatedText,
       lang: "it",
       reason: "it-fallback-translation"
     };

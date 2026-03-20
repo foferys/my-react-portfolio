@@ -38,3 +38,31 @@ test("Italian fallback translates English best match when no Italian facts exist
   assert.equal(result.reason, "it-fallback-translation");
   assert.match(result.text, /^Fatto sui gatti:/);
 });
+
+test("question about cats talking returns a sensible communication answer", () => {
+  const facts = [
+    { id: "it-1", lang: "it", text: "I gatti comunicano anche con la posizione della coda: alta indica sicurezza." },
+    { id: "it-2", lang: "it", text: "I gatti usano miagolii diversi per interagire con gli esseri umani." },
+    { id: "it-3", lang: "it", text: "I gatti dormono molte ore per conservare energia." }
+  ];
+
+  const result = findBestFact("i gatti parlano?", facts);
+
+  assert.equal(result.lang, "it");
+  assert.equal(result.reason, "topic-communication");
+  assert.match(result.text, /non parlano/i);
+  assert.match(result.text, /comunicano|miagolii/i);
+});
+
+test("question about sleeping gets a natural answer instead of a raw fact dump", () => {
+  const facts = [
+    { id: "it-1", lang: "it", text: "I gatti dormono molte ore per conservare energia da predatori naturali." },
+    { id: "it-2", lang: "it", text: "I gatti usano miagolii diversi per interagire con gli esseri umani." }
+  ];
+
+  const result = findBestFact("i gatti dormono tanto?", facts);
+
+  assert.equal(result.lang, "it");
+  assert.equal(result.reason, "topic-sleep");
+  assert.match(result.text, /^Si, di solito dormono molto:/);
+});
