@@ -36,7 +36,7 @@ const QUERY_TOPICS = [
     },
     factPatterns: [/\bdorm\w*/u, /\bsleep\w*/i, /\bnap\w*/i, /\brest\w*/i, /\benergy\b/i, /\benergia\b/u],
     answerTemplates: {
-      it: (factText) => `Si, di solito dormono molto: ${toSentenceFragment(factText)}`,
+      it: (factText) => `Si, di solito dormono molto, moltissimo: ${toSentenceFragment(factText)}`,
       en: (factText) => `Yes, they usually sleep a lot: ${toSentenceFragment(factText)}`
     }
   },
