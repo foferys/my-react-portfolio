@@ -275,7 +275,7 @@ function App() {
             progetti.map((el, index) => (
               <React.Fragment key={index}>
                 <div className="servizi watch2 fade-in">
-                  <p>00-{el.id}</p>
+                  <p>00-{String(index + 1).padStart(2, '0')}</p>
                   <Link to={`/project/${el.id}`}>{el.name}
                     {el.primacom? <span>*</span>:""}
                   </Link>

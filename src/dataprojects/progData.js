@@ -80,10 +80,45 @@ import rendano3 from '../img/rendano/rendano3.png';
 import rendano4 from '../img/rendano/rendano4.png';
 import rendano5 from '../img/rendano/rendano5.png';
 import rendano6 from '../img/rendano/rendano6.png';
+//sportime
+import sportimeCover from '../img/sportime/cover-sportime.jpeg';
+import sportime1 from '../img/sportime/sito-web-asd-sportime1.jpeg';
+import sportime2 from '../img/sportime/sito-web-asd-sportime2.jpeg';
+import sportime3 from '../img/sportime/sito-web-asd-sportime3.jpeg';
+import sportime4 from '../img/sportime/sito-web-asd-sportime4.jpeg';
+import sportime5 from '../img/sportime/sito-web-asd-sportime5.jpeg';
+import sportime6 from '../img/sportime/sito-web-asd-sportime6.jpeg';
+//my folder gallery
+import folderGalleryAdminList from '../img/my-folder-gallery/admin-project-list.png';
+import folderGallerySettings from '../img/my-folder-gallery/settings-page.png';
+import folderGalleryFrontend from '../img/my-folder-gallery/frontend-gallery.png';
+import folderGalleryModal from '../img/my-folder-gallery/full-screen-modal.png';
 
 
 export const progetti = [
 
+  {
+    id: 11,
+    name: "ASD Sportime",
+    whatis: "Sito web",
+    tecs: ["Wordpress", "UI design", "Responsive layout", "SEO tecnico"],
+    desc: "Sito web per associazione sportiva con contenuti, attivita e percorsi di navigazione dedicati.",
+    date: 2026,
+    href: "https://www.asdsportime.it/",
+    preimg: sportimeCover,
+    imgs: [sportime1, sportime2, sportime3, sportime4, sportime5, sportime6]
+  },
+  {
+    id: 12,
+    name: "My Folder Gallery",
+    whatis: "WordPress Plugin",
+    tecs: ["PHP 8+", "WordPress Plugin", "Custom Post Type", "Shortcode gallery"],
+    desc: "Plugin WordPress per creare portfolio gallery leggendo automaticamente immagini e video dalle cartelle progetto.",
+    date: 2026,
+    href: "https://github.com/foferys/my-folder-gallery",
+    preimg: folderGalleryFrontend,
+    imgs: [folderGalleryFrontend, folderGalleryModal, folderGalleryAdminList, folderGallerySettings]
+  },
   {
     id: 1,
     name: "Teatro Rendano",
