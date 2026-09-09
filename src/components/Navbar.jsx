@@ -189,6 +189,7 @@ function Navbar({page3d}) {
                                 <Link className="nav-link active" aria-current="page" onClick={handleHome} to={"/"}>Home</Link>
                             </li>
                             <li><a href="#siti">Projects</a></li>
+                            <li><Link to="/cv">CV interattivo</Link></li>
                             {/* <li><a href="#3d">3D</a></li> */}
 
                             {/* <li><a href="">Grafica</a></li> */}

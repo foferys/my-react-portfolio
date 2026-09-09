@@ -9,9 +9,14 @@ import { Provider } from 'react-redux';
 import Page3d from './pages/3d.jsx';
 import { AudioProvider } from './store/AudioContext.jsx';
 import ProjDetail from './pages/ProjDetail.jsx';
+const PlayableCv = React.lazy(() => import('./pages/PlayableCv.jsx'));
 
 
 const router = createBrowserRouter([
+  {
+    path: '/cv',
+    element: <React.Suspense fallback={<p role="status">Caricamento curriculum…</p>}><PlayableCv /></React.Suspense>,
+  },
   {
     path: "/",
     element: <App></App>,
