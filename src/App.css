@@ -1052,6 +1052,13 @@ h2.title.h2 {
   height: 100%;
   width: 100%;
 }
+.boxProjectContain {
+  background: #0b0b0b;
+}
+.boxProjectContain video,
+.boxProjectContain img {
+  object-fit: cover;
+}
 #goToProjectIcon:hover svg {
   color: green;
 }

@@ -130,7 +130,7 @@ function OrizScrollingPage() {
                     
                         progetto.imgs.map((img, index) => {
                             return (
-                                <div key={index} className="boxProject" >
+                                <div key={index} className={`boxProject ${progetto.mediaFit === "contain" ? "boxProjectContain" : ""}`} >
                                     {img.includes("mp4")?
 
                                     //   <video className="video-bg" autoPlay loop muted playsInline>

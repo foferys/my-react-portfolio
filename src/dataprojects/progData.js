@@ -9,7 +9,7 @@ import eucare6 from '../img/eucarebeef/eucare6.jpg';
 // --
 import myWallett from '../img/mysmartwallet.jpg';
 import olivicola from '../img/olivicola.png';
-import bergamotto from '../img/bergamotto.png';
+import bergamotto from '../img/berg/berg-2.jpeg';
 import galatro from '../img/galatro.jpg';
 import primacom from '../img/primacom.png';
 import bilanciophp from '../img/bilanciophp.jpg';
@@ -31,12 +31,16 @@ import galvid1 from '../img/galatro/gavid1.mp4';
 import galvid2 from '../img/galatro/galvid2.mp4';
 import galvid3 from '../img/galatro/galvid3.mp4';
 //berg
-import berg1 from '../img/berg/berg1.png';
-import berg2 from '../img/berg/berg2.png';
-import berg3 from '../img/berg/berg3.png';
-import bergvid1 from '../img/berg/bergvid1.mp4';
-import bergvid2 from '../img/berg/bergvid2.mp4';
+import berg1 from '../img/berg/berg-1.jpeg';
+import berg2 from '../img/berg/berg-2.jpeg';
+import berg3 from '../img/berg/berg-3.jpeg';
+import berg4 from '../img/berg/berg-4.jpeg';
 import bergvid3 from '../img/berg/bergvid3.mp4';
+import bergamottoFull from '../img/bergamotto/begamotto-reggio-calabria-consorzio.png';
+import bergamottoSlider from '../img/bergamotto/begamotto-reggio-calabria-consorzio-slider.png';
+import bergamottoSection2 from '../img/bergamotto/begamotto-reggio-calabria-consorzio-2.png';
+import bergamottoSection3 from '../img/bergamotto/begamotto-reggio-calabria-consorzio-3.png';
+import bergamottoSection4 from '../img/bergamotto/begamotto-reggio-calabria-consorzio-4.png';
 //oliv
 import oliv1 from '../img/olivicola/oliv1.png';
 import oliv2 from '../img/olivicola/oliv2.png';
@@ -190,7 +194,20 @@ export const progetti = [
     href: "https://www.consorzioditutelabergamottorc.it/",
     preimg: bergamotto,
     primacom: true,
-    imgs: [berg1,bergvid1, berg2,bergvid3, berg3, bergvid2]
+    mediaFit: "contain",
+    imgs: [
+      bergamotto,
+      bergamottoFull,
+      bergamottoSlider,
+      bergamottoSection2,
+      bergamottoSection3,
+      bergamottoSection4,
+      berg1,
+      berg2,
+      berg3,
+      berg4,
+      bergvid3
+    ]
   },
   {
     id: 7,
