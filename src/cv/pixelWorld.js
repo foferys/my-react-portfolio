@@ -1,4 +1,5 @@
 import { chapters } from './content';
+import { backpack } from './movement';
 
 const C = { water:'#638a80', ripple:'#80a295', deep:'#476c66', earth:'#554349', edge:'#302e32', rock:'#39383b', light:'#575052', moss:'#81844b', grass:'#b2ad53', wood:'#9b673d', gold:'#e8c47e', green:'#a8d967' };
 const alien = [
@@ -25,6 +26,45 @@ const alien = [
   '    ooo  oooo    ',
 ];
 const colors = { o:'#324b39', g:'#77a846', l:'#abd969', k:'#26262e', w:'#eeeacb', p:'#654461', h:'#526362', s:'#8b9990', c:'#69c9bc' };
+const walkFrames = [
+  { bodyY:0, bodyX:0, headX:0, leftLeg:0, rightLeg:0, leftArm:0, rightArm:0 },
+  { bodyY:-1, bodyX:0, headX:0, leftLeg:-1, rightLeg:1, leftArm:1, rightArm:-1 },
+  { bodyY:-2, bodyX:1, headX:1, leftLeg:-2, rightLeg:2, leftArm:2, rightArm:-2 },
+  { bodyY:-1, bodyX:1, headX:1, leftLeg:-1, rightLeg:1, leftArm:1, rightArm:-1 },
+  { bodyY:0, bodyX:0, headX:0, leftLeg:0, rightLeg:0, leftArm:0, rightArm:0 },
+  { bodyY:1, bodyX:-1, headX:-1, leftLeg:2, rightLeg:-2, leftArm:-2, rightArm:2 },
+  { bodyY:0, bodyX:-1, headX:-1, leftLeg:2, rightLeg:-2, leftArm:-2, rightArm:2 },
+  { bodyY:-1, bodyX:-1, headX:-1, leftLeg:1, rightLeg:-1, leftArm:-1, rightArm:1 },
+];
+
+function drawAlien(rect, x, y, state) {
+  let frame = state.moving ? {...walkFrames[Math.floor(state.gait * 8) % walkFrames.length]} : null;
+  if (frame && state.animation === 'walk') frame.bodyY = Math.trunc(frame.bodyY / 2);
+  if (frame && state.animation === 'run') { frame.headX += 1; frame.bodyX += 1; }
+  if (state.animation === 'jump') frame = {bodyY:-1,headX:1,leftLeg:-2,rightLeg:1,leftArm:-2,rightArm:2};
+  if (state.animation === 'fall') frame = {bodyY:0,headX:0,leftLeg:-1,rightLeg:1,leftArm:-3,rightArm:3};
+  if (state.animation === 'land') frame = {bodyY:2,headX:0,leftLeg:-1,rightLeg:1,leftArm:1,rightArm:-1};
+  if (state.interaction) frame = {bodyY:0,headX:1,bodyX:1,rightArm:3,leftArm:0};
+  if (state.interaction?.id === backpack.id) frame = {bodyY:3,headX:0,bodyX:0,leftLeg:-3,rightLeg:3,leftArm:2,rightArm:2};
+  if (state.reduced) frame = null;
+  const idleBob = state.animation === 'idle' && !state.reduced ? Math.round(Math.sin(state.time * 2) * .6) : 0;
+  y -= Math.round(state.height || 0);
+  alien.forEach((row, rowIndex) => [...row].forEach((pixel, columnIndex) => {
+    if (!colors[pixel]) return;
+    const leftSide = columnIndex < 8;
+    const isHead = rowIndex < 11;
+    const isLeg = rowIndex > 16;
+    const isArm = rowIndex > 10 && rowIndex < 17 && (columnIndex < 5 || columnIndex > 10);
+    const stride = isLeg ? (leftSide ? frame?.leftLeg : frame?.rightLeg) ?? 0 : 0;
+    const arm = isArm ? (leftSide ? frame?.leftArm : frame?.rightArm) ?? 0 : 0;
+    const torsoShift = !isHead && !isLeg ? frame?.bodyX ?? 0 : 0;
+    const headShift = isHead ? frame?.headX ?? 0 : 0;
+    const footStride = rowIndex > 18 ? stride : Math.trunc(stride / 2);
+    const pixelX = x + (columnIndex - 8 + headShift + torsoShift + footStride + arm) * state.facing;
+    const pixelY = y - 22 + rowIndex + idleBob + (frame?.bodyY ?? 0) + (isLeg ? Math.abs(stride) > 1 && rowIndex > 18 ? 1 : 0 : 0);
+    rect(pixelX, pixelY, 1, 1, colors[pixel]);
+  }));
+}
 
 export function paintWorld(ctx, width, height, state) {
   const rect = (x,y,w,h,c) => { ctx.fillStyle=c;ctx.fillRect(Math.round(x),Math.round(y),w,h); };
@@ -94,9 +134,30 @@ export function paintWorld(ctx, width, height, state) {
     ctx.restore();
   }
   deadTree(-156,38,1);deadTree(158,32,-1);
+  function drawBackpack(x,y,active,reaction=0) {
+    const lift = Math.round(reaction * 5);
+    rect(x-12,y-5,24,4,'#342f36');
+    rect(x-11,y-25-lift,22,22,'#263034');
+    rect(x-8,y-28-lift,16,7,'#40584f');
+    rect(x-7,y-22-lift,14,16,'#7c5b45');
+    rect(x-4,y-19-lift,8,8,'#513f42');
+    rect(x-9,y-25-lift,4,20,'#a67a49');
+    rect(x+5,y-25-lift,4,20,'#a67a49');
+    rect(x-1,y-16-lift,3,4,C.gold);
+    if (reaction > 0) {
+      rect(x-15,y-33-lift,30,4,C.edge);
+      rect(x-12,y-37-lift,24,6,C.wood);
+      rect(x+10,y-42-lift,10,2,C.green);
+      rect(x+14,y-46-lift,2,6,C.green);
+    }
+    const marker = active ? C.green : C.gold;
+    rect(x-3,y-46+Math.round(Math.sin(state.time*3)*2),6,6,marker);
+    rect(x-1,y-50+Math.round(Math.sin(state.time*3)*2),2,10,marker);
+  }
   // Props use the existing collider footprints and sort behind/in front of the player.
   const objects=chapters.map(chapter=>({y:chapter.z*30,draw(){
     const [x,y]=point(chapter.x,chapter.z);
+    const reaction = state.interaction?.id === chapter.id && !state.reduced ? Math.sin(Math.min(1,state.interaction.progress)*Math.PI) : 0;
     rect(x-18,y+2,40,5,'#3e363d');
     if(chapter.id==='skills') {
       rect(x-17,y-41,34,45,C.edge);rect(x-14,y-39,28,3,'#7b6961');
@@ -114,18 +175,53 @@ export function paintWorld(ctx, width, height, state) {
     }
     const bob=Math.round(Math.sin(state.time*3)*2), top=chapter.id==='skills'?52:43;
     const active=state.nearest?.id===chapter.id;
+    if(reaction > 0) {
+      const lift = Math.round(reaction * 10);
+      if(chapter.id === 'projects') {
+        rect(x-18,y-24,36,10,C.edge);
+        rect(x-18,y-24-lift,36,6,C.wood);
+        rect(x-15,y-22,30,8,C.gold);
+      } else if(chapter.id === 'about') {
+        rect(x-8,y-25,17,11,C.rock);
+        rect(x-8,y-25-lift,17,11,C.gold);
+        rect(x-5,y-22-lift,11,1,C.wood);
+      } else if(chapter.id === 'skills') {
+        rect(x-8,y-30-lift,12,16,C.gold);
+        rect(x-5,y-28-lift,2,12,C.wood);
+      } else {
+        rect(x-10,y-29,21,15,'#9ed695');
+        for(let row=0;row<3;row++)rect(x-7,y-26+row*4,Math.round(reaction*14),1,C.deep);
+      }
+      for(let n=0;n<4;n++)rect(x-22+n*14,y-38-lift+(n%2)*5,2,2,C.gold);
+    }
     rect(x-3,y-top+bob,6,6,active?C.green:C.gold);rect(x-1,y-top-2+bob,2,10,active?C.green:C.gold);
   }}));
+  objects.push({y:backpack.z*30,draw(){
+    const [x,y]=point(backpack.x,backpack.z);
+    const reaction = state.interaction?.id === backpack.id && !state.reduced ? Math.sin(Math.min(1,state.interaction.progress)*Math.PI) : 0;
+    drawBackpack(x,y,state.nearest?.id===backpack.id,reaction);
+  }});
   objects.push({y:state.position.z*30,draw(){
     const [x,y]=point(state.position.x,state.position.z);
     rect(x-8,y-1,16,3,'#342f36');
-    const step=state.moving?Math.floor(state.time*9)%4:0;
-    const bob=state.moving?step%2:0;
-    alien.forEach((row,j)=>[...row].forEach((pixel,i)=>{
-      if(!colors[pixel])return;
-      const leg=j>16&&state.moving?(i<8?step%2:-(step%2)):0;
-      rect(x+(i-8)*state.facing,y-22+j-bob+leg,1,1,colors[pixel]);
-    }));
+    if(state.animation === 'land' && !state.reduced) {
+      rect(x-13,y-2,3,2,C.light);rect(x+10,y,4,2,C.light);
+    }
+    drawAlien(rect, x, y, state);
+    if(state.interaction?.id === backpack.id) {
+      const open = Math.min(1, state.interaction.progress * 1.45);
+      const bob = Math.round(Math.sin(open * Math.PI) * 3);
+      rect(x-18,y-8-bob,35,4,'#1f2428');
+      rect(x-16,y-12-bob,31,5,'#485c58');
+      rect(x-14,y-11-bob,12,1,C.green);
+      rect(x+1,y-11-bob,10,1,C.gold);
+      rect(x-16,y-13-bob-Math.round(open*10),31,3,'#1f2428');
+      rect(x-14,y-26-bob-Math.round(open*10),27,13,'#2b3938');
+      rect(x-11,y-23-bob-Math.round(open*10),21,7,'#78a890');
+      rect(x-9,y-21-bob-Math.round(open*10),7,1,'#263b38');
+      rect(x-9,y-19-bob-Math.round(open*10),14,1,'#263b38');
+      rect(x+7,y-24-bob-Math.round(open*10),2,2,C.gold);
+    }
   }});
   objects.sort((a,b)=>a.y-b.y).forEach(object=>object.draw());
   rock(-126,79,.65);rock(127,79,.55);

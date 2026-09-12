@@ -5,6 +5,7 @@ export const obstacles = [
   { x: 1.85, z: 1.3, width: 1, depth: .7 },
   { x: -1.85, z: 1.3, width: .7, depth: .6 },
 ];
+export const backpack = { id: 'backpack', title: 'Zainetto', x: .72, z: .86 };
 export function canStand(x, z) {
   const radius = .22;
   return x >= bounds.minX && x <= bounds.maxX && z >= bounds.minZ && z <= bounds.maxZ &&
@@ -15,10 +16,10 @@ export function canStand(x, z) {
 export function hasReachedExit(position) {
   return position.z >= 3.92 && Math.abs(position.x) <= .52;
 }
-export function stepPosition(position, dx, dz, seconds) {
+export function stepPosition(position, dx, dz, seconds, speed = 2.4) {
   const length = Math.hypot(dx, dz);
   if (!length) return { ...position };
-  const distance = Math.min(seconds, .05) * 2.4;
+  const distance = Math.min(seconds, .05) * speed;
   const next = { ...position };
   const x = next.x + dx / length * distance;
   if (canStand(x, next.z)) next.x = x;
@@ -29,4 +30,9 @@ export function stepPosition(position, dx, dz, seconds) {
 export function nearestChapter(position, chapters) {
   return chapters.map(chapter => ({ chapter, distance: Math.hypot(chapter.x - position.x, chapter.z - position.z) }))
     .filter(item => item.distance < 1.5).sort((a, b) => a.distance - b.distance)[0]?.chapter ?? null;
+}
+export function nearestInteractable(position, chapters) {
+  const items = [...chapters, backpack].map(item => ({ item, distance: Math.hypot(item.x - position.x, item.z - position.z) }));
+  return items.filter(entry => entry.distance < (entry.item.id === backpack.id ? 1.05 : 1.5))
+    .sort((a, b) => a.distance - b.distance)[0]?.item ?? null;
 }

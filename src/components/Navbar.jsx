@@ -151,7 +151,7 @@ function Navbar({page3d}) {
             {
                 currentTime?
                 <div>
-                    <p className="m-0">V-002</p>
+                    <p className="m-0">V-03</p>
                 </div>
                 :
                 <div className="spinner-grow spinner-grow-sm" role="status">
