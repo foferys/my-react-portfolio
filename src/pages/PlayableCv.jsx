@@ -68,7 +68,15 @@ export default function PlayableCv() {
         {exiting && <div className="cv-exit" role="status" aria-live="assertive"><div className="cv-exit-pixels" aria-hidden="true">{Array.from({length:20},(_,index)=><span key={index}/>)}</div><p>USCITA DALL&apos;AVAMPOSTO</p></div>}
         {status==='loading' && <div className="cv-loading" role="status"><span className="cv-loading-gem">◇</span>Caricamento avamposto…</div>}
         {status==='error' && <div className="cv-loading" role="alert"><p>{error}</p><button onClick={()=>setReading(true)}>Leggi il curriculum</button></div>}
-        {status==='ready' && <div className="cv-interaction" aria-live="polite">{nearby?<button onClick={()=>openChapter(nearby.id)}><kbd>E</kbd> {nearby.title} <span>↗</span></button>:null}</div>}
+        {status==='ready' && <div className="cv-interaction" aria-live="polite">{nearby?<button onClick={()=>engine.current?.interact()}><kbd>E</kbd> {nearby.title} <span>↗</span></button>:null}</div>}
+        <div className="cv-actions">
+          <button title="Salto (Spazio)" aria-label="Salta" disabled={status!=='ready'||Boolean(selected)||reading||exiting} onClick={()=>engine.current?.jump()}>↥</button>
+          <button title="Corsa (tieni premuto Shift)" aria-label="Corri" disabled={status!=='ready'||Boolean(selected)||reading||exiting}
+            onPointerDown={event=>{event.preventDefault();event.currentTarget.setPointerCapture(event.pointerId);engine.current?.setDirection('shift',true);}}
+            onPointerUp={()=>engine.current?.setDirection('shift',false)} onPointerCancel={()=>engine.current?.setDirection('shift',false)} onLostPointerCapture={()=>engine.current?.setDirection('shift',false)}
+            onKeyDown={event=>{if(event.key===' '||event.key==='Enter'){event.preventDefault();engine.current?.setDirection('shift',true);}}}
+            onKeyUp={()=>engine.current?.setDirection('shift',false)} onBlur={()=>engine.current?.setDirection('shift',false)}>»</button>
+        </div>
         <div className="cv-controls"><div className="cv-dpad" aria-label="Comandi di movimento">{[['w','↑','Avanti'],['a','←','Sinistra'],['s','↓','Indietro'],['d','→','Destra']].map(([key,symbol,label])=><button key={key} className={`cv-dir-${key}`} aria-label={label} disabled={status!=='ready'||Boolean(selected)||reading||exiting} onPointerDown={event=>{event.preventDefault();event.currentTarget.setPointerCapture(event.pointerId);engine.current?.setDirection(key,true);}} onPointerUp={()=>engine.current?.setDirection(key,false)} onPointerCancel={()=>engine.current?.setDirection(key,false)} onLostPointerCapture={()=>engine.current?.setDirection(key,false)} onKeyDown={event=>{if(event.key===' '||event.key==='Enter'){event.preventDefault();engine.current?.setDirection(key,true);}}} onKeyUp={()=>engine.current?.setDirection(key,false)} onBlur={()=>engine.current?.setDirection(key,false)}>{symbol}</button>)}</div><p><b>W A S D</b> / frecce per muoverti<br/><b>E</b> per scoprire · oppure usa i pulsanti</p></div>
       </div>
     </section>

@@ -15,10 +15,10 @@ export function canStand(x, z) {
 export function hasReachedExit(position) {
   return position.z >= 3.92 && Math.abs(position.x) <= .52;
 }
-export function stepPosition(position, dx, dz, seconds) {
+export function stepPosition(position, dx, dz, seconds, speed = 2.4) {
   const length = Math.hypot(dx, dz);
   if (!length) return { ...position };
-  const distance = Math.min(seconds, .05) * 2.4;
+  const distance = Math.min(seconds, .05) * speed;
   const next = { ...position };
   const x = next.x + dx / length * distance;
   if (canStand(x, next.z)) next.x = x;
