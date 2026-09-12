@@ -1,4 +1,4 @@
-export const bounds = { minX: -2.65, maxX: 2.65, minZ: -2.55, maxZ: 2.45 };
+export const bounds = { minX: -2.65, maxX: 2.65, minZ: -2.55, maxZ: 4.2 };
 export const obstacles = [
   { x: -2, z: -1.8, width: .85, depth: 1.2 },
   { x: 1.65, z: -1.85, width: 1.5, depth: .9 },
@@ -8,7 +8,12 @@ export const obstacles = [
 export function canStand(x, z) {
   const radius = .22;
   return x >= bounds.minX && x <= bounds.maxX && z >= bounds.minZ && z <= bounds.maxZ &&
+    (z <= 2.5 || Math.abs(x) <= .52) &&
     !obstacles.some(o => Math.abs(x - o.x) < o.width / 2 + radius && Math.abs(z - o.z) < o.depth / 2 + radius);
+}
+
+export function hasReachedExit(position) {
+  return position.z >= 3.92 && Math.abs(position.x) <= .52;
 }
 export function stepPosition(position, dx, dz, seconds) {
   const length = Math.hypot(dx, dz);

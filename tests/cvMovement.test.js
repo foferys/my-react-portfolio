@@ -1,11 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {canStand, stepPosition, nearestChapter} from '../src/cv/movement.js';
+import {canStand, stepPosition, nearestChapter, hasReachedExit} from '../src/cv/movement.js';
 import {chapters} from '../src/cv/content.js';
 
 test('walls and furniture keep the character on the walkable floor',()=>{
   assert.equal(canStand(0,0),true);
-  for(const p of [[-3,0],[3,0],[0,-3],[0,3],[-2,-1.8],[1.65,-1.85],[1.85,1.3],[-1.85,1.3]]) assert.equal(canStand(...p),false);
+  for(const p of [[-3,0],[3,0],[0,-3],[0,4.3],[-2,-1.8],[1.65,-1.85],[1.85,1.3],[-1.85,1.3]]) assert.equal(canStand(...p),false);
   let p={x:0,z:0};for(let i=0;i<300;i++)p=stepPosition(p,1,0,.016);
   assert.ok(p.x<=2.65);
 });
@@ -20,4 +20,10 @@ test('every chapter has a reachable interaction point',()=>{
     for(let x=-2.6;x<2.6;x+=.15)for(let z=-2.5;z<2.4;z+=.15)if(canStand(x,z)&&nearestChapter({x,z},chapters)?.id===chapter.id)reachable=true;
     assert.ok(reachable,chapter.id);
   }
+});
+test('the brown stairs form a narrow reachable exit',()=>{
+  assert.equal(canStand(0,3.9),true);
+  assert.equal(canStand(1,3.9),false);
+  assert.equal(hasReachedExit({x:0,z:3.92}),true);
+  assert.equal(hasReachedExit({x:.7,z:4}),false);
 });

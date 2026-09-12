@@ -1,13 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { chapters } from '../cv/content';
 import './PlayableCv.css';
 
 export default function PlayableCv() {
+  const navigate=useNavigate();
   const host = useRef(null), engine = useRef(null), dialog = useRef(null), returnFocus = useRef(null);
   const [status,setStatus]=useState('loading'), [error,setError]=useState(''), [near,setNear]=useState(null);
-  const [selected,setSelected]=useState(null), [reading,setReading]=useState(false), [visited,setVisited]=useState([]);
+  const [selected,setSelected]=useState(null), [reading,setReading]=useState(false), [visited,setVisited]=useState([]), [exiting,setExiting]=useState(false);
   const openRef=useRef(null);
+  const exitRef=useRef(false);
   function openChapter(id) {
     returnFocus.current=document.activeElement;
     setSelected(id); setVisited(previous=>previous.includes(id)?previous:[...previous,id]);
@@ -20,6 +22,7 @@ export default function PlayableCv() {
       if(cancelled) return;
       try { engine.current=createScene(host.current,{
         onReady:()=>setStatus('ready'), onNear:setNear, onOpen:id=>openRef.current(id),
+        onExit:()=>{if(!exitRef.current){exitRef.current=true;setExiting(true);}},
         onError:message=>{setError(message);setStatus('error');},
       }); } catch {setError('Il dispositivo non riesce ad avviare il gioco. Puoi leggere il CV qui sotto.');setStatus('error');}
     }).catch(()=>{if(!cancelled) {setError('Caricamento non riuscito. Puoi leggere il CV qui sotto.');setStatus('error');}});
@@ -33,6 +36,11 @@ export default function PlayableCv() {
   useEffect(()=>{
     if(reading) document.querySelector('.cv-reading')?.scrollIntoView({behavior:'instant',block:'start'});
   },[reading]);
+  useEffect(()=>{
+    if(!exiting) return undefined;
+    const returnHome=window.setTimeout(()=>navigate('/'),900);
+    return ()=>window.clearTimeout(returnHome);
+  },[exiting,navigate]);
   function closeChapter() { setSelected(null); returnFocus.current?.focus(); }
   const chapter=chapters.find(c=>c.id===selected), nearby=chapters.find(c=>c.id===near);
   const content=(entry)=><>
@@ -44,7 +52,7 @@ export default function PlayableCv() {
   </>;
   return <main className="cv-page">
     <header className="cv-header"><Link to="/" className="cv-back">← Portfolio</Link><span>GIANPIERO FERRARO <i> / </i> CV INTERATTIVO</span><button onClick={()=>setReading(value=>!value)}>{reading?'Torna alla casa':'Leggi il CV'} <span aria-hidden="true">↗</span></button></header>
-    <section className="cv-layout">
+    <section className="cv-layout" aria-busy={exiting}>
       <aside className="cv-sidebar">
         <p className="cv-eyebrow"><span /> DIARIO DI BORDO</p>
         <h1>FOFE<em> / 01</em></h1>
@@ -57,10 +65,11 @@ export default function PlayableCv() {
       <div className="cv-world">
         <div className="cv-world-label"><span>AVAMPOSTO / PALUDE</span><span>01 — ESPLORAZIONE</span></div>
         <div ref={host} className="cv-canvas" tabIndex={0} aria-label="Area di gioco: clicca qui, poi usa WASD o frecce. E apre l'oggetto vicino." onPointerDown={()=>host.current?.focus()} />
+        {exiting && <div className="cv-exit" role="status" aria-live="assertive"><div className="cv-exit-pixels" aria-hidden="true">{Array.from({length:20},(_,index)=><span key={index}/>)}</div><p>USCITA DALL&apos;AVAMPOSTO</p></div>}
         {status==='loading' && <div className="cv-loading" role="status"><span className="cv-loading-gem">◇</span>Caricamento avamposto…</div>}
         {status==='error' && <div className="cv-loading" role="alert"><p>{error}</p><button onClick={()=>setReading(true)}>Leggi il curriculum</button></div>}
         {status==='ready' && <div className="cv-interaction" aria-live="polite">{nearby?<button onClick={()=>openChapter(nearby.id)}><kbd>E</kbd> {nearby.title} <span>↗</span></button>:null}</div>}
-        <div className="cv-controls"><div className="cv-dpad" aria-label="Comandi di movimento">{[['w','↑','Avanti'],['a','←','Sinistra'],['s','↓','Indietro'],['d','→','Destra']].map(([key,symbol,label])=><button key={key} className={`cv-dir-${key}`} aria-label={label} disabled={status!=='ready'||Boolean(selected)||reading} onPointerDown={event=>{event.preventDefault();event.currentTarget.setPointerCapture(event.pointerId);engine.current?.setDirection(key,true);}} onPointerUp={()=>engine.current?.setDirection(key,false)} onPointerCancel={()=>engine.current?.setDirection(key,false)} onLostPointerCapture={()=>engine.current?.setDirection(key,false)} onKeyDown={event=>{if(event.key===' '||event.key==='Enter'){event.preventDefault();engine.current?.setDirection(key,true);}}} onKeyUp={()=>engine.current?.setDirection(key,false)} onBlur={()=>engine.current?.setDirection(key,false)}>{symbol}</button>)}</div><p><b>W A S D</b> / frecce per muoverti<br/><b>E</b> per scoprire · oppure usa i pulsanti</p></div>
+        <div className="cv-controls"><div className="cv-dpad" aria-label="Comandi di movimento">{[['w','↑','Avanti'],['a','←','Sinistra'],['s','↓','Indietro'],['d','→','Destra']].map(([key,symbol,label])=><button key={key} className={`cv-dir-${key}`} aria-label={label} disabled={status!=='ready'||Boolean(selected)||reading||exiting} onPointerDown={event=>{event.preventDefault();event.currentTarget.setPointerCapture(event.pointerId);engine.current?.setDirection(key,true);}} onPointerUp={()=>engine.current?.setDirection(key,false)} onPointerCancel={()=>engine.current?.setDirection(key,false)} onLostPointerCapture={()=>engine.current?.setDirection(key,false)} onKeyDown={event=>{if(event.key===' '||event.key==='Enter'){event.preventDefault();engine.current?.setDirection(key,true);}}} onKeyUp={()=>engine.current?.setDirection(key,false)} onBlur={()=>engine.current?.setDirection(key,false)}>{symbol}</button>)}</div><p><b>W A S D</b> / frecce per muoverti<br/><b>E</b> per scoprire · oppure usa i pulsanti</p></div>
       </div>
     </section>
     {reading && <section className="cv-reading" aria-label="Curriculum in formato testo"><div className="cv-reading-heading"><p className="cv-eyebrow">IL PERCORSO, NERO SU BIANCO</p><h2>Gianpiero Ferraro</h2><p>Java Web Developer · Cosenza</p></div>{chapters.map(entry=><article key={entry.id}><span className="cv-eyebrow">{entry.number}</span><h3>{entry.title}</h3>{content(entry)}</article>)}</section>}

@@ -581,6 +581,11 @@
 .cv-dialog p{font-size:14px}.cv-dialog .cv-intro{font-size:18px}
 .cv-return{border:2px solid #b9d984;background:#425a48!important}
 .cv-loading{background:#638a80}
+.cv-exit{position:absolute;inset:0;z-index:5;background:#263b38;display:grid;place-content:center;text-align:center;color:#e6e8d2;font-size:13px;font-weight:700;letter-spacing:1px;overflow:hidden}
+.cv-exit-pixels{display:grid;grid-template-columns:repeat(5,12px);gap:4px;justify-content:center;margin-bottom:18px}
+.cv-exit-pixels span{width:12px;height:12px;background:#b9d984;animation:cv-exit-pixel .72s steps(2,end) both}
+.cv-exit-pixels span:nth-child(3n){background:#638a80;animation-delay:.08s}.cv-exit-pixels span:nth-child(4n){background:#e8c47e;animation-delay:.16s}.cv-exit-pixels span:nth-child(5n){animation-delay:.24s}
+@keyframes cv-exit-pixel{0%{transform:scale(0);opacity:0}45%{transform:scale(1);opacity:1}100%{transform:scale(3.5);opacity:0}}
 @media(max-width:850px){
   .cv-page{padding:0 16px}
   .cv-layout{margin:0 -16px;height:auto;min-height:0;display:flex;flex-direction:column}

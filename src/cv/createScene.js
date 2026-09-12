@@ -1,5 +1,5 @@
 import { chapters } from './content';
-import { stepPosition, nearestChapter } from './movement';
+import { stepPosition, nearestChapter, hasReachedExit } from './movement';
 import { paintWorld } from './pixelWorld';
 
 export function createScene(host, callbacks) {
@@ -9,7 +9,7 @@ export function createScene(host, callbacks) {
   host.appendChild(canvas);
   canvas.setAttribute('role', 'img');
   canvas.setAttribute('aria-label', 'Un alieno esplora un avamposto pixel art nella palude.');
-  let position = { x: 0, z: 1.5 }, nearest = null, paused = false;
+  let position = { x: 0, z: 1.5 }, nearest = null, paused = false, exiting = false;
   let last = performance.now(), time = 0, frame, facing = 1;
   const keyboard = new Set(), touch = new Set();
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -44,6 +44,12 @@ export function createScene(host, callbacks) {
       const moving = Math.hypot(next.x - position.x, next.z - position.z) > .0001;
       if (dx) facing = Math.sign(dx);
       position = next;
+      if (!exiting && hasReachedExit(position)) {
+        exiting = true;
+        paused = true;
+        clear();
+        callbacks.onExit();
+      }
       if (!paused && !reduced.matches) time += delta;
       const found = nearestChapter(position, chapters);
       if (found?.id !== nearest?.id) { nearest = found; callbacks.onNear(found?.id ?? null); }
