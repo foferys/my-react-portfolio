@@ -1,4 +1,5 @@
 import { chapters } from './content';
+import { backpack } from './movement';
 
 const C = { water:'#638a80', ripple:'#80a295', deep:'#476c66', earth:'#554349', edge:'#302e32', rock:'#39383b', light:'#575052', moss:'#81844b', grass:'#b2ad53', wood:'#9b673d', gold:'#e8c47e', green:'#a8d967' };
 const alien = [
@@ -44,6 +45,7 @@ function drawAlien(rect, x, y, state) {
   if (state.animation === 'fall') frame = {bodyY:0,headX:0,leftLeg:-1,rightLeg:1,leftArm:-3,rightArm:3};
   if (state.animation === 'land') frame = {bodyY:2,headX:0,leftLeg:-1,rightLeg:1,leftArm:1,rightArm:-1};
   if (state.interaction) frame = {bodyY:0,headX:1,bodyX:1,rightArm:3,leftArm:0};
+  if (state.interaction?.id === backpack.id) frame = {bodyY:3,headX:0,bodyX:0,leftLeg:-3,rightLeg:3,leftArm:2,rightArm:2};
   if (state.reduced) frame = null;
   const idleBob = state.animation === 'idle' && !state.reduced ? Math.round(Math.sin(state.time * 2) * .6) : 0;
   y -= Math.round(state.height || 0);
@@ -132,6 +134,26 @@ export function paintWorld(ctx, width, height, state) {
     ctx.restore();
   }
   deadTree(-156,38,1);deadTree(158,32,-1);
+  function drawBackpack(x,y,active,reaction=0) {
+    const lift = Math.round(reaction * 5);
+    rect(x-12,y-5,24,4,'#342f36');
+    rect(x-11,y-25-lift,22,22,'#263034');
+    rect(x-8,y-28-lift,16,7,'#40584f');
+    rect(x-7,y-22-lift,14,16,'#7c5b45');
+    rect(x-4,y-19-lift,8,8,'#513f42');
+    rect(x-9,y-25-lift,4,20,'#a67a49');
+    rect(x+5,y-25-lift,4,20,'#a67a49');
+    rect(x-1,y-16-lift,3,4,C.gold);
+    if (reaction > 0) {
+      rect(x-15,y-33-lift,30,4,C.edge);
+      rect(x-12,y-37-lift,24,6,C.wood);
+      rect(x+10,y-42-lift,10,2,C.green);
+      rect(x+14,y-46-lift,2,6,C.green);
+    }
+    const marker = active ? C.green : C.gold;
+    rect(x-3,y-46+Math.round(Math.sin(state.time*3)*2),6,6,marker);
+    rect(x-1,y-50+Math.round(Math.sin(state.time*3)*2),2,10,marker);
+  }
   // Props use the existing collider footprints and sort behind/in front of the player.
   const objects=chapters.map(chapter=>({y:chapter.z*30,draw(){
     const [x,y]=point(chapter.x,chapter.z);
@@ -174,6 +196,11 @@ export function paintWorld(ctx, width, height, state) {
     }
     rect(x-3,y-top+bob,6,6,active?C.green:C.gold);rect(x-1,y-top-2+bob,2,10,active?C.green:C.gold);
   }}));
+  objects.push({y:backpack.z*30,draw(){
+    const [x,y]=point(backpack.x,backpack.z);
+    const reaction = state.interaction?.id === backpack.id && !state.reduced ? Math.sin(Math.min(1,state.interaction.progress)*Math.PI) : 0;
+    drawBackpack(x,y,state.nearest?.id===backpack.id,reaction);
+  }});
   objects.push({y:state.position.z*30,draw(){
     const [x,y]=point(state.position.x,state.position.z);
     rect(x-8,y-1,16,3,'#342f36');
@@ -181,6 +208,20 @@ export function paintWorld(ctx, width, height, state) {
       rect(x-13,y-2,3,2,C.light);rect(x+10,y,4,2,C.light);
     }
     drawAlien(rect, x, y, state);
+    if(state.interaction?.id === backpack.id) {
+      const open = Math.min(1, state.interaction.progress * 1.45);
+      const bob = Math.round(Math.sin(open * Math.PI) * 3);
+      rect(x-18,y-8-bob,35,4,'#1f2428');
+      rect(x-16,y-12-bob,31,5,'#485c58');
+      rect(x-14,y-11-bob,12,1,C.green);
+      rect(x+1,y-11-bob,10,1,C.gold);
+      rect(x-16,y-13-bob-Math.round(open*10),31,3,'#1f2428');
+      rect(x-14,y-26-bob-Math.round(open*10),27,13,'#2b3938');
+      rect(x-11,y-23-bob-Math.round(open*10),21,7,'#78a890');
+      rect(x-9,y-21-bob-Math.round(open*10),7,1,'#263b38');
+      rect(x-9,y-19-bob-Math.round(open*10),14,1,'#263b38');
+      rect(x+7,y-24-bob-Math.round(open*10),2,2,C.gold);
+    }
   }});
   objects.sort((a,b)=>a.y-b.y).forEach(object=>object.draw());
   rock(-126,79,.65);rock(127,79,.55);

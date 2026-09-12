@@ -1,5 +1,5 @@
 import { chapters } from './content';
-import { stepPosition, nearestChapter, hasReachedExit } from './movement';
+import { stepPosition, nearestInteractable, hasReachedExit, backpack } from './movement';
 import { paintWorld } from './pixelWorld';
 
 export function createScene(host, callbacks) {
@@ -68,7 +68,9 @@ export function createScene(host, callbacks) {
           interaction.progress += delta / (reduced.matches ? .15 : .75);
           if (interaction.progress >= 1) {
             const id = interaction.id;
-            interaction = null; paused = true; callbacks.onOpen(id);
+            interaction = null; paused = true;
+            if (id === backpack.id) callbacks.onLaptop?.();
+            else callbacks.onOpen(id);
           }
         }
       }
@@ -81,7 +83,7 @@ export function createScene(host, callbacks) {
         callbacks.onExit();
       }
       if (!paused && !reduced.matches) time += delta;
-      const found = nearestChapter(position, chapters);
+      const found = nearestInteractable(position, chapters);
       if (found?.id !== nearest?.id) { nearest = found; callbacks.onNear(found?.id ?? null); }
       host.dataset.position = `${position.x.toFixed(2)},${position.z.toFixed(2)}`;
       const animation = interaction ? 'interact' : height > 0 ? (velocity > 0 ? 'jump' : 'fall') : landing > 0 ? 'land' : moving ? (running ? 'run' : 'walk') : 'idle';

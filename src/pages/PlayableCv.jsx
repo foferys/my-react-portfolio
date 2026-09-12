@@ -1,14 +1,21 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { chapters } from '../cv/content';
+import { backpack } from '../cv/movement';
+import { findBestFact } from '../utils/catFactsEngine';
+import localCatFacts from '../data/localCatFacts.json';
 import './PlayableCv.css';
 
 export default function PlayableCv() {
   const navigate=useNavigate();
+  const location=useLocation();
   const host = useRef(null), engine = useRef(null), dialog = useRef(null), returnFocus = useRef(null);
   const [status,setStatus]=useState('loading'), [error,setError]=useState(''), [near,setNear]=useState(null);
   const [selected,setSelected]=useState(null), [reading,setReading]=useState(false), [visited,setVisited]=useState([]), [exiting,setExiting]=useState(false);
+  const [laptop,setLaptop]=useState(false);
   const openRef=useRef(null);
+  const laptopRef=useRef(null);
   const exitRef=useRef(false);
   function openChapter(id) {
     returnFocus.current=document.activeElement;
@@ -22,6 +29,7 @@ export default function PlayableCv() {
       if(cancelled) return;
       try { engine.current=createScene(host.current,{
         onReady:()=>setStatus('ready'), onNear:setNear, onOpen:id=>openRef.current(id),
+        onLaptop:()=>setLaptop(true),
         onExit:()=>{if(!exitRef.current){exitRef.current=true;setExiting(true);}},
         onError:message=>{setError(message);setStatus('error');},
       }); } catch {setError('Il dispositivo non riesce ad avviare il gioco. Puoi leggere il CV qui sotto.');setStatus('error');}
@@ -29,10 +37,10 @@ export default function PlayableCv() {
     return ()=>{cancelled=true;engine.current?.dispose();engine.current=null;document.title=oldTitle;};
   },[]);
   useEffect(()=>{
-    engine.current?.setPaused(Boolean(selected)||reading);
+    engine.current?.setPaused(Boolean(selected)||reading||laptop);
     if(selected) dialog.current?.showModal();
     else if(dialog.current?.open) dialog.current.close();
-  },[selected,reading,status]);
+  },[selected,reading,laptop,status]);
   useEffect(()=>{
     if(reading) document.querySelector('.cv-reading')?.scrollIntoView({behavior:'instant',block:'start'});
   },[reading]);
@@ -42,7 +50,10 @@ export default function PlayableCv() {
     return ()=>window.clearTimeout(returnHome);
   },[exiting,navigate]);
   function closeChapter() { setSelected(null); returnFocus.current?.focus(); }
-  const chapter=chapters.find(c=>c.id===selected), nearby=chapters.find(c=>c.id===near);
+  useEffect(()=>{
+    if(laptop) laptopRef.current?.focus();
+  },[laptop]);
+  const chapter=chapters.find(c=>c.id===selected), nearby=chapters.find(c=>c.id===near) || (near===backpack.id ? backpack : null);
   const content=(entry)=><>
     <p className="cv-intro">{entry.intro}</p>
     {entry.paragraphs.map(text=><p key={text}>{text}</p>)}
@@ -69,6 +80,7 @@ export default function PlayableCv() {
         {status==='loading' && <div className="cv-loading" role="status"><span className="cv-loading-gem">◇</span>Caricamento avamposto…</div>}
         {status==='error' && <div className="cv-loading" role="alert"><p>{error}</p><button onClick={()=>setReading(true)}>Leggi il curriculum</button></div>}
         {status==='ready' && <div className="cv-interaction" aria-live="polite">{nearby?<button onClick={()=>engine.current?.interact()}><kbd>E</kbd> {nearby.title} <span>↗</span></button>:null}</div>}
+        {laptop && <PixelLaptopModal modalRef={laptopRef} locationPath={location.pathname} navigate={navigate} onClose={()=>setLaptop(false)} />}
         <div className="cv-actions">
           <button title="Salto (Spazio)" aria-label="Salta" disabled={status!=='ready'||Boolean(selected)||reading||exiting} onClick={()=>engine.current?.jump()}>↥</button>
           <button title="Corsa (tieni premuto Shift)" aria-label="Corri" disabled={status!=='ready'||Boolean(selected)||reading||exiting}
@@ -87,3 +99,87 @@ export default function PlayableCv() {
     </dialog>
   </main>;
 }
+
+function PixelPrompt({ pathSuffix='' }) {
+  const resolvedPath=`~ /REACT/fofe${pathSuffix && pathSuffix !== '/' ? pathSuffix : ''}`;
+  return <span className="cv-pixel-prompt"><span>{resolvedPath}</span><i>|</i><b>main</b><em>❯</em></span>;
+}
+
+PixelPrompt.propTypes = {
+  pathSuffix: PropTypes.string,
+};
+
+function PixelLaptopModal({ modalRef, locationPath, navigate, onClose }) {
+  const [terminalOpen,setTerminalOpen]=useState(false);
+  const [command,setCommand]=useState('');
+  const [history,setHistory]=useState([]);
+  const output=useRef(null), input=useRef(null);
+  useEffect(()=>{ output.current?.scrollTo({top:output.current.scrollHeight}); },[history,terminalOpen]);
+  useEffect(()=>{ if(terminalOpen) window.setTimeout(()=>input.current?.focus(),80); },[terminalOpen]);
+  function push(text,type='result') { setHistory(previous=>[...previous,{text,type}]); }
+  function submit(event) {
+    event.preventDefault();
+    const query=command.trim();
+    if(!query) return;
+    const lower=query.toLowerCase();
+    setHistory(previous=>[...previous,{text:query,type:'command'}]);
+    setCommand('');
+    if(lower==='clear'||lower==='cls') { setHistory([]); return; }
+    if(lower==='exit') { setTerminalOpen(false); return; }
+    if(lower==='pwd') { push(`/Users/fofe/my-react-portfolio${locationPath}`); return; }
+    if(lower==='ls') { push('src  public  tests  package.json  vite.config.js  cv.pixel'); return; }
+    if(lower==='man'||lower==='help') { push('Comandi: pwd, ls, clear, exit, cd /, cd /project/1. Puoi anche scrivere una frase sui gatti.'); return; }
+    if(lower.startsWith('cd ')) {
+      const target=query.slice(3).trim() || '/';
+      if(target==='/' || target==='/3d' || /^\/project\/[^/]+$/.test(target)) {
+        push(`Spostamento su: ${target}`);
+        window.setTimeout(()=>navigate(target),220);
+      } else push('Percorso non valido. Usa /, /3d o /project/<id>.','error');
+      return;
+    }
+    try {
+      push(findBestFact(query, localCatFacts)?.text || 'Nessun risultato locale trovato.');
+    } catch {
+      push('Archivio locale non disponibile.','error');
+    }
+  }
+  return <div className="cv-laptop-overlay" role="dialog" aria-modal="true" aria-labelledby="cv-laptop-title" tabIndex={-1} ref={modalRef} onKeyDown={event=>{if(event.key==='Escape')onClose();}}>
+    <div className="cv-laptop-shell">
+      <div className="cv-laptop-bar"><span id="cv-laptop-title">FOFEBOOK / DESKTOP</span><button onClick={onClose} aria-label="Chiudi laptop">✕</button></div>
+      <div className="cv-laptop-screen">
+        <button className="cv-desktop-icon cv-desktop-icon--terminal" onClick={()=>setTerminalOpen(true)} aria-label="Apri terminale pixel">
+          <span aria-hidden="true"><i /> <i /> <i /></span>
+          <b>terminal</b>
+        </button>
+        <button className="cv-desktop-icon cv-desktop-icon--folder" onClick={()=>push('README.cv: movimento, web, pixel art, terminale.')} aria-label="Apri file README">
+          <span aria-hidden="true"><i /> <i /></span>
+          <b>readme</b>
+        </button>
+        <div className="cv-desktop-status"><span>PIXEL_OS 01</span><span>{new Date().toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit'})}</span></div>
+        {terminalOpen && <section className="cv-pixel-terminal" aria-label="Terminale pixel">
+          <div className="cv-pixel-terminal-head">
+            <span>cat@facts - zsh</span>
+            <div><button onClick={()=>setTerminalOpen(false)} aria-label="Minimizza terminale">_</button><button onClick={()=>{setTerminalOpen(false);setHistory([]);}} aria-label="Chiudi terminale">×</button></div>
+          </div>
+          <div className="cv-pixel-terminal-body" ref={output}>
+            {!history.length && <p className="cv-pixel-line cv-pixel-hint">Scrivi `man`, `pwd`, `ls` o una query sui gatti.</p>}
+            {history.map((line,index)=>line.type==='command'
+              ? <p className="cv-pixel-line cv-pixel-command" key={`${line.text}-${index}`}><PixelPrompt pathSuffix={locationPath}/><span>{line.text}</span></p>
+              : <p className={`cv-pixel-line cv-pixel-${line.type}`} key={`${line.text}-${index}`}>{line.text}</p>)}
+          </div>
+          <form className="cv-pixel-terminal-input" onSubmit={submit}>
+            <PixelPrompt pathSuffix={locationPath}/>
+            <input ref={input} value={command} onChange={event=>setCommand(event.target.value)} aria-label="Comando terminale pixel" />
+          </form>
+        </section>}
+      </div>
+    </div>
+  </div>;
+}
+
+PixelLaptopModal.propTypes = {
+  modalRef: PropTypes.shape({ current: PropTypes.object }),
+  locationPath: PropTypes.string.isRequired,
+  navigate: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+};
