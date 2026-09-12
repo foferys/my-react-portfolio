@@ -21,7 +21,7 @@ export default function PlayableCv() {
       try { engine.current=createScene(host.current,{
         onReady:()=>setStatus('ready'), onNear:setNear, onOpen:id=>openRef.current(id),
         onError:message=>{setError(message);setStatus('error');},
-      }); } catch {setError('Il dispositivo non riesce ad avviare la grafica 3D. Puoi leggere il CV qui sotto.');setStatus('error');}
+      }); } catch {setError('Il dispositivo non riesce ad avviare il gioco. Puoi leggere il CV qui sotto.');setStatus('error');}
     }).catch(()=>{if(!cancelled) {setError('Caricamento non riuscito. Puoi leggere il CV qui sotto.');setStatus('error');}});
     return ()=>{cancelled=true;engine.current?.dispose();engine.current=null;document.title=oldTitle;};
   },[]);
@@ -46,20 +46,20 @@ export default function PlayableCv() {
     <header className="cv-header"><Link to="/" className="cv-back">← Portfolio</Link><span>GIANPIERO FERRARO <i> / </i> CV INTERATTIVO</span><button onClick={()=>setReading(value=>!value)}>{reading?'Torna alla casa':'Leggi il CV'} <span aria-hidden="true">↗</span></button></header>
     <section className="cv-layout">
       <aside className="cv-sidebar">
-        <p className="cv-eyebrow"><span /> UNA PICCOLA AVVENTURA</p>
-        <h1>Ogni oggetto,<br/>{' '}una <em>storia.</em></h1>
-        <p className="cv-description">Entra, esplora e scopri chi sono.<br/>{' '}Il mio percorso, una stanza alla volta.</p>
+        <p className="cv-eyebrow"><span /> DIARIO DI BORDO</p>
+        <h1>FOFE<em> / 01</em></h1>
+        <p className="cv-description">Gianpiero Ferraro<br/>Java Web Developer</p>
         <nav className="cv-chapters" aria-label="Sezioni del curriculum">
           {chapters.map(entry=><button key={entry.id} className={near===entry.id?'is-near':''} onClick={()=>openChapter(entry.id)}><span className="cv-number">{entry.number}</span><span><strong>{entry.title}</strong><small>{entry.object}</small></span><span className="cv-check" aria-label={visited.includes(entry.id)?'Visitato':'Da scoprire'}>{visited.includes(entry.id)?'✓':'↗'}</span></button>)}
         </nav>
         <p className="cv-progress">{String(visited.length).padStart(2,'0')} / 04 <span>storie scoperte</span></p>
       </aside>
       <div className="cv-world">
-        <div className="cv-world-label"><span>CASA DELLE STORIE</span><span>01 — INTERNO</span></div>
+        <div className="cv-world-label"><span>AVAMPOSTO / PALUDE</span><span>01 — ESPLORAZIONE</span></div>
         <div ref={host} className="cv-canvas" tabIndex={0} aria-label="Area di gioco: clicca qui, poi usa WASD o frecce. E apre l'oggetto vicino." onPointerDown={()=>host.current?.focus()} />
-        {status==='loading' && <div className="cv-loading" role="status"><span className="cv-loading-gem">◇</span>Sto aprendo la casa…</div>}
+        {status==='loading' && <div className="cv-loading" role="status"><span className="cv-loading-gem">◇</span>Caricamento avamposto…</div>}
         {status==='error' && <div className="cv-loading" role="alert"><p>{error}</p><button onClick={()=>setReading(true)}>Leggi il curriculum</button></div>}
-        {status==='ready' && <div className="cv-interaction" aria-live="polite">{nearby?<button onClick={()=>openChapter(nearby.id)}><kbd>E</kbd> Scopri: {nearby.title} <span>↗</span></button>:<p>Avvicinati agli oggetti con il cristallo dorato.</p>}</div>}
+        {status==='ready' && <div className="cv-interaction" aria-live="polite">{nearby?<button onClick={()=>openChapter(nearby.id)}><kbd>E</kbd> {nearby.title} <span>↗</span></button>:null}</div>}
         <div className="cv-controls"><div className="cv-dpad" aria-label="Comandi di movimento">{[['w','↑','Avanti'],['a','←','Sinistra'],['s','↓','Indietro'],['d','→','Destra']].map(([key,symbol,label])=><button key={key} className={`cv-dir-${key}`} aria-label={label} disabled={status!=='ready'||Boolean(selected)||reading} onPointerDown={event=>{event.preventDefault();event.currentTarget.setPointerCapture(event.pointerId);engine.current?.setDirection(key,true);}} onPointerUp={()=>engine.current?.setDirection(key,false)} onPointerCancel={()=>engine.current?.setDirection(key,false)} onLostPointerCapture={()=>engine.current?.setDirection(key,false)} onKeyDown={event=>{if(event.key===' '||event.key==='Enter'){event.preventDefault();engine.current?.setDirection(key,true);}}} onKeyUp={()=>engine.current?.setDirection(key,false)} onBlur={()=>engine.current?.setDirection(key,false)}>{symbol}</button>)}</div><p><b>W A S D</b> / frecce per muoverti<br/><b>E</b> per scoprire · oppure usa i pulsanti</p></div>
       </div>
     </section>

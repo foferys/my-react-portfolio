@@ -21,7 +21,6 @@ function OrizScrollingPage() {
     const sezHorzScroll = useRef(null);
     const scrollCont = useRef(null);
 
-    
     useEffect(() => {
         if (sezHorzScroll.current && scrollCont.current) {
 

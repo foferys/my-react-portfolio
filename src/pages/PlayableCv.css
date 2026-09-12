@@ -545,3 +545,52 @@
 
 #root:has(> .cv-page){width:100%;align-self:stretch}
 .cv-page{width:100%}
+
+/* Pixel adventure: full-screen world and compact game HUD. */
+.cv-page{--cv-ink:#e6e8d2;--cv-gold:#b9d984;--cv-muted:#acbcae;background:#263b38;padding:0 24px;font-family:'Courier New',monospace}
+.cv-page *{letter-spacing:0}
+.cv-header{height:64px;border-color:#668277;position:relative;z-index:2}
+.cv-layout{display:block;position:relative;min-height:700px;height:calc(100svh - 114px);max-width:none;margin:0 -24px}
+.cv-sidebar{position:absolute;z-index:2;left:24px;top:28px;width:205px;padding:16px;background:#293735ed;border:2px solid #8caa90;box-shadow:4px 4px 0 #26302f}
+.cv-sidebar h1{font:700 26px/1.2 'Courier New',monospace;margin:16px 0;letter-spacing:0}
+.cv-sidebar h1 em{font-style:normal;font-weight:700}
+.cv-description{font-size:11px;line-height:1.6;margin-bottom:14px}
+.cv-chapters{margin-top:12px}
+.cv-chapters button{padding:12px 0;gap:9px;border-color:#718a7140;transition:background .15s}
+.cv-chapters button:hover,.cv-chapters .is-near{padding-left:0;background:#94b68320}
+.cv-chapters strong{font-size:12px;font-weight:700}
+.cv-chapters small{font-size:9px}
+.cv-progress{font-size:10px;margin-top:16px}
+.cv-progress span{display:block;margin:5px 0 0}
+.cv-world{height:100%;min-height:0;background:#638a80}
+.cv-page .cv-canvas{inset:48px 12px 105px 230px;border-radius:0}
+.cv-page .cv-canvas canvas{image-rendering:pixelated;object-fit:contain}
+.cv-world-label{top:20px;left:250px;right:24px;color:#e5ead2;font-weight:700;font-size:10px}
+.cv-interaction{bottom:92px;left:230px}
+.cv-interaction button{background:#293735;border:2px solid #a8c292;border-radius:0;box-shadow:3px 3px 0 #34453f;font-weight:700}
+.cv-controls{left:230px;bottom:18px}
+.cv-controls p{color:#e2e7d2;font-size:10px;text-shadow:1px 1px #344c42}
+.cv-dpad{grid-template-columns:repeat(3,36px);grid-template-rows:repeat(2,32px)}
+.cv-dpad button{background:#354b44;border:2px solid #aac098;border-radius:0;box-shadow:2px 2px 0 #34453f;color:#edf2d9}
+.cv-dpad button:active{background:#6b895d}
+.cv-footer{padding:16px 0;border-color:#668277;min-height:50px;align-items:center}
+.cv-dialog{background:#2c3936;color:#e6e8d2;border:3px solid #adc39b;border-radius:0;font-family:'Courier New',monospace;box-shadow:8px 8px 0 #1c2927}
+.cv-dialog::backdrop{background:#172825b8;backdrop-filter:none}
+.cv-dialog h2{font-size:28px;font-weight:700}
+.cv-dialog .cv-eyebrow,.cv-dialog-top button{color:#b9d984}
+.cv-dialog p{font-size:14px}.cv-dialog .cv-intro{font-size:18px}
+.cv-return{border:2px solid #b9d984;background:#425a48!important}
+.cv-loading{background:#638a80}
+@media(max-width:850px){
+  .cv-page{padding:0 16px}
+  .cv-layout{margin:0 -16px;height:auto;min-height:0;display:flex;flex-direction:column}
+  .cv-world{order:0;height:560px;min-height:560px}
+  .cv-page .cv-canvas{inset:42px 0 126px}
+  .cv-world-label{left:16px;right:16px;font-size:9px}
+  .cv-controls,.cv-interaction{left:0}.cv-interaction{bottom:106px}
+  .cv-dpad{grid-template-columns:repeat(3,44px);grid-template-rows:repeat(2,40px)}
+  .cv-sidebar{position:relative;order:1;left:auto;top:auto;width:auto;margin:0;padding:22px 16px;border:0;border-top:2px solid #8caa90;box-shadow:none}
+  .cv-sidebar h1{font-size:24px}.cv-description br{display:block}
+  .cv-chapters{grid-template-columns:1fr 1fr;gap:0 22px}.cv-progress span{display:inline;margin-left:8px}
+  .cv-footer{align-items:flex-start;font-size:8px}.cv-header{height:60px}
+}

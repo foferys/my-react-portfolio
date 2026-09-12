@@ -47,6 +47,7 @@ function BottomNav({page3d}) {
         <div className={`goBack ${(location.pathname.includes("/project"))? 'progetto' : ''}`} style={{ bottom: goBackBottom }}>
             <a onClick={(e) => { //senza metterlo cosi non si sposta
                 e.preventDefault();
+                e.stopPropagation();
                     const headerElement = document.querySelector('#header');
                     if (headerElement) {
                         window.scrollTo({

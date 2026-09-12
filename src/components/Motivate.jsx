@@ -329,7 +329,8 @@ function Motivate() {
 
   const { setTerminalClicked } = useContext(ClickTermCatContext);
 
-  const clickTerminal = () => {
+  const clickTerminal = (event) => {
+    event.stopPropagation();
     setTerminalClicked("si");
     setIsExpanded(true);
   };
